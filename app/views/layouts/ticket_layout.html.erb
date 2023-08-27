@@ -1,0 +1,29 @@
+<html>
+<head>
+  <title>Ticket</title>
+  <style>
+    body {
+      font-family: Arial, sans-serif;
+      background-color: white; /* Define o fundo branco */
+      margin: 0; /* Remover margens para economizar espaço */
+    }
+    .ticket {
+      max-width: 400px; /* Defina o tamanho máximo para o ticket */
+      margin: 20px auto; /* Centralize o ticket na página */
+      border: 1px solid #ccc; /* Adicione uma borda para separar do fundo branco */
+      padding: 10px; /* Adicione algum espaço interno */
+    }
+    h1 {
+      font-size: 36px; /* Reduza o tamanho do título */
+      text-align: center;
+    }
+    p {
+      font-size: 24px; /* Reduza o tamanho do texto */
+      margin: 5px 0; /* Adicione espaço entre os parágrafos */
+    }
+  </style>
+</head>
+<body>
+  <%= yield %>
+</body>
+</html>

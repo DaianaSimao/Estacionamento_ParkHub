@@ -1,0 +1,132 @@
+<div style="display: flex; align-items: center; margin-bottom: 50px; margin-left: 60px;">
+  <h1 style="margin-right: 10px;">Lista de Check-ins</h1>
+  <%= link_to "Check-in",new_checkin_path, class: "btn4"%>
+</div>
+<div class="container mt-2">
+  <div class="table-responsive"> 
+    <table class="table table-borderless card-3 ">
+      <thead>
+        <tr class="border-bottom">
+          <th>
+            <span>Id</span>
+          </th>
+          <th>
+            <span>Placa</span>
+          </th>
+          <th>
+            <span>Marca</span>
+          </th>
+          <th>
+            <span>Modelo</span>
+          </th>
+          <th>
+            <span>Cor</span>
+          </th>
+          <th>
+            <span>Vaga</span>
+          </th>
+          <th>
+            <span>Status da Vaga</span>
+          </th>
+          <th>
+            <span>Tipo</span>
+          </th>
+          <th>
+            <span>Permanência</span>
+          </th>
+          <th>
+            <span>Preço</span>
+          </th>
+        </tr>
+      </thead>
+      <tbody>
+        <% @checkins.each do |checkin| %>
+          <tr class="border-bottom">
+            <td>
+              <div>
+                <span class="d-block font-weight-bold"><%= checkin.id %></span>
+              </div>
+            </td>
+            <td>
+              <div>
+                <span class="d-block font-weight-bold"><%= checkin.veiculo_placa%></span>
+              </div>
+            </td>
+            <td>
+              <div>
+                <span class="d-block font-weight-bold"><%= checkin.veiculo_marca%></span>
+              </div>
+            </td>
+            <td>
+              <div>
+                <span class="d-block font-weight-bold"><%= checkin.veiculo_modelo%></span>
+              </div>
+            </td>
+            <td>
+              <div>
+                <span class="d-block font-weight-bold"><%= checkin.veiculo_cor %></span>
+              </div>
+            </td>
+            <td>
+              <div>
+                <span class="d-block font-weight-bold"><%= checkin.vaga.vaga_nome %></span>
+              </div>
+            </td>
+            <td>
+              <div>
+                <span class="d-block font-weight-bold"><%= checkin.status == false ? "Disponivel" : "Ocupado" %></span>
+              </div>
+            </td>
+            <td>
+              <div>
+                <span class="d-block font-weight-bold"><%=  checkin.preco.tipo %></span>
+              </div>
+            </td>
+            <td>
+              <div>
+                <span class="d-block font-weight-bold"><%= checkin.em_permanencia == true ? "Sim" : "Não" %></span>
+              </div>
+            </td>
+            <td>
+              <div>
+                <span class="d-block font-weight-bold"><%= checkin.preco.preco_hora %></span>
+              </div>
+            </td>
+            <td>
+              <div class="d-flex flex-row align-items-center">
+                <div class="d-flex flex-column ml-2">
+                  <%= link_to edit_checkin_path(checkin), class: "btn5 ", style: "margin-right: 10px;" do %>
+                    <i class="bi bi-pencil-square"></i>
+                  <% end %>
+                </div>
+                <div class="d-flex flex-column ml-2">
+                  <%=  button_to checkin_path(checkin), method: :delete, class: "btn6 ", style: "margin-right: 10px;" do %>
+                    <i class="bi bi-trash"></i>
+                  <%end%>
+                </div>
+                  <% if checkin.em_permanencia? %>
+                    <div class="d-flex flex-column ml-2">
+                      <%= link_to gerar_ticket_entrada_path(checkin), class: "btn7", style: "margin-right: 10px;", target: "_blank", onclick: "imprimirTicket(); window.print(); return false;" do %>
+                        <i class="bi bi-arrow-right-square-fill"></i>
+                      <%end%>
+                    </div>
+                  <% else %>
+                    <div class="d-flex flex-column ml-2">
+                      <%= link_to gerar_ticket_saida_path(checkin), class: "btn8", target: "_blank", onclick: "imprimirTicket(); window.print(); return false;" do %>
+                        <i class="bi bi-arrow-left-square-fill"></i>
+                      <%end%>
+                    </div>
+                  <% end %>
+              </div>
+            </td>
+          </div>
+        <% end %>
+      </tbody>
+    </table>
+  </div>
+</div>
+
+
+
+
+

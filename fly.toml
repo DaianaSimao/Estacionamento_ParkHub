@@ -25,7 +25,7 @@ processes = []
 [[services]]
   http_checks = []
   internal_port = 8080
-  processes ["app"]
+  processes = ["app"]
   protocol = "tcp"
   script_checks = []
   [services.concurrency]
@@ -35,7 +35,7 @@ processes = []
 
 [[services.ports]]
   force_https = true
-  handlers = ["http]
+  handlers = ["http"]
   port = 80
 
 [[services.ports]]

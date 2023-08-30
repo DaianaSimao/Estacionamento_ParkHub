@@ -1,6 +1,13 @@
 # app/controllers/tickets_controller.rb
 class TicketsController < ApplicationController
+  before_action :authenticate_user
   layout 'ticket_layout'
+
+  def authenticate_user
+    unless user_signed_in?
+      redirect_to login_path, alert: "Você precisa fazer login para acessar esta página."
+    end
+  end
 
   def show
     @checkin = Checkin.find(params[:id])

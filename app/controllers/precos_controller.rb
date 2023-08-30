@@ -1,5 +1,12 @@
 class PrecosController < ApplicationController
+  before_action :authenticate_user
   before_action :set_preco, only: %i[ show edit update destroy ]
+
+  def authenticate_user
+    unless user_signed_in?
+      redirect_to login_path, alert: "Você precisa fazer login para acessar esta página."
+    end
+  end
 
   def index
     @precos = Preco.all

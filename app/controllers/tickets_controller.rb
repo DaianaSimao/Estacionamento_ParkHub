@@ -5,7 +5,7 @@ class TicketsController < ApplicationController
 
   def authenticate_user
     unless user_signed_in?
-      redirect_to login_path, alert: "Você precisa fazer login para acessar esta página."
+      redirect_to new_user_session_path, alert: "Você precisa fazer login para acessar esta página."
     end
   end
 

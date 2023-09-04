@@ -9,10 +9,10 @@
     <%= javascript_include_tag 'jquery', 'application', 'data-turbolinks-track' => true %>
   </head>
   <body >
-    <div class="container mt-3">
+    <div class="container">
       <div class="card card1 p-2">
         <div class="innercard p-2">
-          <nav class="navbar navbar-expand-lg navbar-light mb-5">
+          <nav class="navbar navbar-expand-lg navbar-light">
             <div class="container-fluid"><img src="https://cdn.icon-icons.com/icons2/577/PNG/256/ExecutiveCar_Black_icon-icons.com_54904.png" height="50px" width="50px" /> <a class="navbar-brand name" href="#"> Park<span class="go">Hub</span></a> <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation"> <span class="navbar-toggler-icon"></span> </button>
               <div class="collapse navbar-collapse" id="navbarSupportedContent">
                 <ul class="navbar-nav me-auto mb-2 mb-lg-0">
@@ -47,28 +47,31 @@
                     <span style="margin-right: 5px;">Sair</span>
                     <i class="bi bi-box-arrow-in-left"></i>
                   <% end %>
-              <% else %>
-                <%= link_to new_user_session_path, class:"btn btn-dark" do %>
-                 <span style="margin-right: 5px;">Entrar</span>
-                 <i class="bi bi-box-arrow-right"></i>
+                <% else %>
+                  <%= link_to new_user_session_path, class:"btn btn-dark" do %>
+                    <span style="margin-right: 5px;">Entrar</span>
+                    <i class="bi bi-box-arrow-right"></i>
+                  <% end %>
                 <% end %>
+              </div>
+            </div>
+          </nav>
+          <div class="container small-container">
+            <% flash.each do |type, message| %>
+              <div class="alert alert_<%= type == "alert"? "error" : "success" %> alert-dismissible fade show" role="alert">
+                <i class="bi bi-exclamation-circle"></i> <%= message %>
+                <button type="button" class="btn-close" data-bs-dismiss="alert"></button>
+              </div>
             <% end %>
           </div>
-        </div>
-      </nav>
-      <div class="container small-container">
-        <% flash.each do |type, message| %>
-          <div class="alert alert_<%= type == "alert"? "error" : "success" %> alert-dismissible fade show" role="alert">
-            <i class="bi bi-exclamation-circle"></i> <%= message %>
-            <button type="button" class="btn-close" data-bs-dismiss="alert"></button>
+          <%= yield %>
+          <div class="bg-blue py-4">
+            <div class="row px-3">
+              <small class="ml-4 ml-sm-5 mb-2"  style="text-align: center;"> Copyright &copy; 2023 ParkHub Todos os direitos reservados.</small>
+            </div>
           </div>
-        <% end %>
+        </div>
       </div>
-      <%= yield %>
     </div>
-  </div>
-</div>
-</div>
-</div>
-</body>
+  </body>
 </html>

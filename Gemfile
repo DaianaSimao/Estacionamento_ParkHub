@@ -24,6 +24,7 @@ gem 'extensobr'
 gem 'wicked_pdf'
 gem 'wkhtmltopdf-binary'
 gem 'prawn'
+gem 'solargraph'
 
 
 group :development, :test do

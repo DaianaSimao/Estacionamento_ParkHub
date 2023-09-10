@@ -23,13 +23,18 @@ class TicketsController < ApplicationController
   end
 
   def calcular_valor_cobrado(checkin)
-    hora_atual = Time.now
-    diferenca_segundos = hora_atual - checkin.updated_at
-
-    horas_permanencia = diferenca_segundos / 1.hour
-    taxa_horaria = @checkin.preco.preco_hora
-    valor_total = horas_permanencia * taxa_horaria
-    valor_total.round(2)
+    hora_entrada = checkin.created_at
+    hora_saida = checkin.updated_at
+  
+    diferenca_segundos = hora_saida - hora_entrada
+  
+    minutos_permanencia_total = (diferenca_segundos / 1.minute).ceil
+    taxa_horaria = checkin.preco.preco_hora / 60
+  
+    valor_total = minutos_permanencia_total * taxa_horaria
+    valor_total
   end
+  
+  
 end
 

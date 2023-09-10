@@ -15,14 +15,18 @@ class Checkin < ApplicationRecord
     self.veiculo_placa = veiculo_placa.upcase if veiculo_placa.present?
   end
 
-  def calcular_preco
+  def calcular_valor_cobrado
     hora_entrada = self.created_at
     hora_saida = self.updated_at
-    diferenca_horas = ((hora_saida - hora_entrada) / 1.hour).ceil
-    valor_por_hora = self.preco.preco_hora
-    valor_minimo = valor_por_hora
-    preco_a_cobrar = [diferenca_horas * valor_por_hora, valor_minimo].max
-    return preco_a_cobrar
+
+    diferenca_segundos = hora_saida - hora_entrada
+
+    minutos_permanencia_total = (diferenca_segundos / 1.minute).ceil
+  
+    taxa_horaria = self.preco.preco_hora / 60 
+    
+    valor_total = minutos_permanencia_total * taxa_horaria
+    valor_total
   end
 
   private

@@ -43,6 +43,10 @@
 			<td colspan="5" > <%= @checkin.veiculo_placa %> </td>
 		</tr>
 		<tr>
+			<td><b> Entrada: </b> </td>
+			<td> <%= @checkin.created_at.strftime('%H:%M - %d/%m/%Y') %> </td>
+		</tr>
+		<tr>
 			<td><b> Saida: </b> </td>
 			<td> <%= @checkin.updated_at.strftime('%H:%M - %d/%m/%Y') %> </td>
 		</tr>
@@ -52,7 +56,7 @@
 		</tr>
 		<tr>
 			<td><b> Valor Cobrado </b> </td>
-			<td colspan="5" > R$ <%= sprintf('%.2f', @checkin.calcular_preco) %>  </td>
+			<td colspan="5" > R$ <%= sprintf('%.2f', @checkin.calcular_valor_cobrado) %>  </td>
 		</tr>
 		<tr>
 			<td><b> Número do Ticket:  </b> </td>

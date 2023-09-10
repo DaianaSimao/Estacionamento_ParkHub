@@ -75,9 +75,9 @@
             <%= form.label :numero_ticket %>
           </div>
         </div>
-        <div class="col-12 mt-4 d-flex">
-          <%= form.submit "Check-in", class: "btn btn-success text-uppercase", style: "margin-right: 10px;" %>
-          <%= link_to checkins_path, class: "btn btn-danger text-uppercase" do %>
+        <div class="col d-flex justify-content-start">
+          <%= form.submit "Check-in", class: "btn ", style: "margin-right: 10px;" %>
+          <%= link_to checkins_path, class: "btn " do %>
             Cancelar
           <% end %>
         </div>

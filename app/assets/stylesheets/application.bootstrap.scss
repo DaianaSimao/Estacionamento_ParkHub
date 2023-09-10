@@ -64,20 +64,20 @@ body{
   border-radius: 11px
 }
 .btn{
-  height: 35px
-  ;width: 120px;
+  height: 35px;
+  width: 120px;
   border: none;
   background-color: #119cff;
-  font-size: 12px;
+  font-size: 15px;
   color: #fff;
-  border-radius: 5px;
+  border-radius: 10px;
   display:flex;
   justify-content:center;
   align-items:center
 }
 
 .btn:hover{
-  background-color:#42a3de
+  background-color:#000
 }
 
 .btn:focus{
@@ -101,7 +101,7 @@ body{
   background-color:#fd4d86;
   font-size: 12px;
   color: #fff;
-  border-radius: 5px;
+  border-radius: 10px;
   display:flex;
   justify-content:center;
   align-items:center;
@@ -123,7 +123,7 @@ body{
   background-color:#fd8300;
   font-size: 12px;
   color: #fff;
-  border-radius: 5px;
+  border-radius: 10px;
   display:flex;
   justify-content:center;
   align-items:center;
@@ -146,7 +146,7 @@ body{
   background-color:#119cff;
   font-size: 12px;
   color: #fff;
-  border-radius: 5px;
+  border-radius: 10px;
   display:flex;
   justify-content:center;
   align-items:center;
@@ -169,7 +169,7 @@ body{
   background-color:#119cff;
   font-size: 12px;
   color: #fff;
-  border-radius: 5px;
+  border-radius: 10px;
   display:flex;
   justify-content:center;
   align-items:center;
@@ -192,7 +192,7 @@ body{
   background-color:#c44615;
   font-size: 12px;
   color: #fff;
-  border-radius: 5px;
+  border-radius: 10px;
   display:flex;
   justify-content:center;
   align-items:center;
@@ -200,7 +200,7 @@ body{
 }
 
 .btn6:hover{
-  background-color:#42a3de
+  background-color:#381609
 }
 
 .btn6:focus{
@@ -215,7 +215,7 @@ body{
   background-color:#1ac014;
   font-size: 12px;
   color: #fff;
-  border-radius: 5px;
+  border-radius: 10px;
   display:flex;
   justify-content:center;
   align-items:center;
@@ -223,7 +223,7 @@ body{
 }
 
 .btn7:hover{
-  background-color:#42a3de
+  background-color:#381609
 }
 
 .btn7:focus{
@@ -238,7 +238,7 @@ body{
   background-color:#d42323;
   font-size: 12px;
   color: #fff;
-  border-radius: 5px;
+  border-radius: 10px;
   display:flex;
   justify-content:center;
   align-items:center;
@@ -246,7 +246,7 @@ body{
 }
 
 .btn8:hover{
-  background-color:#42a3de
+  background-color:#381609
 }
 
 .btn8:focus{
@@ -418,7 +418,7 @@ button.close {
 }
 
 .card-6 {
-  margin: 0px 10px;
+  margin: 0px 40px;
 }
 
 .logo {
@@ -468,9 +468,6 @@ input, textarea {
   padding: 10px 12px 10px 12px;
   border: 1px solid lightgrey;
   border-radius: 2px;
-  margin-bottom: 5px;
-  margin-top: 2px;
-  width: 100%;
   box-sizing: border-box;
   color: #2C3E50;
   font-size: 14px;
@@ -505,7 +502,7 @@ a {
 }
 
 .btn-blue:hover {
-  background-color: #42a3de;
+  background-color: #000;
   cursor: pointer;
 }
 
@@ -514,7 +511,7 @@ a {
   background-color: #119cff;
 }
 
-@media screen and (max-width: 991px) {
+@media screen and (max-width: 1024px) {
   .logo {
       margin-left: 0px;
   }
@@ -529,10 +526,10 @@ a {
   }
 
   .card-9 {
-      margin: 0px 10px;
+      border-top: 1px solid #EEEEEE !important;
+      margin: 0px 15px;
   }
 }
-
 //===========================
 
 // Css de vagas
@@ -548,4 +545,42 @@ a {
   color: white;
 }
 //================================
+
+// Css do search
+.btn10{
+  height: 35px;
+  width: 75px;
+  border: none;
+  background-color:#119cff;
+  font-size: 12px;
+  color: #fff;
+  border-radius: 10px;
+  display:flex;
+  justify-content:center;
+  align-items:center;
+  text-decoration: none;
+}
+
+.btn10:hover{
+  background-color:#12305f
+}
+
+.btn10:focus{
+  box-shadow:none;
+  outline:none
+}
+
+.form-search {
+  height: 35px;
+  width: 245px;
+  border-color: var(--border-color);
+  color: var(--color-900);
+  -webkit-appearance: none;
+  -moz-appearance: none;
+  appearance: none;
+  font-size: 15px;
+  border-radius: 10px;
+}
+  
+//===================================
 

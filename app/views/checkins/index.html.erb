@@ -1,5 +1,5 @@
 <div style="display: flex; align-items: center; margin-bottom: 5px; margin-left: 20px;">
-  <h1 style="margin-right: 10px;">Check-ins</h1>
+  <h1 style="margin-right: 30px;">Check-ins</h1>
   <%= link_to "Check-in",new_checkin_path, class: "btn4"%>
 </div>
 
@@ -11,15 +11,15 @@
           <%= form_tag search_checkins_path, method: :get do %>
             <div class="d-flex">
               <%= text_field_tag :search, @search, placeholder: "Buscar por placa do veículo", class: "form-search" %>
-              <%= submit_tag "Buscar", class: "btn10 ms-4" %>
+              <%= submit_tag " Buscar", class: "btn10 ms-4" %>
             </div>
           <% end %>
         </div>
       </div>
     </div>
   </div>
-  <div class="table-responsive"> 
-    <table class="table table-borderless card-3 table-hover">
+  <div class="table-responsive " style="margin-bottom: 40px; border-radius: 10px;"> 
+    <table class="table table-borderless card-3 table-hover" style="borde-radius:10px;">
       <thead>
         <tr>
           <th style="background-color: #87CEFA; color: #fff;">
@@ -53,7 +53,7 @@
             <span>Preço</span>
           </th>
           <th style="background-color: #87CEFA; color: #fff;">
-            <span></span>
+            <span>Ações</span>
           </th>
         </tr>
       </thead>
@@ -122,22 +122,22 @@
                     <i class="bi bi-trash"></i>
                   <%end%>
                 </div>
-                  <% if checkin.em_permanencia? %>
-                    <div class="d-flex flex-column ml-2">
-                      <%= link_to gerar_ticket_entrada_path(checkin), class: "btn7", style: "margin-right: 10px;", target: "_blank", onclick: "imprimirTicket(); window.print(); return false;" do %>
-                        <i class="bi bi-arrow-right-square-fill"></i>
-                      <%end%>
-                    </div>
-                  <% else %>
-                    <div class="d-flex flex-column ml-2">
-                      <%= link_to gerar_ticket_saida_path(checkin), class: "btn8", target: "_blank", onclick: "imprimirTicket(); window.print(); return false;" do %>
-                        <i class="bi bi-arrow-left-square-fill"></i>
-                      <%end%>
-                    </div>
-                  <% end %>
+                <% if checkin.em_permanencia? %>
+                  <div class="d-flex flex-column ml-2">
+                    <%= link_to gerar_ticket_entrada_path(checkin), class: "btn7", style: "margin-right: 10px;", target: "_blank", onclick: "imprimirTicket(); window.print(); return false;" do %>
+                      <i class="bi bi-arrow-right-square-fill"></i>
+                    <%end%>
+                  </div>
+                <% else %>
+                  <div class="d-flex flex-column ml-2">
+                    <%= link_to gerar_ticket_saida_path(checkin), class: "btn8", target: "_blank", onclick: "imprimirTicket(); window.print(); return false;" do %>
+                      <i class="bi bi-arrow-left-square-fill"></i>
+                    <%end%>
+                  </div>
+                <% end %>
               </div>
             </td>
-          </div>
+          </tr>
         <% end %>
       </tbody>
     </table>

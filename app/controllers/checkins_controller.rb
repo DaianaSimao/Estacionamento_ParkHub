@@ -2,15 +2,20 @@ class CheckinsController < ApplicationController
   before_action :authenticate_user!
   before_action :set_checkin, only: [:show, :edit, :update, :destroy]
 
-
   def authenticate_user
     unless user_signed_in?
       redirect_to new_user_session_path, alert: "Você precisa fazer login para acessar esta página."
     end
   end
-
+  
   def index
     @checkins = Checkin.all
+  end
+  
+  def search
+    @search = params[:search]
+    @checkins = Checkin.where("veiculo_placa LIKE ?", "%#{@search}%")
+    render :index
   end
 
   def show

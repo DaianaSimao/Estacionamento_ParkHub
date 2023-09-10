@@ -1,41 +1,59 @@
-<div style="display: flex; align-items: center; margin-bottom: 50px; margin-left: 60px;">
-  <h1 style="margin-right: 10px;">Lista de Check-ins</h1>
+<div style="display: flex; align-items: center; margin-bottom: 5px; margin-left: 20px;">
+  <h1 style="margin-right: 10px;">Check-ins</h1>
   <%= link_to "Check-in",new_checkin_path, class: "btn4"%>
 </div>
-<div class="container mt-2">
+
+<div class="container mt-2 ">
+  <div class="container-3 justify-content-start" style="margin-bottom: 20px;">
+    <div class="row">
+      <div class="col-lg-4 col-md-12">
+        <div class="field form-floating">
+          <%= form_tag search_checkins_path, method: :get do %>
+            <div class="d-flex">
+              <%= text_field_tag :search, @search, placeholder: "Buscar por placa do veículo", class: "form-search" %>
+              <%= submit_tag "Buscar", class: "btn10 ms-4" %>
+            </div>
+          <% end %>
+        </div>
+      </div>
+    </div>
+  </div>
   <div class="table-responsive"> 
-    <table class="table table-borderless card-3 ">
+    <table class="table table-borderless card-3 table-hover">
       <thead>
-        <tr class="border-bottom">
-          <th>
+        <tr>
+          <th style="background-color: #87CEFA; color: #fff;">
             <span>Id</span>
           </th>
-          <th>
+          <th style="background-color: #87CEFA; color: #fff;">
             <span>Placa</span>
           </th>
-          <th>
+          <th style="background-color: #87CEFA; color: #fff;">
             <span>Marca</span>
           </th>
-          <th>
+          <th style="background-color: #87CEFA; color: #fff;">
             <span>Modelo</span>
           </th>
-          <th>
+          <th style="background-color: #87CEFA; color: #fff;">
             <span>Cor</span>
           </th>
-          <th>
+          <th style="background-color: #87CEFA; color: #fff;">
             <span>Vaga</span>
           </th>
-          <th>
-            <span>Status da Vaga</span>
+          <th style="background-color: #87CEFA; color: #fff;">
+            <span>status</span>
           </th>
-          <th>
+          <th style="background-color: #87CEFA; color: #fff;">
             <span>Tipo</span>
           </th>
-          <th>
+          <th style="background-color: #87CEFA; color: #fff;">
             <span>Permanência</span>
           </th>
-          <th>
+          <th style="background-color: #87CEFA; color: #fff;">
             <span>Preço</span>
+          </th>
+          <th style="background-color: #87CEFA; color: #fff;">
+            <span></span>
           </th>
         </tr>
       </thead>

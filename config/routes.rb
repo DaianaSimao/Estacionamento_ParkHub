@@ -1,4 +1,5 @@
 Rails.application.routes.draw do
+  
 
   devise_for :users
   devise_scope :user do
@@ -8,7 +9,9 @@ Rails.application.routes.draw do
     collection do
       get 'search'
     end
+    resources :pagamentos, only: [:new, :create]
   end
+  resources :pagamentos, only: [:index]
   resources :vagas
   resources :veiculos
   resources :precos

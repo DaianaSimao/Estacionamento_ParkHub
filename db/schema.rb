@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema[7.0].define(version: 2023_08_28_215117) do
+ActiveRecord::Schema[7.0].define(version: 2023_09_29_204028) do
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
 
@@ -20,14 +20,26 @@ ActiveRecord::Schema[7.0].define(version: 2023_08_28_215117) do
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
     t.string "veiculo_placa"
-    t.string "veiculo_modelo"
-    t.string "veiculo_marca"
-    t.string "veiculo_cor"
     t.boolean "status"
     t.string "numero_ticket"
     t.boolean "em_permanencia"
+    t.datetime "entrada"
+    t.datetime "saida"
     t.index ["preco_id"], name: "index_checkins_on_preco_id"
     t.index ["vaga_id"], name: "index_checkins_on_vaga_id"
+  end
+
+  create_table "pagamentos", force: :cascade do |t|
+    t.bigint "checkin_id", null: false
+    t.string "forma_pagamento"
+    t.float "valor"
+    t.float "troco"
+    t.date "data_pagamento"
+    t.string "tempo_estadia"
+    t.string "status"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.index ["checkin_id"], name: "index_pagamentos_on_checkin_id"
   end
 
   create_table "precos", force: :cascade do |t|
@@ -69,4 +81,5 @@ ActiveRecord::Schema[7.0].define(version: 2023_08_28_215117) do
 
   add_foreign_key "checkins", "precos"
   add_foreign_key "checkins", "vagas"
+  add_foreign_key "pagamentos", "checkins"
 end

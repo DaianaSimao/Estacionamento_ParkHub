@@ -21,6 +21,11 @@
                       <%= content_tag :span, "Inicio", class: "home" %>
                     <% end %>
                   <% end %>
+                  <%= content_tag :li, class: "nav-item" do %>
+                    <%= link_to(pagamentos_path, class: "nav-link active", "aria-current" => "page") do %>
+                      <%= content_tag :span, "Caixa", class: "home" %>
+                    <% end %>
+                  <% end %>
                   <% if current_user && current_user.admin? %>
                     <%= link_to "Check-in", checkins_path, class:"nav-item nav-link"%>
                     <%= link_to "Vagas",vagas_path, class:"nav-item nav-link"%>

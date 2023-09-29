@@ -5,7 +5,6 @@ class CreateVeiculos < ActiveRecord::Migration[7.0]
       t.string :marca
       t.string :modelo
       t.string :cor
-      t.string :tipo
 
       t.timestamps
     end

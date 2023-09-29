@@ -23,7 +23,6 @@ class CheckinsController < ApplicationController
   end
 
   def new
-
     @checkin = Checkin.new
   end
 
@@ -64,6 +63,6 @@ class CheckinsController < ApplicationController
   end
 
   def checkin_params
-    params.require(:checkin).permit(:veiculo_placa, :veiculo_marca, :veiculo_modelo, :veiculo_cor, :status, :preco_id, :vaga_id, :numero_ticket, :em_permanencia)
+    params.require(:checkin).permit(:veiculo_placa, :status, :preco_id, :vaga_id, :numero_ticket, :em_permanencia)
   end
 end

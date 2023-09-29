@@ -29,15 +29,6 @@
             <span>Placa</span>
           </th>
           <th style="background-color: #87CEFA; color: #fff;">
-            <span>Marca</span>
-          </th>
-          <th style="background-color: #87CEFA; color: #fff;">
-            <span>Modelo</span>
-          </th>
-          <th style="background-color: #87CEFA; color: #fff;">
-            <span>Cor</span>
-          </th>
-          <th style="background-color: #87CEFA; color: #fff;">
             <span>Vaga</span>
           </th>
           <th style="background-color: #87CEFA; color: #fff;">
@@ -68,21 +59,6 @@
             <td>
               <div>
                 <span class="d-block font-weight-bold"><%= checkin.veiculo_placa%></span>
-              </div>
-            </td>
-            <td>
-              <div>
-                <span class="d-block font-weight-bold"><%= checkin.veiculo_marca%></span>
-              </div>
-            </td>
-            <td>
-              <div>
-                <span class="d-block font-weight-bold"><%= checkin.veiculo_modelo%></span>
-              </div>
-            </td>
-            <td>
-              <div>
-                <span class="d-block font-weight-bold"><%= checkin.veiculo_cor %></span>
               </div>
             </td>
             <td>
@@ -130,9 +106,7 @@
                   </div>
                 <% else %>
                   <div class="d-flex flex-column ml-2">
-                    <%= link_to gerar_ticket_saida_path(checkin), class: "btn8", target: "_blank", onclick: "imprimirTicket(); window.print(); return false;" do %>
-                      <i class="bi bi-arrow-left-square-fill"></i>
-                    <%end%>
+                    <%= link_to "Pagar", new_checkin_pagamento_path(checkin), class: "btn4" %>
                   </div>
                 <% end %>
               </div>

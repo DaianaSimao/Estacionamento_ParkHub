@@ -4,22 +4,18 @@ class Checkin < ApplicationRecord
   
   
   after_create :atualizar_status_vaga
+  before_update :atualizar_saida
   after_update :atualizar_status_vaga
+  before_create :atualizar_entrada
   before_save :transformar_em_maiusculas
 
   def transformar_em_maiusculas
-    self.veiculo_cor = veiculo_cor.upcase if veiculo_cor.present?
-    self.veiculo_placa = veiculo_placa.upcase if veiculo_placa.present?
-    self.veiculo_modelo = veiculo_modelo.upcase if veiculo_modelo.present?
-    self.veiculo_marca = veiculo_marca.upcase if veiculo_marca.present?
     self.veiculo_placa = veiculo_placa.upcase if veiculo_placa.present?
   end
 
   def calcular_valor_cobrado
-    hora_entrada = self.created_at
-    hora_saida = self.updated_at
 
-    diferenca_segundos = hora_saida - hora_entrada
+    diferenca_segundos = saida - entrada
 
     minutos_permanencia_total = (diferenca_segundos / 1.minute).ceil
   
@@ -37,5 +33,13 @@ class Checkin < ApplicationRecord
     else
       self.vaga.update(status: false)
     end
+  end
+
+  def atualizar_entrada
+    self.entrada = Time.now - 3.hours
+  end
+
+  def atualizar_saida
+    self.saida = Time.now - 3.hours
   end
 end

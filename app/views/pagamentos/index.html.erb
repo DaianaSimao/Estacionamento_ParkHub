@@ -1,0 +1,9 @@
+<p style="color: green"><%= notice %></p>
+
+<h1>Caixa</h1>
+
+<div id="pagamentos">
+  <% @pagamentos.each do |pagamento| %>
+    <%= render pagamento %>
+  <% end %>
+</div>

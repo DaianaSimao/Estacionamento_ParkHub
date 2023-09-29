@@ -1,0 +1,63 @@
+<%= form_with(model: [@checkin, @pagamento]) do |form| %>
+  <div class="card p-4 mt-5">
+      <div class="row g-3">
+        <div class="col-12 mb-4">
+          <h3>Pagamento<h3>
+        </div>
+        <div class="col-lg-4 col-md-12">
+          <div class="field form-floating">
+            <%= form.text_field :checkin_id, class: "form-control", placeholder: "Checkin", required: true %>
+            <%= form.label :checkin_id %>
+          </div>
+        </div>
+        <div class="col-lg-4 col-md-12">
+          <div class="field form-floating">
+            <%= form.text_field :forma_pagamento, class: "form-control", placeholder: "Forma de Pagamento", required: true %>
+            <%= form.label :forma_pagamento %>
+          </div>
+        </div>
+        <div class="col-lg-4 col-md-12">
+          <div class="field form-floating">
+            <%= form.number_field :valor, class: "form-control", placeholder: "Valor total", required: true %>
+            <%= form.label :valor %>
+          </div>
+        </div>
+        <div class="col-lg-4 col-md-12">
+          <div class="field form-floating">
+            <%= form.text_field :troco, class: "form-control", placeholder: "Troco", required: true %>
+            <%= form.label :troco %>
+          </div>
+        </div>
+        <div class="col-lg-4 col-md-12">
+          <div class="field form-floating">
+            <%= form.date_field :data_pagamento ,value: Date.today, class: "form-control" %>
+            <%= form.label  :data_pagamento, "Data do pagamento" %>
+          </div>
+        </div>
+        <div class="col-lg-4 col-md-12">
+          <div class="field form-floating">
+            <%= form.text_field :tempo_estadia, class: "form-control"%>
+            <%= form.label :tempo_estadia %>
+          </div>
+        </div>
+        <div class="col-lg-4 col-md-12">
+          <div class="field form-floating">
+            <%= form.text_field :status, class: "form-control" %>
+            <%= form.label :status %>
+          </div>
+        </div>
+      </div>
+      <div class="col d-flex justify-content-start mt-4">
+        <%= form.submit "Finalizar", class: "btn ", style: "margin-right: 10px;" %>
+        <%= link_to checkins_path, class: "btn ", style: "margin-right: 10px;" do %>
+          Cancelar
+        <% end %>
+        <%= link_to pagamentos_path, class: "btn " do %>
+          Pagamentos
+        <% end %>
+      </div>
+    </div>
+  </div>
+<% end %>
+<script>
+

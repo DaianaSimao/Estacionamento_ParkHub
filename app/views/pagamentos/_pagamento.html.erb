@@ -1,0 +1,41 @@
+<div id="<%= dom_id pagamento %>">
+  <p>
+    <strong>Checkin:</strong>
+    <%= pagamento.checkin_id %>
+  </p>
+
+  <p>
+    <strong>Forma pagamento:</strong>
+    <%= pagamento.forma_pagamento %>
+  </p>
+
+  <p>
+    <strong>Valor pago:</strong>
+    <%= pagamento.valor %>
+  </p>
+
+  <p>
+    <strong>Troco:</strong>
+    <%= pagamento.troco %>
+  </p>
+
+  <p>
+    <strong>Data pagamento:</strong>
+    <%= pagamento.data_pagamento %>
+  </p>
+
+  <p>
+    <strong>Tempo estadia:</strong>
+    <%= pagamento.tempo_estadia %>
+  </p>
+
+  <p>
+    <strong>Status:</strong>
+    <%= pagamento.status %>
+  </p>
+  <p>
+    <%= link_to gerar_ticket_saida_path(pagamento.checkin_id), class: "btn8", target: "_blank", onclick: "imprimirTicket(); window.print(); return false;" do %>
+      <i class="bi bi-arrow-left-square-fill"></i>
+    <%end%>
+  </p>
+</div>

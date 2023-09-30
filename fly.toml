@@ -1,49 +1,24 @@
-# fly.toml app configuration file generated for parkhubv2 on 2023-08-28T18:59:00-03:00
+# fly.toml app configuration file generated for parkhub on 2023-09-30T17:02:03-03:00
 #
 # See https://fly.io/docs/reference/configuration/ for information about how to use this file.
 #
 
 app = "parkhub"
-kill_signal = "SIGINT"
-kill_timeout = 5
-primary_region = "dfw"
-processes = []
+primary_region = "ams"
+console_command = "/rails/bin/rails console"
 
 [build]
 
 [deploy]
-  release_command = "bundle exec rails db:migrate"
+  release_command = "./bin/rails db:prepare"
 
-[env]
-  PORT = "8080"
-  SERVER_COMMAND = "bundle exec puma"
-
-[experimental]
-  allowed_public_ports = []
-  auto_rollback = true
-
-[[services]]
-  http_checks = []
-  internal_port = 8080
-  processes = ["app"]
-  protocol = "tcp"
-  script_checks = []
-  [services.concurrency]
-    hard_limit = 25
-    soft_limit = 20
-    type = "connections"
-
-[[services.ports]]
+[http_service]
+  internal_port = 3000
   force_https = true
-  handlers = ["http"]
-  port = 80
-
-
-[[services.tcp_checks]]
-  grace_period = "1s"
-  interval = "15s"
-  restart_limit = 0
-  timeout = "2s"
+  auto_stop_machines = true
+  auto_start_machines = true
+  min_machines_running = 0
+  processes = ["app"]
 
 [[statics]]
   guest_path = "/rails/public"

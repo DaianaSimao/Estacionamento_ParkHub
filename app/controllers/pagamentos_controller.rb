@@ -23,7 +23,7 @@ class PagamentosController < ApplicationController
       segundos = duracao_em_segundos % 60
       minutos_permanencia_total = (duracao_em_segundos / 1.minute).ceil
 
-      @pagamento.tempo_estadia = "#{horas} horas #{minutos} minutos #{segundos} segundos"
+      @pagamento.tempo_estadia = "#{horas} H #{minutos} m #{segundos} s"
       if minutos_permanencia_total < 60
         @pagamento.valor = @checkin.preco.preco_hora
       else

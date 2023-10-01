@@ -8,6 +8,7 @@ class CreateCheckins < ActiveRecord::Migration[7.0]
       t.boolean :em_permanencia
       t.datetime :entrada
       t.datetime :saida
+      t.string :veiculo_placa
 
       t.timestamps
     end

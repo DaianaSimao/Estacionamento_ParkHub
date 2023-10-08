@@ -12,24 +12,6 @@
         </div>
         <div class="col-lg-4 col-md-12">
           <div class="field form-floating">
-            <%= form.text_field :forma_pagamento, class: "form-control", placeholder: "Forma de Pagamento", required: true %>
-            <%= form.label :forma_pagamento %>
-          </div>
-        </div>
-        <div class="col-lg-4 col-md-12">
-          <div class="field form-floating">
-            <%= form.number_field :valor, class: "form-control", placeholder: "Valor total", required: true %>
-            <%= form.label :valor %>
-          </div>
-        </div>
-        <div class="col-lg-4 col-md-12">
-          <div class="field form-floating">
-            <%= form.text_field :troco, class: "form-control", placeholder: "Troco", required: true %>
-            <%= form.label :troco %>
-          </div>
-        </div>
-        <div class="col-lg-4 col-md-12">
-          <div class="field form-floating">
             <%= form.date_field :data_pagamento ,value: Date.today, class: "form-control" %>
             <%= form.label  :data_pagamento, "Data do pagamento" %>
           </div>
@@ -42,8 +24,32 @@
         </div>
         <div class="col-lg-4 col-md-12">
           <div class="field form-floating">
-            <%= form.text_field :status, class: "form-control" %>
+            <%= form.select(:forma_pagamento, ['Dinheiro','Débito','Crédito','Pix'], {prompt: "Selecione o pagamento"}, {class: "form-control", required: true, id: "forma_pagamento"})%>
+            <%= form.label :forma_pagamento %>
+          </div>
+        </div>
+        <div class="col-lg-4 col-md-12">
+          <div class="field form-floating">
+            <%= form.select(:status, ['Pago','Pendente'], {}, {:class=>"form-control"})%>
             <%= form.label :status %>
+          </div>
+        </div>
+        <div class="col-lg-4 col-md-12">
+          <div class="field form-floating">
+            <%= form.number_field :total, class: "form-control", placeholder: "Total a pagar", required: true, readonly: true, id: "total", step: "0.01" %>
+            <%= form.label :total %>
+          </div>
+        </div>
+        <div class="col-lg-4 col-md-12">
+          <div class="field form-floating">
+            <%= form.number_field :valor, class: "form-control", placeholder: "Valor", required: true, id: "valor", step: "0.01" %>
+            <%= form.label :valor %>
+          </div>
+        </div>
+        <div class="col-lg-4 col-md-12">
+          <div class="field form-floating">
+            <%= form.text_field :troco, class: "form-control", required: true, id: "troco", readonly: true, style: "display: block;", step: "0.01" %>
+            <%= form.label  :troco, "Troco", id: "troco_label" %>
           </div>
         </div>
       </div>
@@ -60,4 +66,60 @@
   </div>
 <% end %>
 <script>
+  // Obtém os elementos do formulário
+  const formaPagamento = document.getElementById('forma_pagamento');
+  const totalInput = document.getElementById('total');
+  const valorInput = document.getElementById('valor');
+  const trocoInput = document.getElementById('troco');
+  const trocoLabel = document.getElementById('troco_label');
+
+  // Adiciona um ouvinte de eventos para o evento 'input' nos campos de entrada
+  formaPagamento.addEventListener('change', atualizarCampos);
+  totalInput.addEventListener('input', calcularTroco);
+  valorInput.addEventListener('input', calcularTroco);
+
+  // Função para atualizar os campos com base na forma de pagamento selecionada
+  function atualizarCampos() {
+    const formaSelecionada = formaPagamento.value;
+
+    if (formaSelecionada === 'Dinheiro') {
+      trocoInput.style.display = 'block';
+      trocoLabel.style.display = 'block';
+      valorInput.removeAttribute('readonly');
+      valorInput.value = '';
+    } else {
+      trocoInput.style.display = 'none';
+      trocoLabel.style.display = 'none';
+      valorInput.setAttribute('readonly', true);
+      valorInput.value = '';
+    }
+
+    if (formaSelecionada === 'Crédito' || formaSelecionada === 'Débito' || formaSelecionada === 'Pix') {
+      valorInput.value = totalInput.value;
+    }
+  }
+
+  // Função para calcular o troco
+  function calcularTroco() {
+    const formaSelecionada = formaPagamento.value;
+    const total = parseFloat(totalInput.value);
+    const valor = parseFloat(valorInput.value);
+
+    if (formaSelecionada === 'Dinheiro' && !isNaN(total) && !isNaN(valor)) {
+      const troco = valor - total;
+      trocoInput.value = troco.toFixed(2);
+    } else {
+      trocoInput.value = '';
+    }
+  }
+
+  // Chama a função de atualização inicial
+  atualizarCampos();
+</script>
+
+
+
+
+
+
 

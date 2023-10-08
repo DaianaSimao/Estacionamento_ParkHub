@@ -1,41 +1,78 @@
 <div id="<%= dom_id pagamento %>">
-  <p>
-    <strong>Checkin:</strong>
-    <%= pagamento.checkin_id %>
-  </p>
-
-  <p>
-    <strong>Forma pagamento:</strong>
-    <%= pagamento.forma_pagamento %>
-  </p>
-
-  <p>
-    <strong>Valor pago:</strong>
-    <%= pagamento.valor %>
-  </p>
-
-  <p>
-    <strong>Troco:</strong>
-    <%= pagamento.troco %>
-  </p>
-
-  <p>
-    <strong>Data pagamento:</strong>
-    <%= pagamento.data_pagamento %>
-  </p>
-
-  <p>
-    <strong>Tempo estadia:</strong>
-    <%= pagamento.tempo_estadia %>
-  </p>
-
-  <p>
-    <strong>Status:</strong>
-    <%= pagamento.status %>
-  </p>
-  <p>
-    <%= link_to gerar_ticket_saida_path(pagamento.checkin_id), class: "btn8", target: "_blank", onclick: "imprimirTicket(); window.print(); return false;" do %>
-      <i class="bi bi-arrow-left-square-fill"></i>
-    <%end%>
-  </p>
+  <div class="container mt-2">
+    <table class="table table-borderless table-responsive card-4">
+      <thead >
+        <tr class="border-bottom">
+          <th style="background-color: #87CEFA; color: #fff;">
+            <span class="ml-2">Id</span>
+          </th>
+          <th style="background-color: #87CEFA; color: #fff;">
+            <span class="ml-2">Pagamento</span>
+          </th>
+          <th style="background-color: #87CEFA; color: #fff;">
+            <span class="ml-2">Total</span>
+          </th>
+          <th style="background-color: #87CEFA; color: #fff;">
+            <span class="ml-2">Valor</span> 
+          </th>
+          <th style="background-color: #87CEFA; color: #fff;">
+            <span class="ml-2">Troco</span> 
+          </th>
+          <th style="background-color: #87CEFA; color: #fff;">
+            <span class="ml-2">Data</span>
+          </th>
+          <th style="background-color: #87CEFA; color: #fff;">
+            <span class="ml-2">Tempo de estadia</span>
+          </th>
+          <th style="background-color: #87CEFA; color: #fff;">
+            <span class="ml-2">Status</span>
+          </th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr class="border-bottom">
+          <td>
+            <div class="p-2">
+              <span class="d-block font-weight-bold"><%= pagamento.checkin_id%></span>
+            </div>
+          </td>
+          <td>
+            <div class="p-2">
+              <span class="d-block font-weight-bold"><%= pagamento.forma_pagamento%></span>
+            </div> 
+          </td>
+          <td>
+            <div class="p-2">
+              <span class="d-block font-weight-bold"><%= pagamento.total%></span>
+            </div>
+          </td>
+          <td>
+            <div class="p-2">
+              <span class="d-block font-weight-bold"><%= pagamento.valor %></span>
+            </div>
+          </td>
+          <td>
+            <div class="p-2">
+              <span class="d-block font-weight-bold"><%= pagamento.troco %></span>
+            </div>
+          </td>
+          <td>
+            <div class="p-2">
+              <span class="d-block font-weight-bold"><%= pagamento.data_pagamento %></span>
+            </div>
+          </td>
+          <td>
+            <div class="p-2">
+              <span class="d-block font-weight-bold"><%= pagamento.tempo_estadia %></span>
+            </div>
+          </td>
+          <td>
+            <div class="p-2">
+              <span class="d-block font-weight-bold"><%= pagamento.status %></span>
+            </div> 
+          </td>
+        </div>
+      </tbody>
+    </table>
+  </div>
 </div>

@@ -1,10 +1,10 @@
-<div style="display: flex; align-items: center;">
-  <h1 style="margin-left:100px; margin-right: 20px">Vagas</h1>
+<div style="display: flex; align-items: center;" class="mt-5">
+  <h1>Vagas <i class="bi bi-car-front"></i></h1>
   <% if current_user && current_user.admin? %>
-    <%= link_to "Nova vaga", new_vaga_path, class: "btn4" %>
+    <%= link_to "Nova vaga", new_vaga_path, class: "btn4", style: "margin-left: 10px;" %>
   <% end %>
 </div>
-<div class="container container-vagas mt-2">
+<div class="container container-vagas mt-5">
   <div style="flex: 1;">
     <div class="table-responsive">
       <table class="table table-borderless table-responsive card-7">
@@ -12,14 +12,14 @@
           <tr class="border-bottom">
             <% i = 1  %>
             <% while i <= 3%>
-              <th>
+              <th style="background-color: #119cff; color: #fff;">
                 <span></span>
               </th>
-              <th>
+              <th style="background-color: #119cff; color: #fff;">
                 <span>Status</span>
               </th>
               <% if current_user && current_user.admin? %>
-                <th>
+                <th style="background-color: #119cff; color: #fff;">
                   <span></span>
                 </th>
               <% end %>
@@ -37,8 +37,8 @@
                   </div>
                 </td>
                       <td>
-                  <div class="status-background <%= vaga.status %>">
-                    <span class="d-block font-weight-bold"><%= vaga.status == false ? "Disponivel" : "Ocupado"%></span>
+                  <div >
+                    <span class="status-background <%= vaga.status %> d-block font-weight-bold"><%= vaga.status == false ? "Disponivel" : "Ocupado"%></span>
                   </div>
                 </td>
                 <% if current_user && current_user.admin? %>

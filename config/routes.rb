@@ -11,7 +11,11 @@ Rails.application.routes.draw do
     end
     resources :pagamentos, only: [:new, :create]
   end
-  resources :pagamentos, only: [:index]
+  resources :pagamentos do
+    collection do
+      get 'search'
+    end
+  end
   resources :vagas
   resources :veiculos
   resources :precos

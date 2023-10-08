@@ -24,6 +24,10 @@ class Checkin < ApplicationRecord
     valor_total = minutos_permanencia_total * taxa_horaria
     valor_total
   end
+  
+  def pago?
+    Pagamento.exists?(checkin_id: self.id)
+  end
 
   private
 

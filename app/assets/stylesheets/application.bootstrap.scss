@@ -535,14 +535,27 @@ a {
 // Css de vagas
 /* Estilos para o status 'Ocupada' */
 .status-background.true {
-  background-color: red;
-  color: white;
+  color: red;
+  animation: animate 2.7s linear infinite;
+  font-weight: bold;
 }
 
 /* Estilos para o status 'Disponível' */
 .status-background.false {
-  background-color: green;
-  color: white;
+  color: green;
+  animation: animate 2.7s linear infinite;
+  font-weight: bold;
+}
+@keyframes animate {
+  0% {
+    opacity: 0;
+  }
+  50% {
+    opacity: 0.9;
+  }
+  100% {
+    opacity: 0;
+  }
 }
 //================================
 

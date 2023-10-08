@@ -1,6 +1,6 @@
-<div style="display: flex; align-items: center; margin-bottom: 5px; margin-left: 20px;">
-  <h1 style="margin-right: 30px;">Check-ins</h1>
-  <%= link_to "Check-in",new_checkin_path, class: "btn4"%>
+<div style="display: flex; align-items: center;" class="mt-5">
+  <h1>Check-in <i class="bi bi-car-front"></i></h1>
+  <%= link_to "Entrar", new_checkin_path, class: "btn4", style: "margin-left: 15px;"%>
 </div>
 
 <div class="container mt-2 ">
@@ -18,7 +18,7 @@
       </div>
     </div>
   </div>
-  <div class="table-responsive " style="margin-bottom: 40px; border-radius: 10px;"> 
+  <div class="table-responsive mt-5" style="margin-bottom: 40px; border-radius: 10px;"> 
     <table class="table table-borderless card-3 table-hover" style="borde-radius:10px;">
       <thead>
         <tr>
@@ -105,9 +105,11 @@
                     <%end%>
                   </div>
                 <% else %>
-                  <div class="d-flex flex-column ml-2">
-                    <%= link_to "Pagar", new_checkin_pagamento_path(checkin), class: "btn4" %>
-                  </div>
+                 <% unless checkin.pago? %> <!-- Verifica se o check-in tem um pagamento -->
+                    <div class="d-flex flex-column ml-2">
+                      <%= link_to "Pagar", new_checkin_pagamento_path(checkin), class: "btn4" %>
+                    </div>
+                  <% end %>
                 <% end %>
               </div>
             </td>

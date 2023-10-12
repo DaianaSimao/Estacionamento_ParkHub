@@ -75,7 +75,12 @@
             </td>
             <td>
               <div>
-                <span class="d-block font-weight-bold"><%= pagamento.troco %></span>
+                <% if pagamento.troco? %>
+                  <% troco = pagamento.troco %>
+                <% else %> 
+                  <% troco = "0,00" %>
+                <% end %>
+                <span class="d-block font-weight-bold"><%=troco %></span>
               </div>
             </td>
             <td>

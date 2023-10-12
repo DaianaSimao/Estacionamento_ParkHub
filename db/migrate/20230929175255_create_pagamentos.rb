@@ -8,6 +8,7 @@ class CreatePagamentos < ActiveRecord::Migration[7.0]
       t.date :data_pagamento
       t.string :tempo_estadia
       t.string :status
+      t.float :total
 
       t.timestamps
     end

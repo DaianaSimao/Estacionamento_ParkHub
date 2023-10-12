@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema[7.0].define(version: 2023_10_08_002032) do
+ActiveRecord::Schema[7.0].define(version: 2023_10_12_225313) do
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
 
@@ -27,6 +27,18 @@ ActiveRecord::Schema[7.0].define(version: 2023_10_08_002032) do
     t.datetime "saida"
     t.index ["preco_id"], name: "index_checkins_on_preco_id"
     t.index ["vaga_id"], name: "index_checkins_on_vaga_id"
+  end
+
+  create_table "despesas", force: :cascade do |t|
+    t.string "descricao"
+    t.string "valor"
+    t.string "categoria"
+    t.string "forma_pagamento"
+    t.string "status"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.date "data_vencimento"
+    t.date "data_pagamento"
   end
 
   create_table "pagamentos", force: :cascade do |t|

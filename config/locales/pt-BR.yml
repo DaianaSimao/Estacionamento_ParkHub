@@ -17,7 +17,7 @@
     formats:
       default: "%d/%m/%Y"
       short: "%d de %B"
-      long: "%d de %B de %Y"
+      long: "%d, %B de %Y"
     day_names:
       - Domingo
       - Segunda

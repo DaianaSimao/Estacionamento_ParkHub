@@ -10,7 +10,7 @@
   </head>
   <body >
     <div class="container">
-      <div class="card1 p-2">
+      <div class="card-1 p-2">
         <div class="innercard p-2">
           <nav class="navbar navbar-expand-lg navbar-light">
             <div class="container-fluid"><img src="https://cdn.icon-icons.com/icons2/577/PNG/256/ExecutiveCar_Black_icon-icons.com_54904.png" height="50px" width="50px" /> <a class="navbar-brand name" href="#"> Park<span class="go">Hub</span></a> <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation"> <span class="navbar-toggler-icon"></span> </button>
@@ -24,16 +24,20 @@
                   <% if current_user && current_user.admin? %>
                     <%= content_tag :li, class: "nav-item" do %>
                       <%= link_to(pagamentos_path, class: "nav-link active", "aria-current" => "page") do %>
-                        <%= content_tag :span, "Caixa", class: "home" %>
+                        <%= content_tag :span, "Caixa"%> <i class="bi bi-coin"></i>
                       <% end %>
                     <% end %>
-                    <%= link_to "Check-in", checkins_path, class:"nav-item nav-link"%>
-                    <%= link_to "Vagas",vagas_path, class:"nav-item nav-link"%>
+                    <%= link_to checkins_path, class:"nav-item nav-link" do %>
+                      Check-ins <i class="bi bi-check-circle"></i>
+                    <% end %>
+                    <%= link_to vagas_path, class:"nav-item nav-link" do %> 
+                        Vagas <i class="bi bi-car-front"></i>
+                    <% end %>
                     <%= content_tag :li, class: "nav-item dropdown" do %>
                       <%= link_to "#", class: "nav-link dropdown-toggle", role: "button", "data-bs-toggle": "dropdown", "aria-expanded": "false" do %>
-                        Cadastros
+                        Cadastros <i class="bi bi-clipboard2-check"></i>
                       <% end %>
-                      <%= content_tag :ul, class: "dropdown-menu" do %>
+                      <%= content_tag :ul, class: "dropdown-menu", style: "color: black;" do %>
                         <%= content_tag :li do %>
                           <%= link_to "Preços", new_preco_path, class: "dropdown-item" %>
                         <% end %>
@@ -42,9 +46,34 @@
                         <% end %>
                       <% end %>
                     <% end %>
+                    <%= content_tag :li, class: "nav-item dropdown" do %>
+                      <%= link_to "#", class: "nav-link dropdown-toggle", role: "button", "data-bs-toggle": "dropdown", "aria-expanded": "false" do %>
+                        Admin <i class="bi bi-person-gear"></i>
+                      <% end %>
+                      <%= content_tag :ul, class: "dropdown-menu", style: "color: black;" do %>
+                        <%= content_tag :li do %>
+                          <%= link_to "Fluxo de caixa",fluxo_caixas_path, class: "dropdown-item" %>
+                        <% end %>
+                        <%= content_tag :li do %>
+                          <%= link_to "Relatorios" , "#", class: "dropdown-item" %>
+                        <% end %>
+                        <%= content_tag :li do %>
+                          <%= link_to "Despesas" , despesas_path , class: "dropdown-item" %>
+                        <% end %>
+                      <% end %>
+                    <% end %>
                   <% elsif current_user && current_user.funcionario?%>
-                    <%= link_to 'Check-ins', checkins_path, class:"nav-item nav-link"%>
-                    <%= link_to "Vagas",vagas_path, class:"nav-item nav-link"%>
+                    <%= content_tag :li, class: "nav-item" do %>
+                      <%= link_to(pagamentos_path, class: "nav-link active", "aria-current" => "page") do %>
+                        <%= content_tag :span, "Caixa"%> <i class="bi bi-coin"></i>
+                      <% end %>
+                    <% end %>
+                    <%= link_to checkins_path, class:"nav-item nav-link" do %>
+                        Check-ins <i class="bi bi-check-circle"></i>
+                    <% end %>
+                    <%= link_to vagas_path, class:"nav-item nav-link" do %> 
+                        Vagas <i class="bi bi-car-front"></i>
+                    <% end %>
                   <% end %>
                 </ul>
                 <% if user_signed_in? %>
@@ -70,9 +99,9 @@
             <% end %>
           </div>
           <%= yield %>
-          <div class=" py-4" style="background-color: #eef8fe !important;">
-            <div class="row px-3">
-              <small class="ml-4 ml-sm-5 mb-2"  style="text-align: center;"> Copyright &copy; 2023 ParkHub Todos os direitos reservados.</small>
+          <div style="background-color: #eef8fe !important;" class=" mt-5">
+            <div style="text-align: center;">
+              <small class=""  style="text-align: center;"> Copyright &copy; 2023 ParkHub Todos os direitos reservados.</small>
             </div>
           </div>
         </div>

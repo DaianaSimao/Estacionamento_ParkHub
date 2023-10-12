@@ -49,20 +49,7 @@ body{
   width: 100%;
   background-color: #000
 }
-.card{
-  width: 100%;
-  border-radius: 13px
-}
-.card1{
-  background-color: #5390b5;
-  width: 100%
-}
 
-.innercard{
-  width: 100%;
-  background-color: #eef8fe;
-  border-radius: 11px
-}
 .btn{
   height: 35px;
   width: 120px;
@@ -294,41 +281,7 @@ body{
   color: #179dfe;font-weight: 500
 }
 
-.card2{
-  background-color: #fff;
-  border: none;
-  border-radius: 8px;
-  width:100%
-}
 
-.card-3{
-  border: none;
-  border-radius: 10px;
-  width: 60%;
-  background-color: #fff;
-  
-}
-
-.card-4{
-  border: none;
-  border-radius: 10px;
-  width: 50%;
-  background-color: #fff;
-}
-
-.card-7{
-  border: none;
-  border-radius: 10px;
-  width: 15%;
-  background-color: #fff;
-}
-
-.card-10{
-  border: none;
-  border-radius: 10px;
-  width: 15%;
-  background-color: #fff;
-}
 
 div.flex-align {
   display: -webkit-flexbox;
@@ -411,15 +364,6 @@ button.close {
 
 
 // Css da tela de login do funcionario
-
-.card-5 {
-  box-shadow: 0px 4px 8px 0px #757575;
-  border-radius: 0px;
-}
-
-.card-6 {
-  margin: 0px 40px;
-}
 
 .logo {
   width: 200px;
@@ -511,7 +455,7 @@ a {
   background-color: #119cff;
 }
 
-@media screen and (max-width: 1024px) {
+@media screen and (max-width: 2000px) {
   .logo {
       margin-left: 0px;
   }
@@ -525,9 +469,77 @@ a {
       border-right: none;
   }
 
+  .card{
+    width: 100%;
+    border-radius: 13px
+  }
+
+  .card-1{
+    background-color: #5390b5;
+    width: 100%;
+    height: 99vh;
+  }
+
+  .card-2{
+    background-color: #fff;
+    border: none;
+    border-radius: 8px;
+    width:100%;
+    height: 90vh;
+  }
+  
+  .card-3{
+    border: none;
+    border-radius: 10px;
+    width: 60%;
+    background-color: #fff;
+    
+  }
+  
+  .card-4{
+    border: none;
+    border-radius: 10px;
+    width: 50%;
+    background-color: #fff;
+  }
+
+  .card-5 {
+    box-shadow: 0px 4px 8px 0px #757575;
+    border-radius: 0px;
+  }
+  
+  .card-6 {
+    margin: 0px 40px;
+  }
+  
+  .card-7{
+    border: none;
+    border-radius: 10px;
+    width: 15%;
+    background-color: #fff;
+  }
+  
   .card-9 {
-      border-top: 1px solid #EEEEEE !important;
-      margin: 0px 15px;
+    border-top: 1px solid #EEEEEE !important;
+    margin: 0px 15px;
+  }
+
+  .card-10{
+    border: none;
+    border-radius: 10px;
+    width: 15%;
+    background-color: #fff;
+  }
+
+
+
+
+  
+  .innercard{
+    width: 100%;
+    background-color: #eef8fe;
+    border-radius: 11px;
+    height: 97vh;
   }
 }
 //===========================

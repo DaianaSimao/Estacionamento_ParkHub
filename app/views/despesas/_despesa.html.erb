@@ -1,0 +1,64 @@
+
+
+<div id="<%= dom_id despesa %>">
+  <div class="container mt-2">
+    <table class="table table-borderless table-responsive card-4">
+      <thead >
+        <tr class="border-bottom">
+          <th style="background-color: #87CEFA; color: #fff;">
+            <span class="ml-2">Descrição</span>
+          </th>
+          <th style="background-color: #87CEFA; color: #fff;">
+            <span class="ml-2">Categoria</span>
+          </th>
+          <th style="background-color: #87CEFA; color: #fff;">
+            <span class="ml-2">Valor</span>
+          </th>
+          <th style="background-color: #87CEFA; color: #fff;">
+            <span class="ml-2">Form pgto</span> 
+          </th>
+          <th style="background-color: #87CEFA; color: #fff;">
+            <span class="ml-2">Status</span> 
+          </th>
+          <th style="background-color: #87CEFA; color: #fff;">
+            <span class="ml-2">Data</span>
+          </th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr class="border-bottom">
+          <td>
+            <div class="p-2">
+              <span class="d-block font-weight-bold"><%= despesa.descricao%></span>
+            </div>
+          </td>
+          <td>
+            <div class="p-2">
+              <span class="d-block font-weight-bold"><%= despesa.categoria%></span>
+            </div> 
+          </td>
+          <td>
+            <div class="p-2">
+              <span class="d-block font-weight-bold"><%= despesa.valor %></span>
+            </div>
+          </td>
+          <td>
+            <div class="p-2">
+              <span class="d-block font-weight-bold"><%= despesa.forma_pagamento %></span>
+            </div>
+          </td>
+          <td>
+            <div class="p-2">
+              <span class="d-block font-weight-bold"><%= despesa.status %></span>
+            </div>
+          </td>
+          <td>
+            <div class="p-2">
+              <span class="d-block font-weight-bold"><%= despesa.created_at %></span>
+            </div>
+          </td>
+        </div>
+      </tbody>
+    </table>
+  </div>
+</div>

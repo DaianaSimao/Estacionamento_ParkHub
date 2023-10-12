@@ -1,0 +1,58 @@
+<%= form_with(model: despesa) do |form| %>
+  <div class="card p-4 mt-5">
+      <div class="row g-3">
+        <div class="col-12 mb-4">
+          <h3>Despesas<h3>
+        </div>
+        <div class="col-lg-8 col-md-12">
+          <div class="field form-floating">
+            <%= form.text_field :descricao, class: "form-control", placeholder: "Descricao", required: true %>
+            <%= form.label :descricao %>
+          </div>
+        </div>
+        <div class="col-lg-4 col-md-12">
+          <div class="field form-floating">
+            <%= form.select(:categoria, ['Locação','Propaganda','Associados', 'Manutenção', 'Insumos', 'Finanças'], {prompt: "Selecione a categoria"}, {class: "form-control", required: true, id: "categoria"})%>
+            <%= form.label :categoria %>
+          </div>
+        </div>
+        <div class="col-lg-4 col-md-12">
+          <div class="field form-floating">
+            <%= form.date_field :data_vencimento, class: "form-control" %>
+            <%= form.label  :data_vencimento %>
+          </div>
+        </div>
+        <div class="col-lg-4 col-md-12">
+          <div class="field form-floating">
+            <%= form.date_field :data_pagamento, class: "form-control" %>
+            <%= form.label  :data_pagamento %>
+          </div>
+        </div>
+        <div class="col-lg-4 col-md-12">
+          <div class="field form-floating">
+            <%= form.number_field :valor, class: "form-control"%>
+            <%= form.label :valor %>
+          </div>
+        </div>
+        <div class="col-lg-4 col-md-12">
+          <div class="field form-floating">
+            <%= form.select(:forma_pagamento, ['Debito','Credito','Dinheiro', 'Pix'], {prompt: "Forma de pagamento"}, {class: "form-control", required: true, id: "forma_pagamento"})%>
+            <%= form.label  :forma_pagamento %>
+          </div>
+        </div>
+        <div class="col-lg-4 col-md-12">
+          <div class="field form-floating">
+            <%= form.select(:status, ['Pago','Pendente'], {}, {:class=>"form-control"})%>
+            <%= form.label :status %>
+          </div>
+        </div>
+      </div>
+      <div class="col d-flex justify-content-start mt-4">
+        <%= form.submit "Finalizar", class: "btn ", style: "margin-right: 10px;" %>
+        <%= link_to despesas_path, class: "btn ", style: "margin-right: 10px;" do %>
+          Cancelar
+        <% end %>
+      </div>
+    </div>
+  </div>
+<% end %>

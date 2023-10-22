@@ -1,67 +1,77 @@
-<div style="display: flex; align-items: center;" class="mt-5">
-  <h1>Vagas <i class="bi bi-car-front"></i></h1>
+<div style="display: flex; align-items: center;" class="mt-5 justify-content-center">
+  <h1>Vagas <i class="bi bi-coin"></i></h1>
   <% if current_user && current_user.admin? %>
-    <%= link_to "Nova vaga", new_vaga_path, class: "btn4", style: "margin-left: 10px;" %>
+    <%= link_to "Nova vaga", new_vaga_path, class: "btn4", style: "margin-left: px;" %>
   <% end %>
 </div>
-<div class="container container-vagas mt-5">
-  <div style="flex: 1;">
-    <div class="table-responsive">
-      <table class="table table-borderless table-responsive card-7">
-        <thead>
-          <tr class="border-bottom">
-            <% i = 1  %>
-            <% while i <= 3%>
-              <th style="background-color: #119cff; color: #fff;">
-                <span></span>
-              </th>
-              <th style="background-color: #119cff; color: #fff;">
-                <span>Status</span>
-              </th>
-              <% if current_user && current_user.admin? %>
-                <th style="background-color: #119cff; color: #fff;">
-                  <span></span>
-                </th>
-              <% end %>
-              <% i += 1%>
-            <% end %>
-          </tr>
-        </thead>
-        <tbody>
-          <% @vagas.each_slice(3) do |grupo_vagas| %>
-            <tr class="border-bottom">
-              <% grupo_vagas.each do |vaga| %>
-                <td>
-                  <div>
-                    <span class="d-block font-weight-bold"><%= vaga.vaga_nome %></span>
-                  </div>
-                </td>
-                      <td>
-                  <div >
-                    <span class="status-background <%= vaga.status %> d-block font-weight-bold"><%= vaga.status == false ? "Disponivel" : "Ocupado"%></span>
-                  </div>
-                </td>
-                <% if current_user && current_user.admin? %>
-                  <td>
-                    <div class="d-flex flex-row align-items-center">
-                      <div class="d-flex flex-column ml-2">
-                        <%= link_to edit_vaga_url(vaga), class: "btn5 ", style: "margin-right: 10px;" do %>
-                          <i class="bi bi-pencil-square"></i>
+<div class="container-fluid px-1 px-md-5 px-lg-1 px-xl-5 py-5 mx-auto">
+  <div class="border-0">
+    <div class="row">
+      <div class=" align-items-center">
+        <div class="row justify-content-center">
+          <div class="container mt-5">
+            <div style="flex: 1;">
+              <div class="table-responsive">
+                <table class="table table-borderless table-responsive ">
+                  <thead>
+                    <tr class="border-bottom">
+                      <% i = 1  %>
+                      <% while i <= 4%>
+                        <th style="background-color: #119cff; color: #fff;">
+                          <span>Vaga</span>
+                        </th>
+                        <th style="background-color: #119cff; color: #fff;">
+                          <span>Status</span>
+                        </th>
+                        <% if current_user && current_user.admin? %>
+                          <th style="background-color: #119cff; color: #fff;">
+                            <span>Ações</span>
+                          </th>
+                        <% end %>
+                        <% i += 1%>
+                      <% end %>
+                    </tr>
+                  </thead>
+                  <tbody>
+                    <% @vagas.each_slice(4) do |grupo_vagas| %>
+                      <tr class="border-bottom">
+                        <% grupo_vagas.each do |vaga| %>
+                          <td>
+                            <div>
+                              <span class="d-block font-weight-bold"><%= vaga.vaga_nome %></span>
+                            </div>
+                          </td>
+                                <td>
+                            <div >
+                              <span class="status-background <%= vaga.status %> d-block font-weight-bold"><%= vaga.status == false ? "Disponivel" : "Ocupado"%></span>
+                            </div>
+                          </td>
+                          <% if current_user && current_user.admin? %>
+                            <td>
+                              <div class="d-flex flex-row align-items-center">
+                                <div class="d-flex flex-column ml-2">
+                                  <%= link_to edit_vaga_url(vaga), class: "btn5 ", style: "margin-right: 10px;" do %>
+                                    <i class="bi bi-pencil-square"></i>
+                                  <% end %>
+                                </div>
+                                <div class="d-flex flex-column ml-2">
+                                  <%= button_to vaga_path(vaga), method: :delete, class: "btn6 " do %>
+                                    <i class="bi bi-trash"></i>
+                                  <%end%>
+                                </div>
+                              </div>
+                            </td>
+                          <% end %>
                         <% end %>
                       </div>
-                      <div class="d-flex flex-column ml-2">
-                        <%= button_to vaga_path(vaga), method: :delete, class: "btn6 " do %>
-                          <i class="bi bi-trash"></i>
-                        <%end%>
-                      </div>
-                    </div>
-                  </td>
-                <% end %>
-              <% end %>
+                    <% end %>
+                  </tbody>
+                </table>
+              </div>
             </div>
-          <% end %>
-        </tbody>
-      </table>
+          </div>
+        </div>
+      </div>
     </div>
   </div>
 </div>

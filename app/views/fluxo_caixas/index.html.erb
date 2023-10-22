@@ -1,0 +1,149 @@
+<div style="display: flex; align-items: center;" class="mt-5 justify-content-center">
+  <h1>Fluxo de caixa <i class="bi bi-coin"></i></h1>
+</div>
+
+<div class="container-fluid px-1 px-md-5 px-lg-1 px-xl-5 py-5 mx-auto">
+  <div class="border-0">
+    <div class="row d-flex">
+      <%= form_tag fluxo_caixas_path, method: 'get', class: "form-inline card ", style: "background-color #87CEFA;" do %>
+        <div class="row mt-4 mb-2">
+          <div class="col-md-2 mt-2 " style="margin-left: 10px;">
+            <div class="field form-floating ">
+              <%= text_field_tag :descricao,params[:descricao], placeholder: "Descrição", class: "form-search" %>
+            </div>
+          </div>
+          <div class="col-md-2 mt-2 " style="margin-left: 10px;">
+            <div class="field form-floating">
+              <%= text_field_tag :forma_pagamento,params[:forma_pagamento], placeholder: "Forma pgto", class: "form-search" %>
+            </div>
+          </div>
+          <div class="col-md-2 mt-2" style="margin-left: 10px;">
+            <div class="field form-floating">
+              <%= select_tag(:categoria, options_for_select(['Receita', 'Despesa']), { include_blank: "Selecione a categoria", class: "form-search" }) %>
+            </div>
+          </div>
+          <div class="col-md-2 mt-2" style="margin-left: 10px;">
+            <div class="field form-floating">
+              <%= select_tag(:tipo, options_for_select(['Entrada', 'Saida']), { include_blank: "Selecione o tipo", class: "form-search" }) %>
+            </div>
+          </div>
+          <div class="col-md-2 mt-2" style="margin-left: 10px;">
+            <div class="field form-floating">
+              <%= select_tag(:status, options_for_select(['Pago', 'Pedente']), { include_blank: "Selecione o status", class: "form-search" }) %>
+            </div>
+          </div>
+          <div class="col-md-2 mt-2"style="margin-left: 10px;">
+            <div class="field form-floating">
+              <%= date_field_tag :min, params[:min], placeholder: "Pgto de", class: 'form-search'  %>
+            </div>
+          </div>
+          <div class="col-md-2 mt-2" style="margin-left: 10px;">
+            <div class="field form-floating">
+              <%= date_field_tag :max,params[:max], placeholder: "Pgto até", class: 'form-search' %>
+            </div>
+          </div>
+          <div class="col-md-2 mt-2">
+            <div class="field form-floating" style="margin-left: 10px;">
+              <%= button_tag(value: "commit", type: 'submit', class: "btn10") do %>
+                <i class="fa fa-search"></i> Pesquisar
+              <% end %>
+            </div>
+          </div>
+        </div>
+      <% end %>
+      <div class=" align-items-center">
+        <div class=" mt-3" >
+          <div style="text-align: center; background-color: #87CEFA; color: #fff;">
+            <h3>Total: R$: <%= @total rescue nil %>
+            |
+            Entrada:  R$: <%= @entrada rescue nil %>
+            |
+            Saida:  R$: <%= @saida rescue nil %></h3>
+          </div>
+        </div>
+        <div class="table-responsive rounded mx-auto" style="overflow: auto; margin-top: 50px">
+          <table class="table table-borderless table-hover">
+            <thead>
+              <tr>
+                <th style="background-color: #87CEFA; color: #fff;">
+                  <span>Descrição</span>
+                </th>
+                <th style="background-color: #87CEFA; color: #fff;">
+                  <span>Categoria</span>
+                </th>
+                <th style="background-color: #87CEFA; color: #fff;">
+                  <span>Tipo</span>
+                </th>
+                <th style="background-color: #87CEFA; color: #fff;">
+                  <span>Valor</span>
+                </th>
+                <th style="background-color: #87CEFA; color: #fff;">
+                  <span>Forma pgto</span>
+                </th>
+                <th style="background-color: #87CEFA; color: #fff;">
+                  <span>Status</span>
+                </th>
+                <th style="background-color: #87CEFA; color: #fff;">
+                  <span>Data criação</span>
+                </th>
+                <th style="background-color: #87CEFA; color: #fff;">
+                  <span>Ação</span>
+                </th>
+              </tr>
+            </thead>
+            <tbody>
+              <% @fluxo_caixas.each do |fluxo| %>
+                <tr class="border-bottom">
+                  <td>
+                    <div>
+                      <span class="d-block font-weight-bold"><%= fluxo.descricao%></span>
+                    </div>
+                  </td>
+                  <td>
+                    <div>
+                      <span class="d-block font-weight-bold"><%= fluxo.categoria%></span>
+                    </div>
+                  </td>
+                  <td>
+                    <div>
+                      <span class="d-block font-weight-bold"><%= fluxo.tipo%></span>
+                    </div>
+                  </td>
+                  <td>
+                    <div>
+                      <span class="d-block font-weight-bold"><%= fluxo.valor%></span>
+                    </div>
+                  </td>
+                  <td>
+                    <div>
+                      <span class="d-block font-weight-bold"><%= fluxo.forma_pagamento %></span>
+                    </div>
+                  </td>
+                  <td>
+                    <div>
+                      <span class="d-block font-weight-bold"><%= fluxo.status %></span>
+                    </div>
+                  </td>
+                  <td>
+                    <div>
+                      <span class="d-block font-weight-bold"><%= fluxo.data_criacao %></span>
+                    </div>
+                  </td>
+                  <td>
+                    <div class="d-flex flex-row align-items-center">
+                      <div class="d-flex flex-column ml-2">
+                        <%= link_to fluxo_caixa_path(fluxo), class: "btn5 ", style: "margin-right: 10px;" do %>
+                          <i class="bi bi-credit-card-fill"></i>
+                        <% end %>
+                      </div>
+                    </div>
+                  </td>
+                </tr>
+              <% end %>
+            </tbody>
+          </table>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>

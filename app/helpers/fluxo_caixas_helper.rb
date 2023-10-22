@@ -1,0 +1,2 @@
+module FluxoCaixasHelper
+end

@@ -1,0 +1,19 @@
+# Read about fixtures at https://api.rubyonrails.org/classes/ActiveRecord/FixtureSet.html
+
+one:
+  descricao: MyString
+  categoria: MyString
+  tipo: MyString
+  valor: 1.5
+  forma_pagamento: MyString
+  status: MyString
+  data_vencimento: MyString
+
+two:
+  descricao: MyString
+  categoria: MyString
+  tipo: MyString
+  valor: 1.5
+  forma_pagamento: MyString
+  status: MyString
+  data_vencimento: MyString

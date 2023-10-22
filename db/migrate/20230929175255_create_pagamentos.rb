@@ -1,4 +1,4 @@
-class CreatePagamentos < ActiveRecord::Migration[7.0]
+class Createcaixas < ActiveRecord::Migration[7.0]
   def change
     create_table :pagamentos do |t|
       t.references :checkin, null: false, foreign_key: true

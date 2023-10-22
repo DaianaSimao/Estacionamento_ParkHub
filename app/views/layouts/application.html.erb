@@ -11,7 +11,7 @@
   <body >
     <div class="container">
       <div class="card-1 p-2">
-        <div class="innercard p-2">
+        <div>
           <nav class="navbar navbar-expand-lg navbar-light">
             <div class="container-fluid"><img src="https://cdn.icon-icons.com/icons2/577/PNG/256/ExecutiveCar_Black_icon-icons.com_54904.png" height="50px" width="50px" /> <a class="navbar-brand name" href="#"> Park<span class="go">Hub</span></a> <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation"> <span class="navbar-toggler-icon"></span> </button>
               <div class="collapse navbar-collapse" id="navbarSupportedContent">
@@ -23,7 +23,7 @@
                   <% end %>
                   <% if current_user && current_user.admin? %>
                     <%= content_tag :li, class: "nav-item" do %>
-                      <%= link_to(pagamentos_path, class: "nav-link active", "aria-current" => "page") do %>
+                      <%= link_to(caixas_path, class: "nav-link active", "aria-current" => "page") do %>
                         <%= content_tag :span, "Caixa"%> <i class="bi bi-coin"></i>
                       <% end %>
                     <% end %>
@@ -52,7 +52,7 @@
                       <% end %>
                       <%= content_tag :ul, class: "dropdown-menu", style: "color: black;" do %>
                         <%= content_tag :li do %>
-                          <%= link_to "Fluxo de caixa",fluxo_caixas_path, class: "dropdown-item" %>
+                          <%= link_to "Fluxo de caixa", fluxo_caixas_path , class: "dropdown-item" %>
                         <% end %>
                         <%= content_tag :li do %>
                           <%= link_to "Relatorios" , "#", class: "dropdown-item" %>
@@ -64,7 +64,7 @@
                     <% end %>
                   <% elsif current_user && current_user.funcionario?%>
                     <%= content_tag :li, class: "nav-item" do %>
-                      <%= link_to(pagamentos_path, class: "nav-link active", "aria-current" => "page") do %>
+                      <%= link_to(caixas_path, class: "nav-link active", "aria-current" => "page") do %>
                         <%= content_tag :span, "Caixa"%> <i class="bi bi-coin"></i>
                       <% end %>
                     <% end %>
@@ -99,11 +99,6 @@
             <% end %>
           </div>
           <%= yield %>
-          <div style="background-color: #eef8fe !important;" class=" mt-5">
-            <div style="text-align: center;">
-              <small class=""  style="text-align: center;"> Copyright &copy; 2023 ParkHub Todos os direitos reservados.</small>
-            </div>
-          </div>
         </div>
       </div>
     </div>

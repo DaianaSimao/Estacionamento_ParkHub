@@ -1,8 +1,8 @@
-<%= form_with(model: [@checkin, @pagamento]) do |form| %>
+<%= form_with(model: [@checkin, @caixa]) do |form| %>
   <div class="card p-4 mt-5">
       <div class="row g-3">
         <div class="col-12 mb-4">
-          <h3>Pagamento<h3>
+          <h3>caixa<h3>
         </div>
         <div class="col-lg-4 col-md-12">
           <div class="field form-floating">
@@ -13,7 +13,7 @@
         <div class="col-lg-4 col-md-12">
           <div class="field form-floating">
             <%= form.date_field :data_pagamento ,value: Date.today, class: "form-control" %>
-            <%= form.label  :data_pagamento, "Data do pagamento" %>
+            <%= form.label  :data_pagamento, "Data do caixa" %>
           </div>
         </div>
         <div class="col-lg-4 col-md-12">
@@ -24,7 +24,7 @@
         </div>
         <div class="col-lg-4 col-md-12">
           <div class="field form-floating">
-            <%= form.select(:forma_pagamento, ['Dinheiro','Débito','Crédito','Pix'], {prompt: "Selecione o pagamento"}, {class: "form-control", required: true, id: "forma_pagamento"})%>
+            <%= form.select(:forma_pagamento, ['Dinheiro','Debito','Credito','Pix'], {prompt: "Selecione o pagamento"}, {class: "form-control", required: true, id: "forma_pagamento"})%>
             <%= form.label :forma_pagamento %>
           </div>
         </div>
@@ -58,8 +58,8 @@
         <%= link_to checkins_path, class: "btn ", style: "margin-right: 10px;" do %>
           Cancelar
         <% end %>
-        <%= link_to pagamentos_path, class: "btn " do %>
-          Pagamentos
+        <%= link_to caixas_path, class: "btn " do %>
+          caixas
         <% end %>
       </div>
     </div>
@@ -67,20 +67,20 @@
 <% end %>
 <script>
   // Obtém os elementos do formulário
-  const formaPagamento = document.getElementById('forma_pagamento');
+  const formacaixa = document.getElementById('forma_pagamento');
   const totalInput = document.getElementById('total');
   const valorInput = document.getElementById('valor');
   const trocoInput = document.getElementById('troco');
   const trocoLabel = document.getElementById('troco_label');
 
   // Adiciona um ouvinte de eventos para o evento 'input' nos campos de entrada
-  formaPagamento.addEventListener('change', atualizarCampos);
+  formacaixa.addEventListener('change', atualizarCampos);
   totalInput.addEventListener('input', calcularTroco);
   valorInput.addEventListener('input', calcularTroco);
 
-  // Função para atualizar os campos com base na forma de pagamento selecionada
+  // Função para atualizar os campos com base na forma de caixa selecionada
   function atualizarCampos() {
-    const formaSelecionada = formaPagamento.value;
+    const formaSelecionada = formacaixa.value;
 
     if (formaSelecionada === 'Dinheiro') {
       trocoInput.style.display = 'block';
@@ -94,14 +94,14 @@
       valorInput.value = '';
     }
 
-    if (formaSelecionada === 'Crédito' || formaSelecionada === 'Débito' || formaSelecionada === 'Pix') {
+    if (formaSelecionada === 'Credito' || formaSelecionada === 'Debito' || formaSelecionada === 'Pix') {
       valorInput.value = totalInput.value;
     }
   }
 
   // Função para calcular o troco
   function calcularTroco() {
-    const formaSelecionada = formaPagamento.value;
+    const formaSelecionada = formacaixa.value;
     const total = parseFloat(totalInput.value);
     const valor = parseFloat(valorInput.value);
 

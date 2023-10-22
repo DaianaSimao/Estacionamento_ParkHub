@@ -1,0 +1,147 @@
+<div style="display: flex; align-items: center;" class="mt-5 justify-content-center">
+  <h1>Caixa <i class="bi bi-coin"></i></h1>
+</div>
+<div class="container-wrapper">
+  <div class="container-fluid px-1 px-md-5 px-lg-1 px-xl-5 py-5 mx-auto">
+    <div class="border-0">
+      <div class="row d-flex">
+        <div>
+          <%= form_tag caixas_path, method: 'get', class: "form-inline" do %>
+            <div class="row mt-4">
+              <div class="col-md-2">
+                <div class="field form-floating">
+                  <%= text_field_tag :id,params[:id], placeholder: "ID", class: "form-search" %>
+                </div>
+              </div>
+              <div class="col-md-2">
+                <div class="field form-floating">
+                  <%= text_field_tag :forma_pagamento,params[:forma_pagamento], placeholder: "Forma pgto", class: "form-search" %>
+                </div>
+              </div>
+              <div class="col-md-2">
+                <div class="field form-floating">
+                  <%= date_field_tag :min, params[:min], placeholder: "Pgto de", class: 'form-search'  %>
+                </div>
+              </div>
+              <div class="col-md-2">
+                <div class="field form-floating">
+                  <%= date_field_tag :max,params[:max], placeholder: "Pgto até", class: 'form-search' %>
+                </div>
+              </div>
+              <div class="col-md-2">
+                <div class="field form-floating">
+                  <%= button_tag(value: "commit", type: 'submit', class: "btn10") do %>
+                    <i class="fa fa-search"></i> Pesquisar
+                  <% end %>
+                </div>
+              </div>
+            </div>
+          <% end %>
+          </div>
+          <div class="row justify-content-center">
+            <div class="table-responsive rounded mx-auto mt-5" style="overflow: auto;">
+              <table class="table table-borderless table-hover">
+                <thead>
+                  <tr>
+                    <th style="background-color: #87CEFA; color: #fff;">
+                      <span>COD</span>
+                    </th>
+                    <th style="background-color: #87CEFA; color: #fff;">
+                      <span>Forma pgto</span>
+                    </th>
+                    <th style="background-color: #87CEFA; color: #fff;">
+                      <span>Total</span>
+                    </th>
+                    <th style="background-color: #87CEFA; color: #fff;">
+                      <span>Valor</span>
+                    </th>
+                    <th style="background-color: #87CEFA; color: #fff;">
+                      <span>Troco</span>
+                    </th>
+                    <th style="background-color: #87CEFA; color: #fff;">
+                      <span>Data</span>
+                    </th>
+                    <th style="background-color: #87CEFA; color: #fff;">
+                      <span>Estadia</span>
+                    </th>
+                    <th style="background-color: #87CEFA; color: #fff; width: 100px;">
+                      <span>Status</span>
+                    </th>
+                    <th style="background-color: #87CEFA; color: #fff;">
+                      <span>Ação</span>
+                    </th>
+                  </tr>
+                </thead>
+                <tbody>
+                  <% @caixas.each do |caixa| %>
+                    <tr class="border-bottom">
+                      <td>
+                        <div>
+                          <span class="d-block font-weight-bold"><%= caixa.id %></span>
+                        </div>
+                      </td>
+                      <td>
+                        <div>
+                          <span class="d-block font-weight-bold"><%= caixa.forma_pagamento%></span>
+                        </div>
+                      </td>
+                      <td>
+                        <div>
+                          <span class="d-block font-weight-bold"><%= caixa.total %></span>
+                        </div>
+                      </td>
+                      <td>
+                        <div>
+                          <span class="d-block font-weight-bold"><%= caixa.valor %></span>
+                        </div>
+                      </td>
+                      <td>
+                        <div>
+                          <% if caixa.troco? %>
+                            <% troco = caixa.troco %>
+                          <% else %> 
+                            <% troco = "0,00" %>
+                          <% end %>
+                          <span class="d-block font-weight-bold"><%=troco %></span>
+                        </div>
+                      </td>
+                      <td>
+                        <div>
+                          <span class="d-block font-weight-bold"><%= l caixa.data_pagamento, format: :default %></span>
+                        </div>
+                      </td>
+                      <td>
+                        <div>
+                          <span class="d-block font-weight-bold"><%= caixa.tempo_estadia %></span>
+                        </div>
+                      </td>
+                      <td>
+                        <div>
+                          <span class="d-block font-weight-bold"><%= caixa.status %></span>
+                        </div>
+                      </td>
+                      <td>
+                        <div class="d-flex flex-row align-items-center">
+                          <div class="d-flex flex-column ml-2">
+                            <%= link_to caixa_path(caixa), class: "btn5 ", style: "margin-right: 10px;" do %>
+                              <i class="bi bi-credit-card-fill"></i>
+                            <% end %>
+                          </div>
+                          <div class="d-flex flex-column ml-2">
+                            <%= link_to gerar_ticket_saida_path(caixa), class: "btn7", style: "margin-right: 10px;", target: "_blank", onclick: "imprimirTicket(); window.print(); return false;" do %>
+                              <i class="bi bi-arrow-left-square"></i>
+                            <% end %>
+                          </div>
+                        </div>
+                      </td>
+                    </tr>
+                  <% end %>
+                </tbody>
+              </table>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>

@@ -10,9 +10,24 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema[7.0].define(version: 2023_10_12_225313) do
+ActiveRecord::Schema[7.0].define(version: 2023_10_22_132415) do
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
+
+  create_table "caixas", force: :cascade do |t|
+    t.bigint "checkin_id", null: false
+    t.string "forma_pagamento"
+    t.float "valor"
+    t.float "troco"
+    t.date "data_pagamento"
+    t.string "tempo_estadia"
+    t.string "status"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.float "total"
+    t.string "descricao"
+    t.index ["checkin_id"], name: "index_caixas_on_checkin_id"
+  end
 
   create_table "checkins", force: :cascade do |t|
     t.bigint "preco_id", null: false
@@ -31,7 +46,7 @@ ActiveRecord::Schema[7.0].define(version: 2023_10_12_225313) do
 
   create_table "despesas", force: :cascade do |t|
     t.string "descricao"
-    t.string "valor"
+    t.float "valor"
     t.string "categoria"
     t.string "forma_pagamento"
     t.string "status"
@@ -41,18 +56,16 @@ ActiveRecord::Schema[7.0].define(version: 2023_10_12_225313) do
     t.date "data_pagamento"
   end
 
-  create_table "pagamentos", force: :cascade do |t|
-    t.bigint "checkin_id", null: false
-    t.string "forma_pagamento"
+  create_table "fluxo_caixas", force: :cascade do |t|
+    t.string "descricao"
+    t.string "categoria"
+    t.string "tipo"
     t.float "valor"
-    t.float "troco"
-    t.date "data_pagamento"
-    t.string "tempo_estadia"
+    t.string "forma_pagamento"
     t.string "status"
+    t.date "data_criacao"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
-    t.float "total"
-    t.index ["checkin_id"], name: "index_pagamentos_on_checkin_id"
   end
 
   create_table "precos", force: :cascade do |t|
@@ -92,7 +105,7 @@ ActiveRecord::Schema[7.0].define(version: 2023_10_12_225313) do
     t.string "tipo"
   end
 
+  add_foreign_key "caixas", "checkins"
   add_foreign_key "checkins", "precos"
   add_foreign_key "checkins", "vagas"
-  add_foreign_key "pagamentos", "checkins"
 end

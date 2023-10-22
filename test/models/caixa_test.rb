@@ -1,6 +1,6 @@
 require "test_helper"
 
-class PagamentoTest < ActiveSupport::TestCase
+class CaixaTest < ActiveSupport::TestCase
   # test "the truth" do
   #   assert true
   # end

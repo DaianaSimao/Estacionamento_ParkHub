@@ -1,4 +1,4 @@
-<div id="<%= dom_id pagamento %>">
+<div id="<%= dom_id caixa %>">
   <div class="container mt-2">
     <table class="table table-borderless table-responsive card-4">
       <thead >
@@ -7,7 +7,7 @@
             <span class="ml-2">Id</span>
           </th>
           <th style="background-color: #87CEFA; color: #fff;">
-            <span class="ml-2">Pagamento</span>
+            <span class="ml-2">caixa</span>
           </th>
           <th style="background-color: #87CEFA; color: #fff;">
             <span class="ml-2">Total</span>
@@ -33,42 +33,42 @@
         <tr class="border-bottom">
           <td>
             <div class="p-2">
-              <span class="d-block font-weight-bold"><%= pagamento.checkin_id%></span>
+              <span class="d-block font-weight-bold"><%= caixa.checkin_id%></span>
             </div>
           </td>
           <td>
             <div class="p-2">
-              <span class="d-block font-weight-bold"><%= pagamento.forma_pagamento%></span>
+              <span class="d-block font-weight-bold"><%= caixa.forma_pagamento%></span>
             </div> 
           </td>
           <td>
             <div class="p-2">
-              <span class="d-block font-weight-bold"><%= pagamento.total%></span>
+              <span class="d-block font-weight-bold"><%= caixa.total%></span>
             </div>
           </td>
           <td>
             <div class="p-2">
-              <span class="d-block font-weight-bold"><%= pagamento.valor %></span>
+              <span class="d-block font-weight-bold"><%= caixa.valor %></span>
             </div>
           </td>
           <td>
             <div class="p-2">
-              <span class="d-block font-weight-bold"><%= pagamento.troco %></span>
+              <span class="d-block font-weight-bold"><%= caixa.troco %></span>
             </div>
           </td>
           <td>
             <div class="p-2">
-              <span class="d-block font-weight-bold"><%= pagamento.data_pagamento %></span>
+              <span class="d-block font-weight-bold"><%= caixa.data_pagamento %></span>
             </div>
           </td>
           <td>
             <div class="p-2">
-              <span class="d-block font-weight-bold"><%= pagamento.tempo_estadia %></span>
+              <span class="d-block font-weight-bold"><%= caixa.tempo_estadia %></span>
             </div>
           </td>
           <td>
             <div class="p-2">
-              <span class="d-block font-weight-bold"><%= pagamento.status %></span>
+              <span class="d-block font-weight-bold"><%= caixa.status %></span>
             </div> 
           </td>
         </div>

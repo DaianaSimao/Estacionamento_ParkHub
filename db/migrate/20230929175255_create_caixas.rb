@@ -9,7 +9,7 @@ class CreateCaixas < ActiveRecord::Migration[7.0]
       t.string :tempo_estadia
       t.string :status
       t.float :total
-      t.descricao :string
+      t.string :descricao
 
       t.timestamps
     end

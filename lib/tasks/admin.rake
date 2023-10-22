@@ -27,14 +27,4 @@ namespace :admin do
     end
     puts "Finalizado..."
   end
-
-  desc "Popular decrição em caixas"
-  task popular_descricao_caixas: :environment do
-    puts "Populando descrição em caixas..."
-    @caixas = Caixa.all
-    @caixas.each do |caixa|
-      caixa.update(descricao: "Caixa")
-    puts "Finalizado..."
-    end
-  end
 end

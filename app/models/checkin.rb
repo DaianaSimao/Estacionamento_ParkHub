@@ -13,15 +13,8 @@ class Checkin < ApplicationRecord
     self.veiculo_placa = veiculo_placa.upcase if veiculo_placa.present?
   end
 
-  def calcular_valor_cobrado
-
-    diferenca_segundos = saida - entrada
-
-    minutos_permanencia_total = (diferenca_segundos / 1.minute).ceil
-  
-    taxa_horaria = self.preco.preco_hora / 60 
-    
-    valor_total = minutos_permanencia_total * taxa_horaria
+  def calcular_valor_cobrado  
+    valor_total = TicketService.calcular_valor_cobrado(self)
     valor_total
   end
   

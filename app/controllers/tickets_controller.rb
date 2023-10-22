@@ -2,7 +2,7 @@
 class TicketsController < ApplicationController
   before_action :authenticate_user
   layout 'ticket_layout'
-  before_action :set_checkin, only: [:show, :gerar_ticket_saida]
+  before_action :set_checkin, only: [:show, :gerar_ticket_saida, :gerar_ticket_entrada]
 
   def authenticate_user
     unless user_signed_in?
@@ -25,4 +25,3 @@ class TicketsController < ApplicationController
     @checkin = Checkin.find(params[:id])
   end
 end
-

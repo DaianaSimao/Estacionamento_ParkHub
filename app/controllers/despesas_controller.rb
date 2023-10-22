@@ -4,12 +4,9 @@ class DespesasController < ApplicationController
   # GET /despesas or /despesas.json
   def index
     @despesas = Despesa.all
-  end
-
-  def search
-    @search = params[:search]
-    @despesas = Despesa.where(" descricao LIKE ?", "%#{@search}%")
-    render :index
+    if params[:descricao].present?
+      @despesas = @despesas.where("descricao ILIKE ?", "%#{params[:descricao]}%")
+    end
   end
 
   # GET /despesas/1 or /despesas/1.json

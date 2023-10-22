@@ -1,126 +1,125 @@
-<div style="display: flex; align-items: center;" class="mt-5">
-  <h1>Check-in <i class="bi bi-car-front"></i></h1>
-  <%= link_to "Entrar", new_checkin_path, class: "btn4", style: "margin-left: 15px;"%>
+<div style="display: flex; align-items: center;" class="mt-5 justify-content-center">
+  <h1>Check-in <i class="bi bi-coin"></i></h1>
+  <%= link_to "Nova", new_checkin_path, class: "btn4", style: "margin-left: 10px;"%>
 </div>
 
-<div class="container mt-2 ">
-  <div class="container-3 justify-content-start" style="margin-bottom: 20px;">
-    <div class="row">
-      <div class="col-lg-4 col-md-12">
-        <div class="field form-floating">
-          <%= form_tag search_checkins_path, method: :get do %>
-            <div class="d-flex">
-              <%= text_field_tag :search, @search, placeholder: "Buscar por placa do veículo", class: "form-search" %>
-              <%= submit_tag " Buscar", class: "btn10 ms-4" %>
+<div class="container-fluid px-1 px-md-5 px-lg-1 px-xl-5 py-5 mx-auto">
+  <div class="border-0">
+    <div class="row d-flex">
+      <div class=" align-items-center">
+        <div class="row justify-content-center">
+          <div class="col-lg-4 col-md-12 mt-2">
+            <div class="field form-floating">
+              <%= form_tag checkins_path, method: 'get', class: "form-inline card" do %>
+                <div class="d-flex">
+                  <%= text_field_tag :veiculo_placa,params[:veiculo_placa] , placeholder: "Buscar por placa do veículo", class: "form-search mt-2 mb-2", style: "margin-left: 10px;" %>
+                  <%= submit_tag " Buscar", class: "btn10 ms-4 mt-2 mb-2" %>
+                </div>
+              <% end %>
             </div>
-          <% end %>
+          </div>
         </div>
+      </div>
+      <div class="table-responsive mt-5" style="margin-bottom: 40px; border-radius: 10px;"> 
+        <table class="table table-borderless table-hover" style="borde-radius:10px;">
+          <thead>
+            <tr>
+              <th style="background-color: #87CEFA; color: #fff;">
+                <span>Id</span>
+              </th>
+              <th style="background-color: #87CEFA; color: #fff;">
+                <span>Placa</span>
+              </th>
+              <th style="background-color: #87CEFA; color: #fff;">
+                <span>Vaga</span>
+              </th>
+              <th style="background-color: #87CEFA; color: #fff;">
+                <span>status</span>
+              </th>
+              <th style="background-color: #87CEFA; color: #fff;">
+                <span>Tipo</span>
+              </th>
+              <th style="background-color: #87CEFA; color: #fff;">
+                <span>Permanência</span>
+              </th>
+              <th style="background-color: #87CEFA; color: #fff;">
+                <span>Preço</span>
+              </th>
+              <th style="background-color: #87CEFA; color: #fff;">
+                <span>Ações</span>
+              </th>
+            </tr>
+          </thead>
+          <tbody>
+            <% @checkins.each do |checkin| %>
+              <tr class="border-bottom">
+                <td>
+                  <div>
+                    <span class="d-block font-weight-bold"><%= checkin.id %></span>
+                  </div>
+                </td>
+                <td>
+                  <div>
+                    <span class="d-block font-weight-bold"><%= checkin.veiculo_placa%></span>
+                  </div>
+                </td>
+                <td>
+                  <div>
+                    <span class="d-block font-weight-bold"><%= checkin.vaga.vaga_nome %></span>
+                  </div>
+                </td>
+                <td>
+                  <div>
+                    <span class="d-block font-weight-bold"><%= checkin.status == false ? "Disponivel" : "Ocupado" %></span>
+                  </div>
+                </td>
+                <td>
+                  <div>
+                    <span class="d-block font-weight-bold"><%=  checkin.preco.tipo %></span>
+                  </div>
+                </td>
+                <td>
+                  <div>
+                    <span class="d-block font-weight-bold"><%= checkin.em_permanencia == true ? "Sim" : "Não" %></span>
+                  </div>
+                </td>
+                <td>
+                  <div>
+                    <span class="d-block font-weight-bold"><%= checkin.preco.preco_hora %></span>
+                  </div>
+                </td>
+                <td>
+                  <div class="d-flex flex-row align-items-center">
+                    <div class="d-flex flex-column ml-2">
+                      <%= link_to edit_checkin_path(checkin), class: "btn5 ", style: "margin-right: 10px;" do %>
+                        <i class="bi bi-pencil-square"></i>
+                      <% end %>
+                    </div>
+                    <div class="d-flex flex-column ml-2">
+                      <%=  button_to checkin_path(checkin), method: :delete, class: "btn6 ", style: "margin-right: 10px;" do %>
+                        <i class="bi bi-trash"></i>
+                      <%end%>
+                    </div>
+                    <% if checkin.em_permanencia? %>
+                      <div class="d-flex flex-column ml-2">
+                        <%= link_to gerar_ticket_entrada_path(checkin), class: "btn7", style: "margin-right: 10px;", target: "_blank", onclick: "imprimirTicket(); window.print(); return false;" do %>
+                          <i class="bi bi-arrow-right-square-fill"></i>
+                        <%end%>
+                      </div>
+                    <% else %>
+                    <% unless checkin.pago? %> <!-- Verifica se o check-in tem um caixa -->
+                        <div class="d-flex flex-column ml-2">
+                          <%= link_to "Pagar", new_checkin_caixa_path(checkin), class: "btn4" %>
+                        </div>
+                      <% end %>
+                    <% end %>
+                  </div>
+                </td>
+              </tr>
+            <% end %>
+          </tbody>
+        </table>
       </div>
     </div>
   </div>
-  <div class="table-responsive mt-5" style="margin-bottom: 40px; border-radius: 10px;"> 
-    <table class="table table-borderless card-3 table-hover" style="borde-radius:10px;">
-      <thead>
-        <tr>
-          <th style="background-color: #87CEFA; color: #fff;">
-            <span>Id</span>
-          </th>
-          <th style="background-color: #87CEFA; color: #fff;">
-            <span>Placa</span>
-          </th>
-          <th style="background-color: #87CEFA; color: #fff;">
-            <span>Vaga</span>
-          </th>
-          <th style="background-color: #87CEFA; color: #fff;">
-            <span>status</span>
-          </th>
-          <th style="background-color: #87CEFA; color: #fff;">
-            <span>Tipo</span>
-          </th>
-          <th style="background-color: #87CEFA; color: #fff;">
-            <span>Permanência</span>
-          </th>
-          <th style="background-color: #87CEFA; color: #fff;">
-            <span>Preço</span>
-          </th>
-          <th style="background-color: #87CEFA; color: #fff;">
-            <span>Ações</span>
-          </th>
-        </tr>
-      </thead>
-      <tbody>
-        <% @checkins.each do |checkin| %>
-          <tr class="border-bottom">
-            <td>
-              <div>
-                <span class="d-block font-weight-bold"><%= checkin.id %></span>
-              </div>
-            </td>
-            <td>
-              <div>
-                <span class="d-block font-weight-bold"><%= checkin.veiculo_placa%></span>
-              </div>
-            </td>
-            <td>
-              <div>
-                <span class="d-block font-weight-bold"><%= checkin.vaga.vaga_nome %></span>
-              </div>
-            </td>
-            <td>
-              <div>
-                <span class="d-block font-weight-bold"><%= checkin.status == false ? "Disponivel" : "Ocupado" %></span>
-              </div>
-            </td>
-            <td>
-              <div>
-                <span class="d-block font-weight-bold"><%=  checkin.preco.tipo %></span>
-              </div>
-            </td>
-            <td>
-              <div>
-                <span class="d-block font-weight-bold"><%= checkin.em_permanencia == true ? "Sim" : "Não" %></span>
-              </div>
-            </td>
-            <td>
-              <div>
-                <span class="d-block font-weight-bold"><%= checkin.preco.preco_hora %></span>
-              </div>
-            </td>
-            <td>
-              <div class="d-flex flex-row align-items-center">
-                <div class="d-flex flex-column ml-2">
-                  <%= link_to edit_checkin_path(checkin), class: "btn5 ", style: "margin-right: 10px;" do %>
-                    <i class="bi bi-pencil-square"></i>
-                  <% end %>
-                </div>
-                <div class="d-flex flex-column ml-2">
-                  <%=  button_to checkin_path(checkin), method: :delete, class: "btn6 ", style: "margin-right: 10px;" do %>
-                    <i class="bi bi-trash"></i>
-                  <%end%>
-                </div>
-                <% if checkin.em_permanencia? %>
-                  <div class="d-flex flex-column ml-2">
-                    <%= link_to gerar_ticket_entrada_path(checkin), class: "btn7", style: "margin-right: 10px;", target: "_blank", onclick: "imprimirTicket(); window.print(); return false;" do %>
-                      <i class="bi bi-arrow-right-square-fill"></i>
-                    <%end%>
-                  </div>
-                <% else %>
-                 <% unless checkin.pago? %> <!-- Verifica se o check-in tem um pagamento -->
-                    <div class="d-flex flex-column ml-2">
-                      <%= link_to "Pagar", new_checkin_pagamento_path(checkin), class: "btn4" %>
-                    </div>
-                  <% end %>
-                <% end %>
-              </div>
-            </td>
-          </tr>
-        <% end %>
-      </tbody>
-    </table>
-  </div>
 </div>
-
-
-
-
-

@@ -7,18 +7,18 @@
         <div class="col-lg-8 col-md-12">
           <div class="field form-floating">
             <%= form.text_field :descricao, class: "form-control", placeholder: "Descricao", required: true %>
-            <%= form.label :descricao %>
+            <%= form.label "Descrição" %>
           </div>
         </div>
         <div class="col-lg-4 col-md-12">
           <div class="field form-floating">
-            <%= form.select(:categoria, ['Locação','Propaganda','Associados', 'Manutenção', 'Insumos', 'Finanças'], {prompt: "Selecione a categoria"}, {class: "form-control", required: true, id: "categoria"})%>
-            <%= form.label :categoria %>
+            <%= form.select(:categoria, ['Locação','Propaganda','Associados', 'Manutenção', 'Insumos', 'Finanças'], {prompt: ""}, {class: "form-control", required: true, id: "categoria"})%>
+            <%= form.label "Selecione a categoria"%>
           </div>
         </div>
         <div class="col-lg-4 col-md-12">
           <div class="field form-floating">
-            <%= form.date_field :data_vencimento, class: "form-control" %>
+            <%= form.date_field :data_vencimento, class: "form-control"%>
             <%= form.label  :data_vencimento %>
           </div>
         </div>
@@ -30,20 +30,20 @@
         </div>
         <div class="col-lg-4 col-md-12">
           <div class="field form-floating">
-            <%= form.number_field :valor, class: "form-control"%>
+            <%= form.number_field :valor, min: 1.00,  step: 0.01, class: "form-control"%>
             <%= form.label :valor %>
           </div>
         </div>
         <div class="col-lg-4 col-md-12">
           <div class="field form-floating">
-            <%= form.select(:forma_pagamento, ['Debito','Credito','Dinheiro', 'Pix'], {prompt: "Forma de pagamento"}, {class: "form-control", required: true, id: "forma_pagamento"})%>
-            <%= form.label  :forma_pagamento %>
+            <%= form.select(:forma_pagamento, ['Debito','Credito','Dinheiro', 'Pix'], {prompt: ""}, {class: "form-control", required: true, id: "forma_pagamento"})%>
+            <%= form.label "Forma de pagamento" %>
           </div>
         </div>
         <div class="col-lg-4 col-md-12">
           <div class="field form-floating">
-            <%= form.select(:status, ['Pago','Pendente'], {}, {:class=>"form-control"})%>
-            <%= form.label :status %>
+            <%= form.select(:status, ['Pago','Pendente'], {prompt: ""}, {:class=>"form-control"})%>
+            <%= form.label "Status" %>
           </div>
         </div>
       </div>

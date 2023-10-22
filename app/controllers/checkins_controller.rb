@@ -10,12 +10,9 @@ class CheckinsController < ApplicationController
   
   def index
     @checkins = Checkin.all
-  end
-  
-  def search
-    @search = params[:search]
-    @checkins = Checkin.where("veiculo_placa LIKE ?", "%#{@search}%")
-    render :index
+    if params[:veiculo_placa].present?
+      @checkins = Checkin.where("veiculo_placa ILIKE ?", "%#{params[:veiculo_placa]}%")
+    end
   end
 
   def show

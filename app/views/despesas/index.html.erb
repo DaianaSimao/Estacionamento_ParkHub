@@ -1,95 +1,101 @@
-<div style="display: flex; align-items: center;" class="mt-5">
+<div style="display: flex; align-items: center;" class="mt-5 justify-content-center">
   <h1>Despesas <i class="bi bi-coin"></i></h1>
   <%= link_to "Nova", new_despesa_path, class: "btn4", style: "margin-left: 15px;"%>
 </div>
 
-  <div class="container-3 justify-content-start" style="margin-bottom: 20px;">
-    <div class="row">
-      <div class="col-lg-4 col-md-12">
-        <div class="field form-floating">
-          <%= form_tag search_despesas_path, method: :get do %>
-            <div class="d-flex">
-              <%= text_field_tag :search, @search, placeholder: "descrição", class: "form-search" %>
-              <%= submit_tag " Buscar", class: "btn10 ms-4" %>
-            </div>
-          <% end %>
-        </div>
-      </div>
-    </div>
-  </div>
-  <div class="table-responsive rounded mx-auto mt-5" style="overflow: auto;">
-    <table class="table table-borderless card-3 table-hover">
-      <thead>
-        <tr>
-          <th style="background-color: #87CEFA; color: #fff;">
-            <span>Descrição</span>
-          </th>
-          <th style="background-color: #87CEFA; color: #fff;">
-            <span>Categoria</span>
-          </th>
-          <th style="background-color: #87CEFA; color: #fff;">
-            <span>Valor</span>
-          </th>
-          <th style="background-color: #87CEFA; color: #fff;">
-            <span>Forma pgto</span>
-          </th>
-          <th style="background-color: #87CEFA; color: #fff;">
-            <span>Status</span>
-          </th>
-          <th style="background-color: #87CEFA; color: #fff;">
-            <span>Data vencimento</span>
-          </th>
-          <th style="background-color: #87CEFA; color: #fff;">
-            <span>Ação</span>
-          </th>
-        </tr>
-      </thead>
-      <tbody>
-        <% @despesas.each do |despesa| %>
-          <tr class="border-bottom">
-            <td>
-              <div>
-                <span class="d-block font-weight-bold"><%= despesa.descricao%></span>
-              </div>
-            </td>
-            <td>
-              <div>
-                <span class="d-block font-weight-bold"><%= despesa.categoria%></span>
-              </div>
-            </td>
-            <td>
-              <div>
-                <span class="d-block font-weight-bold"><%= despesa.valor %></span>
-              </div>
-            </td>
-            <td>
-              <div>
-                <span class="d-block font-weight-bold"><%= despesa.forma_pagamento %></span>
-              </div>
-            </td>
-            <td>
-              <div>
-                <span class="d-block font-weight-bold"><%= despesa.status %></span>
-              </div>
-            </td>
-            <td>
-              <div>
-                <span class="d-block font-weight-bold"><%= l despesa.data_vencimento, format: :long %></span>
-              </div>
-            </td>
-            <td>
-              <div class="d-flex flex-row align-items-center">
-                <div class="d-flex flex-column ml-2">
-                  <%= link_to despesa_path(despesa), class: "btn5 ", style: "margin-right: 10px;" do %>
-                    <i class="bi bi-credit-card-fill"></i>
+<div class="container-fluid px-1 px-md-5 px-lg-1 px-xl-5 py-5 mx-auto">
+    <div class="border-0">
+      <div class="row d-flex">
+      <div class=" align-items-center">
+          <div class="row justify-content-center">
+              <div class="col-lg-4 col-md-12">
+                <div class="field form-floating">
+                  <%= form_tag despesas_path, method: :get, class:"card ", style: "background-color #87CEFA;" do %>
+                    <div class="d-flex">
+                      <%= text_field_tag :descricao, params[:descricao], placeholder: "descrição", class: "form-search mt-2 mb-2", style: "margin-left: 10px;" %>
+                      <%= submit_tag " Buscar", class: "btn10 ms-2 mt-2 mb-2" %>
+                    </div>
                   <% end %>
                 </div>
               </div>
-            </td>
-          </tr>
-        <% end %>
-      </tbody>
-    </table>
-  </div>
+            </div>
+          </div>
+          <div class="table-responsive rounded mx-auto mt-5" style="overflow: auto;">
+            <table class="table table-borderless table-hover">
+              <thead>
+                <tr>
+                  <th style="background-color: #87CEFA; color: #fff;">
+                    <span>Descrição</span>
+                  </th>
+                  <th style="background-color: #87CEFA; color: #fff;">
+                    <span>Categoria</span>
+                  </th>
+                  <th style="background-color: #87CEFA; color: #fff;">
+                    <span>Data</span>
+                  </th>
+                  <th style="background-color: #87CEFA; color: #fff;">
+                    <span>Forma pgto</span>
+                  </th>
+                  <th style="background-color: #87CEFA; color: #fff;">
+                    <span>Valor</span>
+                  </th>
+                  <th style="background-color: #87CEFA; color: #fff;">
+                    <span>Data vencimento</span>
+                  </th>
+                  <th style="background-color: #87CEFA; color: #fff;">
+                    <span>Ação</span>
+                  </th>
+                </tr>
+              </thead>
+              <tbody>
+                <% @despesas.each do |despesa| %>
+                  <tr class="border-bottom">
+                    <td>
+                      <div>
+                        <span class="d-block font-weight-bold"><%= despesa.descricao%></span>
+                      </div>
+                    </td>
+                    <td>
+                      <div>
+                        <span class="d-block font-weight-bold"><%= despesa.categoria%></span>
+                      </div>
+                    </td>
+                    <td>
+                      <div>
+                        <span class="d-block font-weight-bold"><%= l despesa.created_at, format: :short%></span>
+                      </div>
+                    </td>
+                    <td>
+                      <div>
+                        <span class="d-block font-weight-bold"><%= despesa.forma_pagamento %></span>
+                      </div>
+                    </td>
+                    <td>
+                      <div>
+                        <span class="d-block font-weight-bold"><%= despesa.status %></span>
+                      </div>
+                    </td>
+                    <td>
+                      <div>
+                        <span class="d-block font-weight-bold"><%= l despesa.data_vencimento, format: :long rescue nil %></span>
+                      </div>
+                    </td>
+                    <td>
+                      <div class="d-flex flex-row align-items-center">
+                        <div class="d-flex flex-column ml-2">
+                          <%= link_to despesa_path(despesa), class: "btn5 ", style: "margin-right: 10px;" do %>
+                            <i class="bi bi-credit-card-fill"></i>
+                          <% end %>
+                        </div>
+                      </div>
+                    </td>
+                  </tr>
+                <% end %>
+              </tbody>
+            </table>
+          </div>
+        </div>
+      </div>
+    </div>
 </div>
 

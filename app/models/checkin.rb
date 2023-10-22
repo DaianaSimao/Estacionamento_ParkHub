@@ -26,7 +26,7 @@ class Checkin < ApplicationRecord
   end
   
   def pago?
-    Pagamento.exists?(checkin_id: self.id)
+    Caixa.exists?(checkin_id: self.id)
   end
 
   private

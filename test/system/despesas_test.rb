@@ -16,7 +16,7 @@ class DespesasTest < ApplicationSystemTestCase
 
     fill_in "Categoria", with: @despesa.categoria
     fill_in "Descricao", with: @despesa.descricao
-    fill_in "Forma pagamento", with: @despesa.forma_pagamento
+    fill_in "Forma caixa", with: @despesa.forma_pagamento
     fill_in "Status", with: @despesa.status
     fill_in "Valor", with: @despesa.valor
     click_on "Create Despesa"
@@ -31,7 +31,7 @@ class DespesasTest < ApplicationSystemTestCase
 
     fill_in "Categoria", with: @despesa.categoria
     fill_in "Descricao", with: @despesa.descricao
-    fill_in "Forma pagamento", with: @despesa.forma_pagamento
+    fill_in "Forma caixa", with: @despesa.forma_pagamento
     fill_in "Status", with: @despesa.status
     fill_in "Valor", with: @despesa.valor
     click_on "Update Despesa"

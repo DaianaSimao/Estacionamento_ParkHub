@@ -1,2 +1,8 @@
-<%= render @despesa %>
+<div style="display: flex; align-items: center;" class="mt-5">
+  <h1>Despesa <i class="bi bi-coin"></i></h1>
+</div>
 
+<%= render @despesa %>
+<div>
+  <%= link_to "Voltar", despesas_path, class: "btn10 ", style: "margin-right: 10px;" %>
+</div>

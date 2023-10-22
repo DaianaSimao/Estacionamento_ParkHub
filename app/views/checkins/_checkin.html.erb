@@ -35,13 +35,13 @@
         </div>
         <div class="col-lg-4 col-md-12">
           <div class="field form-floating">
-            <%= form.text_field :veiculo_placa, class: "form-control", placeholder: "Digite a placa", required: true %>
+            <%= form.text_field :veiculo_placa, class: "form-control", placeholder: "Digite a placa", required: true, disabled: @checkin.persisted? %>
             <%= form.label :veiculo_placa %>
           </div>
         </div>
         <div class="col-lg-4 col-md-12">
           <div class="field form-floating">
-            <%= form.collection_select :preco_id, Preco.all, :id, :tipo, { include_blank: true }, class: "form-select", required: true %>
+            <%= form.collection_select :preco_id, Preco.all, :id, :tipo, { include_blank: true }, class: "form-select", required: true, disabled: @checkin.persisted? %>
             <%= form.label :preco_id, "Tipo" %>
           </div>
         </div>

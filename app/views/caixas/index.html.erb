@@ -6,31 +6,29 @@
     <div class="border-0">
       <div class="row d-flex">
         <div>
-          <%= form_tag caixas_path, method: 'get', class: "form-inline" do %>
-            <div class="row mt-4">
-              <div class="col-md-2">
+          <%= form_tag caixas_path, method: 'get', class: "form-inline card" do %>
+            <div class="row m-4">
+              <div class="col-md-3 mt-2">
                 <div class="field form-floating">
-                  <%= text_field_tag :id,params[:id], placeholder: "ID", class: "form-search" %>
+                  <%= text_field_tag :forma_pagamento,params[:forma_pagamento], placeholder: "Forma pgto", class: "form-control" %>
+                  <%= label_tag "Forma de pagamento" %>
                 </div>
               </div>
-              <div class="col-md-2">
+              <div class="col-md-3 mt-2">
                 <div class="field form-floating">
-                  <%= text_field_tag :forma_pagamento,params[:forma_pagamento], placeholder: "Forma pgto", class: "form-search" %>
+                  <%= date_field_tag :min, params[:min], placeholder: "Pgto de", class: 'form-control'  %>
+                  <%= label_tag "Pgto de" %>
                 </div>
               </div>
-              <div class="col-md-2">
+              <div class="col-md-3 mt-2">
                 <div class="field form-floating">
-                  <%= date_field_tag :min, params[:min], placeholder: "Pgto de", class: 'form-search'  %>
+                  <%= date_field_tag :max,params[:max], placeholder: "Pgto até", class: 'form-control' %>
+                  <%= label_tag "Pgto até" %>
                 </div>
               </div>
-              <div class="col-md-2">
+              <div class="col-md-3 mt-3">
                 <div class="field form-floating">
-                  <%= date_field_tag :max,params[:max], placeholder: "Pgto até", class: 'form-search' %>
-                </div>
-              </div>
-              <div class="col-md-2">
-                <div class="field form-floating">
-                  <%= button_tag(value: "commit", type: 'submit', class: "btn10") do %>
+                  <%= button_tag(value: "commit", type: 'submit', class: "btn btn-dark") do %>
                     <i class="fa fa-search"></i> Pesquisar
                   <% end %>
                 </div>
@@ -128,7 +126,7 @@
                             <% end %>
                           </div>
                           <div class="d-flex flex-column ml-2">
-                            <%= link_to gerar_ticket_saida_path(caixa), class: "btn7", style: "margin-right: 10px;", target: "_blank", onclick: "imprimirTicket(); window.print(); return false;" do %>
+                            <%= link_to gerar_ticket_saida_path(caixa.checkin_id), class: "btn7", style: "margin-right: 10px;", target: "_blank", onclick: "imprimirTicket(); window.print(); return false;" do %>
                               <i class="bi bi-arrow-left-square"></i>
                             <% end %>
                           </div>

@@ -1,6 +1,13 @@
 class FluxoCaixasController < ApplicationController
+  before_action :authenticate_user!
 
-  def index
+  def authenticate_user
+    unless user_signed_in?
+      redirect_to new_user_session_path, alert: "Você precisa fazer login para acessar esta página."
+    end
+  end
+
+  def index   
     @fluxo_caixas = FluxoCaixa.all
     @entrada = FluxoCaixa.where(tipo: 'Entrada').sum(:valor)
     @saida = FluxoCaixa.where(tipo: 'Saida').sum(:valor)

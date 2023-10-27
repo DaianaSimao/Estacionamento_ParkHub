@@ -1,5 +1,12 @@
 class DespesasController < ApplicationController
+  before_action :authenticate_user!
   before_action :set_despesa, only: %i[ show edit update destroy ]
+
+  def authenticate_user
+    unless user_signed_in?
+      redirect_to new_user_session_path, alert: "Você precisa fazer login para acessar esta página."
+    end
+  end
 
   # GET /despesas or /despesas.json
   def index

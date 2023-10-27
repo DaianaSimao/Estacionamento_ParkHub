@@ -44,9 +44,6 @@
                         <%= content_tag :li do %>
                           <%= link_to "Vagas", new_vaga_path, class: "dropdown-item" %>
                         <% end %>
-                        <%= content_tag :li do %>
-                          <%= link_to "Despesas" , despesas_path , class: "dropdown-item" %>
-                        <% end %>
                       <% end %>
                     <% end %>
                     <%= content_tag :li, class: "nav-item dropdown" do %>
@@ -59,6 +56,9 @@
                         <% end %>
                         <%= content_tag :li do %>
                           <%= link_to "Relatorios" , "#", class: "dropdown-item" %>
+                        <% end %>
+                        <%= content_tag :li do %>
+                          <%= link_to "Despesas" , despesas_path , class: "dropdown-item" %>
                         <% end %>
                       <% end %>
                     <% end %>
@@ -73,6 +73,16 @@
                     <% end %>
                     <%= link_to vagas_path, class:"nav-item nav-link" do %> 
                         Vagas <i class="bi bi-car-front"></i>
+                    <% end %>
+                    <%= content_tag :li, class: "nav-item dropdown" do %>
+                      <%= link_to "#", class: "nav-link dropdown-toggle", role: "button", "data-bs-toggle": "dropdown", "aria-expanded": "false" do %>
+                        Cadastros <i class="bi bi-clipboard2-check"></i>
+                      <% end %>
+                      <%= content_tag :ul, class: "dropdown-menu", style: "color: black;" do %>
+                        <%= content_tag :li do %>
+                          <%= link_to "Despesas" , despesas_path , class: "dropdown-item" %>
+                        <% end %>
+                      <% end %>
                     <% end %>
                   <% end %>
                 </ul>

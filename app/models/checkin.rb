@@ -9,6 +9,8 @@ class Checkin < ApplicationRecord
   before_create :atualizar_entrada
   before_save :transformar_em_maiusculas
 
+  scope :criado_entre, -> min,max { where("checkins.created_at BETWEEN ? AND ?",min,max) }
+
   def transformar_em_maiusculas
     self.veiculo_placa = veiculo_placa.upcase if veiculo_placa.present?
   end

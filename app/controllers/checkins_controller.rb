@@ -9,7 +9,12 @@ class CheckinsController < ApplicationController
   end
   
   def index
-    @checkins = Checkin.all
+    @checkins = Checkin.all.order(created_at: :desc)
+    if params[:min].present? and params[:max].present?
+      min = (params[:min] + " 00:00").to_datetime + 3.hours
+      max = (params[:max] + " 24:00").to_datetime + 3.hours
+      @checkins  = @checkins.criado_entre(min,max)
+    end
     if params[:veiculo_placa].present?
       @checkins = Checkin.where("veiculo_placa ILIKE ?", "%#{params[:veiculo_placa]}%")
     end

@@ -1,4 +1,5 @@
 Rails.application.routes.draw do
+  get 'relatorios/index'
   resources :fluxo_caixas
   resources :create_table_fluxo_caixas
   
@@ -17,8 +18,8 @@ Rails.application.routes.draw do
   resources :vagas
   resources :veiculos
   resources :precos
-   
-  get 'fluxo_caixas/index'
+  
+  get 'relatorios/index', as: 'relatorios', to: 'relatorios#index'
   get 'tickets/gerar_ticket_entrada/:id', as: 'gerar_ticket_entrada', to: 'tickets#gerar_ticket_entrada'
   get 'tickets/gerar_ticket_saida/:id', as: 'gerar_ticket_saida', to: 'tickets#gerar_ticket_saida'
   get 'inicio/index'

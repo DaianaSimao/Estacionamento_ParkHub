@@ -63,7 +63,7 @@
           <div style="text-align: center;">
             <h3 class="mt-2 mb-2">Total: R$: <%= @total.round(2) rescue nil %>
             |
-            Entrada:  R$: <%= @entrada rescue nil %>
+            Entrada:  R$: <%= @entrada.round(2) rescue nil %>
             |
             Saida:  R$: <%= @saida rescue nil %></h3>
           </div>

@@ -47,7 +47,11 @@
         </div>
         <div class="col-lg-4 col-md-12">
           <div class="field form-floating">
-            <%= form.collection_select :vaga_id, Vaga.order(:vaga_nome), :id, :vaga_nome, { include_blank: true }, class: "form-select", required: true %>
+            <% if checkin.new_record? %>
+              <%= form.collection_select :vaga_id, Vaga.where(status: false).order(:vaga_nome), :id, :vaga_nome, { include_blank: true }, class: "form-select", required: true %>
+            <% else %>
+              <%= form.collection_select :vaga_id, Vaga.all, :id, :vaga_nome, { include_blank: true }, class: "form-select", required: true %>
+            <% end %>
             <%= form.label "Vaga", "Escolha a vaga:" %>
           </div>
         </div>

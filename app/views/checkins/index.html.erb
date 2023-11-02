@@ -1,6 +1,6 @@
 <div style="display: flex; align-items: center;" class="mt-5 justify-content-center">
   <h1>Check-in <i class="bi bi-coin"></i></h1>
-  <%= link_to "Nova", new_checkin_path, class: "btn4", style: "margin-left: 10px;"%>
+  <%= link_to "Entrar", new_checkin_path, class: "btn4", style: "margin-left: 10px;"%>
 </div>
 
 <div class="container-fluid px-1 px-md-5 px-lg-1 px-xl-5 py-5 mx-auto">
@@ -8,16 +8,35 @@
     <div class="row d-flex">
       <div class=" align-items-center">
         <div class="row justify-content-center">
-          <div class="col-lg-4 col-md-12 mt-2">
-            <div class="field form-floating">
-              <%= form_tag checkins_path, method: 'get', class: "form-inline card" do %>
-                <div class="d-flex">
-                  <%= text_field_tag :veiculo_placa,params[:veiculo_placa] , placeholder: "Buscar por placa do veículo", class: "form-search mt-2 mb-2", style: "margin-left: 10px;" %>
-                  <%= submit_tag " Buscar", class: "btn10 ms-4 mt-2 mb-2" %>
+          <%= form_tag checkins_path, method: 'get', class: "form-inline card justify-content-center" do %>
+            <div class="row m-4">
+              <div class="col-md-3 mt-2">
+                <div class="field form-floating">
+                  <%= text_field_tag :veiculo_placa,params[:veiculo_placa], class: "form-control" %>
+                  <%= label_tag "Buscar por placa " %>
                 </div>
-              <% end %>
+              </div>
+              <div class="col-md-3 mt-2">
+                <div class="field form-floating">
+                  <%= date_field_tag :min, params[:min], class: 'form-control'  %>
+                  <%= label_tag "Data de" %>
+                </div>
+              </div>
+              <div class="col-md-3 mt-2">
+                <div class="field form-floating">
+                  <%= date_field_tag :max,params[:max], class: 'form-control' %>
+                  <%= label_tag "Data até" %>
+                </div>
+              </div>
+              <div class="col-md-2 mt-3">
+                <div class="field form-floating" style="margin-left: 10px;">
+                  <%= button_tag(value: "commit", type: 'submit', class: "btn btn-dark") do %>
+                    <i class="fa fa-search"></i> Pesquisar
+                  <% end %>
+                </div>
+              </div>
             </div>
-          </div>
+          <% end %>
         </div>
       </div>
       <div class="table-responsive mt-5" style="margin-bottom: 40px; border-radius: 10px;"> 

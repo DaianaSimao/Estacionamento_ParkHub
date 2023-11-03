@@ -9,6 +9,7 @@
     <%= javascript_include_tag 'jquery', 'application', 'data-turbolinks-track' => true %>
   </head>
   <body >
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
     <div class="container">
       <div class="card-1 p-2">
         <div>
@@ -22,9 +23,14 @@
                     <% end %>
                   <% end %>
                   <% if current_user && current_user.admin? %>
-                    <%= content_tag :li, class: "nav-item" do %>
-                      <%= link_to(caixas_path, class: "nav-link active", "aria-current" => "page") do %>
-                        <%= content_tag :span, "Caixa"%> <i class="bi bi-coin"></i>
+                   <%= content_tag :li, class: "nav-item dropdown" do %>
+                      <%= link_to "#", class: "nav-link dropdown-toggle", role: "button", "data-bs-toggle": "dropdown", "aria-expanded": "false" do %>
+                        Caixa <i class="bi bi-clipboard2-check"></i>
+                      <% end %>
+                      <%= content_tag :ul, class: "dropdown-menu", style: "color: black;" do %>
+                        <%= content_tag :li do %>
+                          <%= link_to "Pagamentos ", caixas_path, class: "dropdown-item" %>
+                        <% end %>
                       <% end %>
                     <% end %>
                     <%= link_to checkins_path, class:"nav-item nav-link" do %>
@@ -52,13 +58,26 @@
                       <% end %>
                       <%= content_tag :ul, class: "dropdown-menu", style: "color: black;" do %>
                         <%= content_tag :li do %>
-                          <%= link_to "Fluxo de caixa", fluxo_caixas_path , class: "dropdown-item" %>
-                        <% end %>
-                        <%= content_tag :li do %>
-                          <%= link_to "Relatorios" , relatorios_index_path , class: "dropdown-item" %>
-                        <% end %>
-                        <%= content_tag :li do %>
                           <%= link_to "Despesas" , despesas_path , class: "dropdown-item" %>
+                        <% end %>
+                        <%= content_tag :li do %>
+                          <%= link_to "Entradas ", entradas_financeiras_path , class: "dropdown-item" %>
+                        <% end %>
+                      <% end %>
+                    <% end %>
+                     <%= content_tag :li, class: "nav-item dropdown" do %>
+                      <%= link_to "#", class: "nav-link dropdown-toggle", role: "button", "data-bs-toggle": "dropdown", "aria-expanded": "false" do %>
+                        Relatórios<i class="bi bi-person-gear"></i>
+                      <% end %>
+                      <%= content_tag :ul, class: "dropdown-menu" do %>
+                        <%= content_tag :li do %>
+                          <%= link_to "FLuxo do Estacionamento", relatorios_path, class: "dropdown-item" %>
+                        <% end %>
+                        <%= content_tag :li do %>
+                          <%= link_to "Caixa/Despesas", relatorios_caixa_path, class: "dropdown-item" %>
+                        <% end %>
+                        <%= content_tag :li do %>
+                          <%= link_to "Fluxo de caixa", fluxo_caixas_path , class: "dropdown-item" %>
                         <% end %>
                       <% end %>
                     <% end %>

@@ -1,5 +1,6 @@
 class RelatoriosController < ApplicationController
-  def index  
+
+  def estacionamento  
     if params[:min].present?
       hoje = params[:min].to_date
     else
@@ -42,6 +43,45 @@ class RelatoriosController < ApplicationController
     # Ordenar a frequência em ordem decrescente
     @frequencia_veiculos = @frequencia_veiculos.sort_by { |veiculo, frequencia| -frequencia }
   end
+
+  def caixa
+    if params[:min].present?
+      hoje = params[:min].to_date
+    else
+      hoje = Date.today
+    end
+
+    @receitas_dia = Caixa.where("created_at >= ? AND created_at <= ?", hoje.beginning_of_day, hoje.end_of_day) + EntradasFinanceira.where("created_at >= ? AND created_at <= ?", hoje.beginning_of_day, hoje.end_of_day)
+    @receitas_semana = Caixa.where("created_at >= ? AND created_at <= ?", (hoje - 1.week).beginning_of_day , hoje.end_of_day) +  EntradasFinanceira.where("created_at >= ? AND created_at <= ?", (hoje - 1.week).beginning_of_day , hoje.end_of_day)
+    @receitas_mes = Caixa.where("created_at >= ? AND created_at <= ?",(hoje - 1.months).beginning_of_day , hoje.end_of_day ) +  EntradasFinanceira.where("created_at >= ? AND created_at <= ?",(hoje - 1.months).beginning_of_day , hoje.end_of_day ) 
+
+    @despesas_dia = Despesa.where("created_at >= ? AND created_at <= ?", hoje.beginning_of_day, hoje.end_of_day)
+    @despesas_semana = Despesa.where("created_at >= ? AND created_at <= ?", (hoje - 1.week).beginning_of_day , hoje.end_of_day)
+    @despesas_mes = Despesa.where("created_at >= ? AND created_at <= ?",(hoje - 1.months).beginning_of_day , hoje.end_of_day )
+
+    @lucro_liquido_dia = @receitas_dia.sum(&:total).to_f - @despesas_dia.sum(:valor)
+    @lucro_liquido_semana = @receitas_semana.sum(&:total).to_f - @despesas_semana.sum(:valor)
+    @lucro_liquido_mes = @receitas_mes.sum(&:total).to_f - @despesas_mes.sum(:valor)
+
+
+    @periodo_de = (hoje - 1.months).to_date
+    @periodo_ate = hoje.to_date
+    @soma_por_categoria = @despesas_mes.group_by { |despesa| despesa[:categoria] }.map do |categoria, despesas|
+      {
+        categoria: categoria,
+        total: despesas.sum { |despesa| despesa[:valor] }
+      }
+    end
+
+    @chart_data = {
+      labels: @soma_por_categoria.map { |item| item[:categoria] },
+      datasets: [{
+        data: @soma_por_categoria.map { |item| item[:total] },
+        backgroundColor: ['#1253b2', '#6998de', '#5191f0', '#066aff', '#96b3dc','#58cef8'] # Substitua pelas cores desejadas
+      }]
+    }
+  end
+
   def tempo_permanencia_em_minutos(entrada, saida)
     entrada = entrada
     saida = saida

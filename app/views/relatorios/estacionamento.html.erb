@@ -1,0 +1,73 @@
+<div style="display: flex; align-items: center;" class="mt-5 mb-5 justify-content-center">
+  <h1>Fluxo do Estacionamento</h1>
+</div>
+
+<div class="container-fluid px-1 px-md-5 px-lg-1 px-xl-5 py-5 mx-auto">
+  <div class="border-0">
+    <div class="row d-flex">
+      <%= form_tag relatorios_path, method: :get, class: "form-inline card mb-3 mt 3" do %>
+        <div class="row m-4">
+          <div class="col-md-3 mt-2 " style="margin-left: 10px;">
+            <div class="field form-floating ">
+              <%= date_field_tag :min, params[:min] ||= Date.today , class: 'form-control' %>
+              <%= label_tag "Data: "%>
+            </div>
+          </div>
+          <div class="col-md-2 mt-3">
+            <div class="field form-floating" style="margin-left: 10px;">
+              <%= button_tag(value: "commit", type: 'submit', class: "btn btn-dark") do %>
+                <i class="fa fa-search"></i> Pesquisar
+              <% end %>
+            </div>
+          </div>
+        </div>
+      <% end %>
+      <div  class="accordion" id="accordionPanelsStayOpenExample">
+        <div class="accordion-item">
+          <h2 class="accordion-header">
+            <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#flush-collapseOne" aria-expanded="false" aria-controls="flush-collapseOne">
+              <h5> Média de Tempo <i class="fa fa-question-circle" id="tooltip-acordeon" title="<%=em_permanencia%>"></i></h5>
+            </button>
+          </h2>
+          <div id="flush-collapseOne" class="accordion-collapse collapse" data-bs-parent="#accordionFlushExample">
+            <div class="accordion-body">
+              <p>No dia: <%= @media_tempo_permanencia_dia %></p>
+              <p>Na última semana:  <%= @media_tempo_permanencia_semana %></p>
+              <p>No último mês:  <%= @media_tempo_permanencia_mes %></p>
+            </div>
+          </div>
+        </div>
+        <div class="accordion-item">
+          <h2 class="accordion-header">
+            <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#flush-collapseTwo" aria-expanded="false" aria-controls="flush-collapseTwo">
+            <h5> Veiculos Estacionados <i class="fa fa-question-circle" id="tooltip-acordeon" title="<%= veiculos_estacionados %>"></i></h5>
+            </button>
+          </h2>
+          <div id="flush-collapseTwo" class="accordion-collapse collapse" data-bs-parent="#accordionFlushExample">
+            <div class="accordion-body">
+              <p>No dia : <%= @checkins_dia.count %></p>
+              <p>Na última semana:  <%= @checkins_semana.count %></p>
+              <p>No último mês:  <%= @checkins_mes.count%></p>
+            </div>
+          </div>
+        </div>
+        <div class="accordion-item">
+          <h2 class="accordion-header">
+            <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#flush-collapseThree" aria-expanded="false" aria-controls="flush-collapseThree">
+              <h5>Ranking de tipos <i class="fa fa-question-circle" id="tooltip-acordeon" title="<%= ranking_tipos %>"></i></h5>
+            </button>
+          </h2> 
+          <div id="flush-collapseThree" class="accordion-collapse collapse" data-bs-parent="#accordionFlushExample">
+            <div class="accordion-body">
+              <% aux = 1 %>
+              <% @frequencia_veiculos.each do |key, value| %>
+              <%=   "#{aux}. #{key}: #{value}" %><br>
+              <% aux += 1 %>
+              <% end %>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>

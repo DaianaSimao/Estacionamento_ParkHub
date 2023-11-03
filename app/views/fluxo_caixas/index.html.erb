@@ -39,13 +39,13 @@
           </div>
           <div class="col-md-3 mt-2"style="margin-left: 10px;">
             <div class="field form-floating">
-              <%= date_field_tag :min, params[:min], placeholder: "Pgto de", class: 'form-control'  %>
+              <%= date_field_tag :min, params[:min] ||= Date.today, placeholder: "Pgto de", class: 'form-control'  %>
               <%= label_tag "Pgto de"%>
             </div>
           </div>
           <div class="col-md-3 mt-2" style="margin-left: 10px;">
             <div class="field form-floating">
-              <%= date_field_tag :max,params[:max], placeholder: "Pgto até", class: 'form-control' %>
+              <%= date_field_tag :max,params[:max] ||= Date.today, placeholder: "Pgto até", class: 'form-control' %>
               <%= label_tag "Pgto até"%>
             </div>
           </div>
@@ -57,17 +57,28 @@
             </div>
           </div>
         </div>
-      <% end %>
-      <div class=" align-items-center">
-        <div class=" mt-3 card" >
-          <div style="text-align: center;">
-            <h3 class="mt-2 mb-2">Total: R$: <%= @total.round(2) rescue nil %>
-            |
-            Entrada:  R$: <%= @entrada.round(2) rescue nil %>
-            |
-            Saida:  R$: <%= @saida rescue nil %></h3>
+      <% end %>  
+      <div  class="accordion mt-4" id="accordionPanelsStayOpenExample">
+        <div class="accordion-item">
+          <h2 class="accordion-header">
+            <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#flush-collapseOne" aria-expanded="false" aria-controls="flush-collapseOne">
+                <h4 style="margi-left: 10px;"> Total: R$: <%= @total.round(2) rescue nil %>
+                |
+                Entrada:  R$: <%= @entrada.round(2) rescue nil %>
+                |
+                Saida:  R$: <%= @saida rescue nil %></h4>
+            </button>
+          </h2>
+          <div id="flush-collapseOne" class="accordion-collapse collapse" data-bs-parent="#accordionFlushExample">
+            <div class="accordion-body">
+              <h5>Periodo de: <%=l @min.to_date, format: :default%> Até: <%=l @max.to_date, format: :default%>   : </h5>
+              <p>Na última semana:  <%= @total_semana.round(2) %></p>
+              <p>No último mês:  <%= @total_mes.round(2) %></p>
+            </div>
           </div>
         </div>
+      </div>
+      <div class=" align-items-center">
         <div class="table-responsive rounded mx-auto" style="overflow: auto; margin-top: 50px">
           <table class="table table-borderless table-hover">
             <thead>

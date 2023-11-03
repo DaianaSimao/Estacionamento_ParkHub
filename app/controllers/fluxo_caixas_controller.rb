@@ -1,17 +1,27 @@
 class FluxoCaixasController < ApplicationController
   before_action :authenticate_user!
-
+  
   def authenticate_user
     unless user_signed_in?
       redirect_to new_user_session_path, alert: "Você precisa fazer login para acessar esta página."
     end
   end
-
+  
   def index   
-    @fluxo_caixas = FluxoCaixa.all
-    @entrada = FluxoCaixa.where(tipo: 'Entrada').sum(:valor)
-    @saida = FluxoCaixa.where(tipo: 'Saida').sum(:valor)
-    @total = @entrada - @saida
+    if params[:min].present? and params[:max].present?
+      @min = (params[:min] + " 00:00").to_datetime + 3.hours
+      @max = (params[:max] + " 24:00").to_datetime + 3.hours
+    else 
+      @min = Date.today.beginning_of_day
+      @max = Date.today.end_of_day
+    end
+    
+    @fluxo_caixas = FluxoCaixa.criado_entre(@min,@max)
+    @entrada = @fluxo_caixas.where(tipo: 'Entrada').sum(:valor)
+    @saida = @fluxo_caixas.where(tipo: 'Saida').sum(:valor)
+    @total = @entrada. - @saida
+    @total_semana = @fluxo_caixas.where("created_at >= ? AND created_at <= ?", (@max - 1.week).beginning_of_day , @max.end_of_day).sum(:valor)
+    @total_mes = @fluxo_caixas.where("created_at >= ? AND created_at <= ?",(@max - 1.months).beginning_of_day , @max.end_of_day ).sum(:valor)
 
     if params[:descricao].present?
       @fluxo_caixas = @fluxo_caixas.where("descricao ILIKE ?", "%#{params[:descricao]}%")
@@ -37,12 +47,7 @@ class FluxoCaixasController < ApplicationController
       @fluxo_caixas = @fluxo_caixas.where("status ILIKE ?", "%#{params[:status]}%")
     end
 
-    if params[:min].present? and params[:max].present?
-      min = (params[:min] + " 00:00").to_datetime + 3.hours
-      max = (params[:max] + " 24:00").to_datetime + 3.hours
-
-      @fluxo_caixas = @fluxo_caixas.criado_entre(min,max)
-    end
+   
   end
 
   def show

@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema[7.0].define(version: 2023_10_22_132415) do
+ActiveRecord::Schema[7.0].define(version: 2023_11_03_153532) do
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
 
@@ -54,6 +54,17 @@ ActiveRecord::Schema[7.0].define(version: 2023_10_22_132415) do
     t.datetime "updated_at", null: false
     t.date "data_vencimento"
     t.date "data_pagamento"
+  end
+
+  create_table "entradas_financeiras", force: :cascade do |t|
+    t.string "tipo"
+    t.string "descricao"
+    t.float "total"
+    t.string "forma_pagamento"
+    t.string "responsavel"
+    t.string "obs"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
   end
 
   create_table "fluxo_caixas", force: :cascade do |t|

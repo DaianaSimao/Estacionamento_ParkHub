@@ -1,0 +1,46 @@
+<%= form_with(model: entradas_financeira) do |form| %>
+  <div class="card p-4 mt-5">
+      <div class="row g-3">
+        <div class="col-12 mb-4">
+          <h3>Despesa<h3>
+        </div>
+        <div class="col-lg-4 col-md-12">
+          <div class="field form-floating">
+            <%= form.text_field :tipo, class: "form-control", placeholder: "Tipo", required: true %>
+            <%= form.label "Tipo" %>
+          </div>
+        </div>
+        <div class="col-lg-4 col-md-12">
+          <div class="field form-floating">
+            <%= form.text_field :descricao, class: "form-control", placeholder: "Descricao", required: true %>
+            <%= form.label "Descrição"%>
+          </div>
+        </div>
+        <div class="col-lg-4 col-md-12">
+          <div class="field form-floating">
+            <%= form.number_field :total, class: "form-control"%>
+            <%= form.label "Total" %>
+          </div>
+        </div>
+        <div class="col-lg-4 col-md-12">
+          <div class="field form-floating">
+            <%= form.select(:forma_pagamento, ['Debito','Credito','Dinheiro', 'Pix'], {prompt: ""}, {class: "form-control", required: true, id: "forma_pagamento"})%>
+            <%= form.label "Forma de pagamento" %>
+          </div>
+        </div>
+        <div class="col-lg-4 col-md-12">
+          <div class="field form-floating">
+            <%= form.text_field :obs, class: "form-control", placeholder: "Descricao", required: true %>
+            <%= form.label "Observação" %>
+          </div>
+        </div>
+      </div>
+      <div class="col d-flex justify-content-start mt-4">
+        <%= form.submit "Finalizar", class: "btn ", style: "margin-right: 10px;" %>
+        <%= link_to entradas_financeiras_path, class: "btn ", style: "margin-right: 10px;" do %>
+          Cancelar
+        <% end %>
+      </div>
+    </div>
+  </div>
+<% end %>

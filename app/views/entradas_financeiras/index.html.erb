@@ -1,0 +1,150 @@
+<div style="display: flex; align-items: center;" class="mt-5 justify-content-center">
+  <h1>Entradas <i class="bi bi-coin"></i></h1>
+  <%= link_to "Nova", new_entradas_financeira_path, class: "btn4", style: "margin-left: 15px;"%>
+</div>
+
+<div class="container-wrapper">
+  <div class="container-fluid px-1 px-md-5 px-lg-1 px-xl-5 py-5 mx-auto">
+    <div class="border-0">
+      <div class="row d-flex">
+        <div>
+          <%= form_tag entradas_financeiras_path, method: 'get', class: "form-inline card" do %>
+            <div class="row m-4">
+              <div class="col-md-3 mt-2">
+                <div class="field form-floating">
+                  <%= text_field_tag :forma_pagamento,params[:forma_pagamento], placeholder: "Forma pgto", class: "form-control" %>
+                  <%= label_tag "Forma de pagamento" %>
+                </div>
+              </div>
+              <div class="col-md-3 mt-2">
+                <div class="field form-floating">
+                  <%= text_field_tag :tipo, params[:tipo], placeholder: "Pgto de", class: 'form-control'  %>
+                  <%= label_tag "Tipo" %>
+                </div>
+              </div>
+              <div class="col-md-3 mt-2">
+                <div class="field form-floating">
+                  <%= text_field_tag :descricao,params[:descricao], placeholder: "Descrição", class: 'form-control' %>
+                  <%= label_tag "Descrição" %>
+                </div>
+              </div>
+              <div class="col-md-3 mt-2">
+                <div class="field form-floating">
+                  <%= date_field_tag :min, params[:min] ||= Date.today, placeholder: "Pgto de", class: 'form-control'  %>
+                  <%= label_tag "Pgto de"%>
+                </div>
+              </div>
+              <div class="col-md-3 mt-2">
+                <div class="field form-floating">
+                  <%= date_field_tag :max,params[:max] ||= Date.today, placeholder: "Pgto até", class: 'form-control' %>
+                  <%= label_tag "Pgto até"%>
+                </div>
+              </div>
+              <div class="col-md-3 mt-3">
+                <div class="field form-floating">
+                  <%= button_tag(value: "commit", type: 'submit', class: "btn btn-dark") do %>
+                    <i class="fa fa-search"></i> Pesquisar
+                  <% end %>
+                </div>
+              </div>
+            </div>
+          <% end %>
+          </div>
+        </div>
+          <div class="row justify-content-center">
+            <div class="table-responsive rounded mx-auto mt-5" style="overflow: auto;">
+              <table class="table table-borderless table-hover">
+                <thead >
+                  <tr class="border-bottom">
+                    <th style="background-color: #87CEFA; color: #fff;">
+                      <span class="ml-2">Id</span>
+                    </th>
+                    <th style="background-color: #87CEFA; color: #fff;">
+                      <span class="ml-2">Tipo</span>
+                    </th>
+                    <th style="background-color: #87CEFA; color: #fff;">
+                      <span class="ml-2">Descrição</span>
+                    </th>
+                    <th style="background-color: #87CEFA; color: #fff;">
+                      <span class="ml-2">Total</span> 
+                    </th>
+                    <th style="background-color: #87CEFA; color: #fff;">
+                      <span class="ml-2">Forma Pgto</span> 
+                    </th>
+                    <th style="background-color: #87CEFA; color: #fff;">
+                      <span class="ml-2">Responsavel</span> 
+                    </th>
+                    <th style="background-color: #87CEFA; color: #fff;">
+                      <span class="ml-2">Data</span>
+                    </th>
+                    <th style="background-color: #87CEFA; color: #fff;">
+                      <span class="ml-2">Observação</span>
+                    </th>
+                    <th style="background-color: #87CEFA; color: #fff;">
+                      <span class="ml-2">Ações</span>
+                    </th>
+                  </tr>
+                </thead>
+                <tbody>
+                  <% @entradas_financeiras.each do |entradas_financeira| %>
+                  <tr class="border-bottom">
+                    <td>
+                      <div class="p-2">
+                        <span class="d-block font-weight-bold"><%= entradas_financeira.id %></span>
+                      </div>
+                    </td>
+                    <td>
+                      <div class="p-2">
+                        <span class="d-block font-weight-bold"><%= entradas_financeira.tipo%></span>
+                      </div> 
+                    </td>
+                    <td>
+                      <div class="p-2">
+                        <span class="d-block font-weight-bold"><%= entradas_financeira.descricao%></span>
+                      </div>
+                    </td>
+                    <td>
+                      <div class="p-2">
+                        <span class="d-block font-weight-bold"><%= entradas_financeira.total %></span>
+                      </div>
+                    </td>
+                    <td>
+                      <div class="p-2">
+                        <span class="d-block font-weight-bold"><%= entradas_financeira.forma_pagamento %></span>
+                      </div>
+                    </td>
+                    <td>
+                      <div class="p-2">
+                        <span class="d-block font-weight-bold"><%= entradas_financeira.responsavel %></span>
+                      </div>
+                    </td>
+                    <td>
+                      <div class="p-2">
+                        <span class="d-block font-weight-bold"><%= l entradas_financeira.created_at, format: :default %></span>
+                      </div>
+                    </td>
+                    <td>
+                      <div class="p-2">
+                        <span class="d-block font-weight-bold"><%= entradas_financeira.obs %></span>
+                      </div> 
+                    </td>
+                    <td>
+                    <div class="d-flex flex-row align-items-center">
+                      <div class="d-flex flex-column ml-2">
+                        <%= link_to entradas_financeira_path(entradas_financeira), class: "btn5 ", style: "margin-right: 10px;" do %>
+                          <i class="bi bi-credit-card-fill"></i>
+                        <% end %>
+                      </div>
+                    </td>
+                  </div>
+                </tbody>
+              </table>
+            </div>
+          </div>
+        <% end %>
+      </div>
+    </div>
+  </div>
+</div>
+
+

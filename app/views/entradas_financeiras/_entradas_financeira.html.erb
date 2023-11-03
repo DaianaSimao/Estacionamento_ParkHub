@@ -1,0 +1,37 @@
+<div id="<%= dom_id entradas_financeira %>">
+  <p>
+    <strong>Tipo:</strong>
+    <%= entradas_financeira.tipo %>
+  </p>
+
+  <p>
+    <strong>Descrição:</strong>
+    <%= entradas_financeira.descricao %>
+  </p>
+
+  <p>
+    <strong>Total</strong>
+    <%= entradas_financeira.total%>
+  </p>
+
+  <p>
+    <strong>Forma Pgto:</strong>
+    <%=  entradas_financeira.forma_pagamento%>
+  </p>
+
+  <p>
+    <strong>Responsavel: </strong>
+    <%= entradas_financeira.responsavel %>
+  </p>
+
+  <p>
+    <strong>Observação: </strong>
+    <%= entradas_financeira.obs %>
+  </p>
+
+  <p>
+    <strong>Data: </strong>
+    <%= l entradas_financeira.created_at, format: :default %>
+  </p>
+
+</div>

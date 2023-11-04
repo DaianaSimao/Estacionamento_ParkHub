@@ -18,6 +18,8 @@ class CheckinsController < ApplicationController
     if params[:veiculo_placa].present?
       @checkins = Checkin.where("veiculo_placa ILIKE ?", "%#{params[:veiculo_placa]}%")
     end
+
+    @checkins = @checkins.page(params[:page]).per(10)
   end
 
   def show

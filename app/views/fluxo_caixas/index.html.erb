@@ -64,7 +64,7 @@
             <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#flush-collapseOne" aria-expanded="false" aria-controls="flush-collapseOne">
                 <h4 style="margi-left: 10px;"> Total: R$: <%= @total.round(2) rescue nil %>
                 |
-                Entrada:  R$: <%= @entrada.round(2) rescue nil %>
+                Entrada:  R$: <%= @entrada rescue nil %>
                 |
                 Saida:  R$: <%= @saida rescue nil %></h4>
             </button>
@@ -144,7 +144,7 @@
                   </td>
                   <td>
                     <div>
-                      <span class="d-block font-weight-bold"><%= fluxo.data_criacao %></span>
+                      <span class="d-block font-weight-bold"><%= l fluxo.data_criacao, format: :default %></span>
                     </div>
                   </td>
                   <td>
@@ -160,6 +160,9 @@
               <% end %>
             </tbody>
           </table>
+          <div class=" pagination text-center d-flex align-items-center justify-content-center mt-5"  >
+            <%= paginate @fluxo_caixas, theme: 'bootstrap-5', pagination_class: "pagination-sm flex-wrap justify-content-center", nav_class: "d-inline-block" %>
+          </div>
         </div>
       </div>
     </div>

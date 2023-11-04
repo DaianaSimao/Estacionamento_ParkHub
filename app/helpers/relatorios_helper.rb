@@ -1,6 +1,6 @@
 module RelatoriosHelper
-  def em_permanencia
-    "Informaçôes sobre a média de permanência dos veículos no estacionamento do dia, semana, mês. "
+  def em_permanencia(min,max)
+    "Informaçôes sobre a média de permanência dos veículos no estacionamento do dia, semana, mês e também no período de #{l min, format: :default} até #{l max, format: :default}." 
   end
 
   def veiculos_estacionados
@@ -11,12 +11,12 @@ module RelatoriosHelper
     "Informações sobre os tipos de veículos mais frequentes no estacionamento durante o mês."
   end
 
-  def total_receitas
-    "Informações sobre o total de receitas do dia, semana e mês."
+  def total_receitas(min,max)
+    "Informações sobre o total de receitas do dia, semana, mês e também no período de #{l min, format: :default} até #{l max, format: :default}."
   end
 
-  def total_despesas
-    "Informações sobre o total de despesas do dia, semana e mês."
+  def total_despesas(min,max)
+    "Informações sobre o total de despesas do dia, semana, mês e também no período de #{l min, format: :default} até #{l max, format: :default}."
   end
 
   def detalhes_despesas

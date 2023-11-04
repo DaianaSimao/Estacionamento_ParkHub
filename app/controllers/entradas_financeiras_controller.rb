@@ -3,7 +3,27 @@ class EntradasFinanceirasController < ApplicationController
 
   # GET /entradas_financeiras or /entradas_financeiras.json
   def index
-    @entradas_financeiras = EntradasFinanceira.all
+    @entradas_financeiras = EntradasFinanceira.all.order(created_at: :desc)
+
+    if params[:descricao].present?
+      @entradas_financeira = @entradas_financeira.where("descricao ILIKE ?", "%#{params[:descricao]}%")
+    end
+
+    if params[:tipo].present?
+      @entradas_financeiras = @entradas_financeiras.where("tipo ILIKE ?", "%#{params[:tipo]}%")
+    end
+
+    if params[:forma_pagamento].present?
+      @entradas_financeiras = @entradas_financeiras.where("forma_pagamento ILIKE ?", "%#{params[:forma_pagamento]}%")
+    end
+
+    if params[:min].present? and params[:max].present?
+      min = (params[:min] + " 00:00").to_datetime + 3.hours
+      max = (params[:max] + " 24:00").to_datetime + 3.hours
+      @entradas_financeiras  = @entradas_financeiras.criado_entre(min,max)
+    end
+
+    @entradas_financeiras = @entradas_financeiras.page(params[:page]).per(10)
   end
 
   # GET /entradas_financeiras/1 or /entradas_financeiras/1.json
@@ -25,7 +45,7 @@ class EntradasFinanceirasController < ApplicationController
 
     respond_to do |format|
       if @entradas_financeira.save
-        format.html { redirect_to entradas_financeira_url(@entradas_financeira), notice: "Entradas financeira was successfully created." }
+        format.html { redirect_to entradas_financeira_url(@entradas_financeira), notice: "Entrada criado com sucesso." }
         format.json { render :show, status: :created, location: @entradas_financeira }
       else
         format.html { render :new, status: :unprocessable_entity }
@@ -38,7 +58,7 @@ class EntradasFinanceirasController < ApplicationController
   def update
     respond_to do |format|
       if @entradas_financeira.update(entradas_financeira_params)
-        format.html { redirect_to entradas_financeira_url(@entradas_financeira), notice: "Entradas financeira was successfully updated." }
+        format.html { redirect_to entradas_financeira_url(@entradas_financeira), notice: "Entrada editada com sucesso." }
         format.json { render :show, status: :ok, location: @entradas_financeira }
       else
         format.html { render :edit, status: :unprocessable_entity }
@@ -52,7 +72,7 @@ class EntradasFinanceirasController < ApplicationController
     @entradas_financeira.destroy
 
     respond_to do |format|
-      format.html { redirect_to entradas_financeiras_url, notice: "Entradas financeira was successfully destroyed." }
+      format.html { redirect_to entradas_financeiras_url, notice: "Entradas excluida com sucesso." }
       format.json { head :no_content }
     end
   end

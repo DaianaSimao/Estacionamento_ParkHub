@@ -30,13 +30,13 @@
               </div>
               <div class="col-md-3 mt-2">
                 <div class="field form-floating">
-                  <%= date_field_tag :min, params[:min] ||= Date.today, placeholder: "Pgto de", class: 'form-control'  %>
+                  <%= date_field_tag :min, params[:min], placeholder: "Pgto de", class: 'form-control'  %>
                   <%= label_tag "Pgto de"%>
                 </div>
               </div>
               <div class="col-md-3 mt-2">
                 <div class="field form-floating">
-                  <%= date_field_tag :max,params[:max] ||= Date.today, placeholder: "Pgto até", class: 'form-control' %>
+                  <%= date_field_tag :max,params[:max], placeholder: "Pgto até", class: 'form-control' %>
                   <%= label_tag "Pgto até"%>
                 </div>
               </div>
@@ -50,7 +50,6 @@
             </div>
           <% end %>
           </div>
-        </div>
           <div class="row justify-content-center">
             <div class="table-responsive rounded mx-auto mt-5" style="overflow: auto;">
               <table class="table table-borderless table-hover">
@@ -87,62 +86,65 @@
                 </thead>
                 <tbody>
                   <% @entradas_financeiras.each do |entradas_financeira| %>
-                  <tr class="border-bottom">
-                    <td>
-                      <div class="p-2">
-                        <span class="d-block font-weight-bold"><%= entradas_financeira.id %></span>
-                      </div>
-                    </td>
-                    <td>
-                      <div class="p-2">
-                        <span class="d-block font-weight-bold"><%= entradas_financeira.tipo%></span>
-                      </div> 
-                    </td>
-                    <td>
-                      <div class="p-2">
-                        <span class="d-block font-weight-bold"><%= entradas_financeira.descricao%></span>
-                      </div>
-                    </td>
-                    <td>
-                      <div class="p-2">
-                        <span class="d-block font-weight-bold"><%= entradas_financeira.total %></span>
-                      </div>
-                    </td>
-                    <td>
-                      <div class="p-2">
-                        <span class="d-block font-weight-bold"><%= entradas_financeira.forma_pagamento %></span>
-                      </div>
-                    </td>
-                    <td>
-                      <div class="p-2">
-                        <span class="d-block font-weight-bold"><%= entradas_financeira.responsavel %></span>
-                      </div>
-                    </td>
-                    <td>
-                      <div class="p-2">
-                        <span class="d-block font-weight-bold"><%= l entradas_financeira.created_at, format: :default %></span>
-                      </div>
-                    </td>
-                    <td>
-                      <div class="p-2">
-                        <span class="d-block font-weight-bold"><%= entradas_financeira.obs %></span>
-                      </div> 
-                    </td>
-                    <td>
-                    <div class="d-flex flex-row align-items-center">
-                      <div class="d-flex flex-column ml-2">
-                        <%= link_to entradas_financeira_path(entradas_financeira), class: "btn5 ", style: "margin-right: 10px;" do %>
-                          <i class="bi bi-credit-card-fill"></i>
-                        <% end %>
-                      </div>
-                    </td>
-                  </div>
-                </tbody>
+                    <tr class="border-bottom">
+                      <td>
+                        <div class="p-2">
+                          <span class="d-block font-weight-bold"><%= entradas_financeira.id %></span>
+                        </div>
+                      </td>
+                      <td>
+                        <div class="p-2">
+                          <span class="d-block font-weight-bold"><%= entradas_financeira.tipo%></span>
+                        </div> 
+                      </td>
+                      <td>
+                        <div class="p-2">
+                          <span class="d-block font-weight-bold"><%= entradas_financeira.descricao%></span>
+                        </div>
+                      </td>
+                      <td>
+                        <div class="p-2">
+                          <span class="d-block font-weight-bold"><%= entradas_financeira.total %></span>
+                        </div>
+                      </td>
+                      <td>
+                        <div class="p-2">
+                          <span class="d-block font-weight-bold"><%= entradas_financeira.forma_pagamento %></span>
+                        </div>
+                      </td>
+                      <td>
+                        <div class="p-2">
+                          <span class="d-block font-weight-bold"><%= entradas_financeira.responsavel %></span>
+                        </div>
+                      </td>
+                      <td>
+                        <div class="p-2">
+                          <span class="d-block font-weight-bold"><%= l entradas_financeira.created_at.to_date, format: :default %></span>
+                        </div>
+                      </td>
+                      <td>
+                        <div class="p-2">
+                          <span class="d-block font-weight-bold"><%= entradas_financeira.obs %></span>
+                        </div> 
+                      </td>
+                      <td>
+                      <div class="d-flex flex-row align-items-center">
+                        <div class="d-flex flex-column ml-2">
+                          <%= link_to entradas_financeira_path(entradas_financeira), class: "btn5 ", style: "margin-right: 10px;" do %>
+                            <i class="bi bi-credit-card-fill"></i>
+                          <% end %>
+                        </div>
+                      </td>
+                    </div>
+                  </tbody>
+                <% end %>
               </table>
+              <div class=" pagination text-center d-flex align-items-center justify-content-center mt-5"  >
+                <%= paginate @entradas_financeiras, theme: 'bootstrap-5', pagination_class: "pagination-sm flex-wrap justify-content-center", nav_class: "d-inline-block" %>
+              </div>
             </div>
           </div>
-        <% end %>
-      </div>
+        </div>
     </div>
   </div>
 </div>

@@ -1,6 +1,6 @@
 <div style="display: flex; align-items: center;" class="mt-5 justify-content-center">
   <h1>Check-in <i class="bi bi-coin"></i></h1>
-  <%= link_to "Entrar", new_checkin_path, class: "btn4", style: "margin-left: 10px;"%>
+  <%= link_to "Registrar", new_checkin_path, class: "btn4", style: "margin-left: 10px;"%>
 </div>
 
 <div class="container-fluid px-1 px-md-5 px-lg-1 px-xl-5 py-5 mx-auto">
@@ -138,6 +138,9 @@
             <% end %>
           </tbody>
         </table>
+        <div class=" pagination text-center d-flex align-items-center justify-content-center mt-5"  >
+          <%= paginate @checkins, theme: 'bootstrap-5', pagination_class: "pagination-sm flex-wrap justify-content-center", nav_class: "d-inline-block" %>
+        </div>
       </div>
     </div>
   </div>

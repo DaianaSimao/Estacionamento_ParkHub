@@ -1,5 +1,5 @@
 <div style="display: flex; align-items: center;" class="mt-5 justify-content-center">
-  <h1>Caixa <i class="bi bi-coin"></i></h1>
+  <h1>Registro de Pagamentos <i class="bi bi-coin" style="margin-left: 10px;"></i></h1>
 </div>
 <div class="container-wrapper">
   <div class="container-fluid px-1 px-md-5 px-lg-1 px-xl-5 py-5 mx-auto">
@@ -136,6 +136,9 @@
                   <% end %>
                 </tbody>
               </table>
+              <div class=" pagination text-center d-flex align-items-center justify-content-center mt-5"  >
+                <%= paginate @caixas, theme: 'bootstrap-5', pagination_class: "pagination-sm flex-wrap justify-content-center", nav_class: "d-inline-block" %>
+              </div>
             </div>
           </div>
         </div>

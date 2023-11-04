@@ -8,6 +8,7 @@ class Despesa < ApplicationRecord
   validates :descricao, presence: true
 
   after_create :criar_fluxo_caixa
+  scope :criado_entre, -> min,max {where("despesas.created_at BETWEEN ? AND ?", min,max)}
   
   def criar_fluxo_caixa
     FluxoCaixa.create(descricao: self.descricao, categoria: self.categoria, tipo: "Saida",

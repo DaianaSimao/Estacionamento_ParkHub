@@ -10,10 +10,21 @@ class DespesasController < ApplicationController
 
   # GET /despesas or /despesas.json
   def index
-    @despesas = Despesa.all
+    @despesas = Despesa.all.order(created_at: :desc)
     if params[:descricao].present?
       @despesas = @despesas.where("descricao ILIKE ?", "%#{params[:descricao]}%")
     end
+
+    if params[:categoria].present?
+      @despesas = @despesas.where("categoria ILIKE ?", "%#{params[:categoria]}%")
+    end
+
+    if params[:min].present? and params[:max].present?
+      min = (params[:min] + " 00:00").to_datetime + 3.hours
+      max = (params[:max] + " 24:00").to_datetime + 3.hours
+      @despesas  = @despesas.criado_entre(min,max)
+    end
+    @despesas = @despesas.page(params[:page]).per(10)
   end
 
   # GET /despesas/1 or /despesas/1.json

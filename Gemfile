@@ -25,6 +25,8 @@ gem 'wicked_pdf'
 gem 'wkhtmltopdf-binary'
 gem 'prawn'
 gem 'solargraph'
+gem 'kaminari'
+gem 'bootstrap5-kaminari-views'
 
 
 group :development, :test do

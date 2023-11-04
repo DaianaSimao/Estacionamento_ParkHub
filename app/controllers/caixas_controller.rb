@@ -16,15 +16,9 @@ class CaixasController < ApplicationController
     end
 
     if params[:forma_pagamento].present?
-      @caixas = @caixas.where(forma_pagamento: params[:forma_pagamento])
+      @caixas = @caixas.where('forma_pagamento ILIKE ?', "%#{params[:forma_pagamento]}%")
     end
-    
-  end
-
-  def search
-    @search = params[:search]
-    @caixas = Caixa.where("CAST(id AS TEXT) LIKE ?", "%#{@search}%")
-    render :index
+    @caixas = @caixas.page(params[:page]).per(10)
   end
 
   # GET /caixas/1 or /caixas/1.json

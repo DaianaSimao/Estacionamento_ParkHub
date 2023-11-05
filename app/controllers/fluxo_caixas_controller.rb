@@ -47,7 +47,7 @@ class FluxoCaixasController < ApplicationController
       @fluxo_caixas = @fluxo_caixas.where("status ILIKE ?", "%#{params[:status]}%")
     end
 
-    @fluxo_caixas = @fluxo_caixas.page(params[:page]).per(2)
+    @fluxo_caixas = @fluxo_caixas.page(params[:page]).per(10)
   end
 
   def show

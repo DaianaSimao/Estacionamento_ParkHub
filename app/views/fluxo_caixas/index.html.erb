@@ -62,11 +62,11 @@
         <div class="accordion-item">
           <h2 class="accordion-header">
             <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#flush-collapseOne" aria-expanded="false" aria-controls="flush-collapseOne">
-                <h4 style="margi-left: 10px;"> Total: R$: <%= @total.round(2) rescue nil %>
+                <h4 style="margi-left: 10px;"> Total: R$: <%= formatar_valor(@total) rescue nil %>
                 |
-                Entrada:  R$: <%= @entrada rescue nil %>
+                Entrada:  R$: <%= formatar_valor(@entrada) rescue nil %>
                 |
-                Saida:  R$: <%= @saida rescue nil %></h4>
+                Saida:  R$: <%=formatar_valor(@saida) rescue nil %></h4>
             </button>
           </h2>
           <div id="flush-collapseOne" class="accordion-collapse collapse" data-bs-parent="#accordionFlushExample">
@@ -129,7 +129,7 @@
                   </td>
                   <td>
                     <div>
-                      <span class="d-block font-weight-bold"><%= fluxo.valor%></span>
+                      <span class="d-block font-weight-bold"><%= formatar_valor(fluxo.valor) %></span>
                     </div>
                   </td>
                   <td>

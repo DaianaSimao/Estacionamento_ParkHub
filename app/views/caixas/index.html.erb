@@ -85,12 +85,12 @@
                       </td>
                       <td>
                         <div>
-                          <span class="d-block font-weight-bold"><%= caixa.total %></span>
+                          <span class="d-block font-weight-bold"><%= formatar_valor(caixa.total) %></span>
                         </div>
                       </td>
                       <td>
                         <div>
-                          <span class="d-block font-weight-bold"><%= caixa.valor %></span>
+                          <span class="d-block font-weight-bold"><%= formatar_valor(caixa.valor) %></span>
                         </div>
                       </td>
                       <td>
@@ -98,9 +98,9 @@
                           <% if caixa.troco? %>
                             <% troco = caixa.troco %>
                           <% else %> 
-                            <% troco = "0,00" %>
+                            <% troco = " 0,00" %>
                           <% end %>
-                          <span class="d-block font-weight-bold"><%=troco %></span>
+                          <span class="d-block font-weight-bold"><%= formatar_valor(troco) %></span>
                         </div>
                       </td>
                       <td>

@@ -9,6 +9,9 @@ class RelatoriosController < ApplicationController
       @max = Date.today
     end
 
+    @periodo_de = (@min - 1.months).to_date
+    @periodo_ate = @max.to_date
+
     @checkins_dia = Checkin.where("entrada >= ? AND entrada <= ?", @min.beginning_of_day, @min.end_of_day)
     @checkins_semana = Checkin.where("entrada >= ? AND entrada <= ?", (@min - 1.week).beginning_of_day , @min.end_of_day)
     @checkins_mes = Checkin.where("entrada >= ? AND entrada <= ?",(@min - 1.months).beginning_of_day , @min.end_of_day )
@@ -55,7 +58,7 @@ class RelatoriosController < ApplicationController
 
 
     @periodo_de = (@min - 1.months).to_date
-    @periodo_ate = @min.to_date
+    @periodo_ate = @max.to_date
     @soma_por_categoria = @despesas_entre.group_by { |despesa| despesa[:categoria] }.map do |categoria, despesas|
       {
         categoria: categoria,

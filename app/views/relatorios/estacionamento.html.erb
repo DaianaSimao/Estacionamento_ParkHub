@@ -71,7 +71,7 @@
           </h2> 
           <div id="flush-collapseThree" class="accordion-collapse collapse" data-bs-parent="#accordionFlushExample">
             <div class="accordion-body">
-              Perido entre <%= l @min, format: :default %> e <%= l @max, format: :default %><br>
+              Perido entre <%= l @periodo_de, format: :default %> e <%= l @periodo_ate, format: :default %><br>
               Total: <%= @veiculos.count%><br>
               <% aux = 1 %>
               <% @frequencia_veiculos.each do |key, value| %>

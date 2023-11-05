@@ -1,5 +1,5 @@
 <div style="display: flex; align-items: center;" class="mt-5 mb-5 justify-content-center">
-  <h1>Registro de Receitas e Despesas</h1>
+  <h1> Receitas e Despesas</h1>
 </div>
 
 <div class="container-fluid px-1 px-md-5 px-lg-1 px-xl-5 py-5 mx-auto">
@@ -37,16 +37,16 @@
                   <h5> Total de receitas <i class="fa fa-question-circle" id="tooltip-acordeon" title="<%=total_receitas(@min,@max)%>"></i> </h5>
                 </div>
                 <div>
-                  <h5 > R$: <%= @receita_entre.sum(&:total).round(2) %></h5>
+                  <h5 > <%= formatar_valor(@receita_entre.sum(&:total))%></h5>
                 </div>
               </div>
             </button>
           </h2>
           <div id="flush-collapseOne" class="accordion-collapse collapse" data-bs-parent="#accordionFlushExample">
             <div class="accordion-body">
-              <p>No dia: R$ <%= @receitas_dia.sum(&:total) %></p>
-              <p>Na última semana: R$ <%= @receitas_semana.sum(&:total).round(2) %></p>
-              <p>No último mês: R$ <%= @receitas_mes.sum(&:total).round(2) %></p>
+              <p>No dia: <%= formatar_valor(@receitas_dia.sum(&:total)) %></p>
+              <p>Na última semana: <%= formatar_valor(@receitas_semana.sum(&:total) )%></p>
+              <p>No último mês: <%= formatar_valor(@receitas_mes.sum(&:total))%></p>
             </div>
           </div>
         </div>
@@ -59,9 +59,9 @@
               </div>
               <div>
                 <% if @despesas_entre.present?  %>
-                  <h5 > R$: <%= @despesas_entre.sum(&:valor).round(2)%></h5>
+                  <h5 > <%= formatar_valor(@despesas_entre.sum(&:valor))%></h5>
                 <% else %>
-                  <h5 > R$: 0.00</h5>
+                  <h5 > R$: 0,00</h5>
                 <% end %>
               </div>
             </div>
@@ -69,9 +69,9 @@
           </h2>
           <div id="flush-collapseTwo" class="accordion-collapse collapse" data-bs-parent="#accordionFlushExample">
             <div class="accordion-body">
-              <p>No dia : R$ <%= @despesas_dia.sum(:valor).round(2) %></p>
-              <p>Na última semana: R$ <%=  @despesas_semana.sum(:valor).round(2)%></p>
-              <p>No último mês: R$ <%= @despesas_mes.sum(:valor).round(2) %></p>
+              <p>No dia : <%= formatar_valor(@despesas_dia.sum(:valor) )%></p>
+              <p>Na última semana: <%=  formatar_valor(@despesas_semana.sum(:valor))%></p>
+              <p>No último mês: <%= formatar_valor(@despesas_mes.sum(:valor)) %></p>
             </div>
           </div>
         </div>
@@ -114,16 +114,16 @@
                   <h5>Lucro Liquido <i class="fa fa-question-circle" id="tooltip-acordeon" title="<%= lucro_liquido %>"></i></h5>
                 </div>
                 <div>
-                  <h5> R$: <%= @lucro_liquido_entre.round(2)%></h5>
+                  <h5> <%= formatar_valor(@lucro_liquido_entre)%></h5>
                 </div>
               </div>
             </button>
           </h2> 
           <div id="flush-collapseThree" class="accordion-collapse collapse" data-bs-parent="#accordionFlushExample">
             <div class="accordion-body">
-              <p>No dia : R$ <%= @lucro_liquido_dia.round(2) %></p>
-              <p>Na última semana: R$ <%= @lucro_liquido_semana.round(2) %></p>
-              <p>No último mês: R$ <%= @lucro_liquido_mes.round(2) %></p>
+              <p>No dia : <%= formatar_valor(@lucro_liquido_dia)%></p>
+              <p>Na última semana: <%= formatar_valor(@lucro_liquido_semana) %></p>
+              <p>No último mês: <%= formatar_valor(@lucro_liquido_mes)%></p>
             </div>
           </div>
         </div>

@@ -72,12 +72,12 @@
           <div id="flush-collapseOne" class="accordion-collapse collapse" data-bs-parent="#accordionFlushExample">
             <div class="accordion-body">
               <h5>Periodo de <%= l @inicio_semana.to_date, format: :default %> até <%= l @final_semana.to_date, format: :default %>: </h5>
-              <p>Entradas dessa semana: <%= formatar_valor(@entrada_semana) rescue nil%></p>
-              <p>Saidas dessa semana: <%= formatar_valor(@saida_semana) rescue nil %></p>
+              <p>Entrada semanal: <%= formatar_valor(@entrada_semana) rescue nil%></p>
+              <p>Saida semanal: <%= formatar_valor(@saida_semana) rescue nil %></p>
               <p>Total até agora: <%= formatar_valor(@total_semana) rescue nil %></p>
               <h5>Periodo de <%= l @inicio_mes.to_date, format: :default %> até <%= l @fim_mes.to_date, format: :default %>: </h5>
-              <p>Entradas desse mes: <%= formatar_valor(@entrada_mes) rescue nil %></p>
-              <p>Saidas desse mes: <%= formatar_valor(@saida_mes) rescue nil %></p>
+              <p>Entradas: <%= formatar_valor(@entrada_mes) rescue nil %></p>
+              <p>Saidas: <%= formatar_valor(@saida_mes) rescue nil %></p>
               <p>Total até agora: <%= formatar_valor(@total_mes) rescue nil %></p>
               <h5>Periodo de <%=l @inicio_mes_anterior.to_date, format: :default%> até  <%=l @fim_mes_anterior.to_date, format: :default%>: </h5>
               <p>Entradas: <%= formatar_valor(@entrada_mes_anterior) rescue nil %></p>

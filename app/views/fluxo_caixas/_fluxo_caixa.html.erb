@@ -1,4 +1,10 @@
 <div id="<%= dom_id fluxo_caixa %>">
+
+  <p>
+    <strong>ID:</strong>
+    <%= fluxo_caixa.id %>
+  </p>
+
   <p>
     <strong>Descricao:</strong>
     <%= fluxo_caixa.descricao %>
@@ -16,7 +22,7 @@
 
   <p>
     <strong>Valor:</strong>
-    <%= fluxo_caixa.valor %>
+    <%= formatar_valor(fluxo_caixa.valor) %>
   </p>
 
   <p>
@@ -31,7 +37,7 @@
 
   <p>
     <strong>Data vencimento:</strong>
-    <%= fluxo_caixa.data_criacao %>
+    <%= l fluxo_caixa.data_criacao, format: :default %>
   </p>
 
 </div>

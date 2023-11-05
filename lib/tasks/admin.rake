@@ -27,4 +27,12 @@ namespace :admin do
     end
     puts "Finalizado..."
   end
+
+  desc "Corrigir descrição de um fluxo de caixa"
+  task corrigir_descricao: :environment do
+    puts "Corrigindo descrição..."
+    fluxo = FluxoCaixa.find(44)
+    fluxo.update(descricao: "Caixa")
+    puts "Finalizado..."
+  end
 end

@@ -1,79 +1,47 @@
-<h1>Caixa <i class="bi bi-coin"></i></h1>
-<div id="<%= dom_id caixa %>">
-  <div class="container mt-2 ">
-    <table class="table table-borderless table-responsive card-4">
-      <thead >
-        <tr class="border-bottom">
-          <th style="background-color: #87CEFA; color: #fff;">
-            <span class="ml-2">Id</span>
-          </th>
-          <th style="background-color: #87CEFA; color: #fff;">
-            <span class="ml-2">caixa</span>
-          </th>
-          <th style="background-color: #87CEFA; color: #fff;">
-            <span class="ml-2">Total</span>
-          </th>
-          <th style="background-color: #87CEFA; color: #fff;">
-            <span class="ml-2">Valor</span> 
-          </th>
-          <th style="background-color: #87CEFA; color: #fff;">
-            <span class="ml-2">Troco</span> 
-          </th>
-          <th style="background-color: #87CEFA; color: #fff;">
-            <span class="ml-2">Data</span>
-          </th>
-          <th style="background-color: #87CEFA; color: #fff;">
-            <span class="ml-2">Tempo de estadia</span>
-          </th>
-          <th style="background-color: #87CEFA; color: #fff;">
-            <span class="ml-2">Status</span>
-          </th>
-        </tr>
-      </thead>
-      <tbody>
-        <tr class="border-bottom">
-          <td>
-            <div class="p-2">
-              <span class="d-block font-weight-bold"><%= caixa.checkin_id%></span>
-            </div>
-          </td>
-          <td>
-            <div class="p-2">
-              <span class="d-block font-weight-bold"><%= caixa.forma_pagamento%></span>
-            </div> 
-          </td>
-          <td>
-            <div class="p-2">
-              <span class="d-block font-weight-bold"><%= caixa.total%></span>
-            </div>
-          </td>
-          <td>
-            <div class="p-2">
-              <span class="d-block font-weight-bold"><%= caixa.valor %></span>
-            </div>
-          </td>
-          <td>
-            <div class="p-2">
-              <span class="d-block font-weight-bold"><%= caixa.troco %></span>
-            </div>
-          </td>
-          <td>
-            <div class="p-2">
-              <span class="d-block font-weight-bold"><%= caixa.data_pagamento %></span>
-            </div>
-          </td>
-          <td>
-            <div class="p-2">
-              <span class="d-block font-weight-bold"><%= caixa.tempo_estadia %></span>
-            </div>
-          </td>
-          <td>
-            <div class="p-2">
-              <span class="d-block font-weight-bold"><%= caixa.status %></span>
-            </div> 
-          </td>
-        </div>
-      </tbody>
-    </table>
-  </div>
+<div style="display: flex; align-items: center;">
+  <h1>Pagamento <i class="bi bi-coin" style="margin-left: 10px;"></i></h1>
+</div>
+  <p>
+    <strong>Id:</strong>
+    <%= caixa.id %>
+  </p>
+  <p>
+    <strong>Pgto id:</strong>
+    <%= caixa.checkin_id %>
+  </p>
+  <p>
+    <strong>Forma de Pagamento:</strong>
+    <%= caixa.forma_pagamento %>
+  </p>
+
+  <p>
+    <strong>Total: </strong>
+    <%= formatar_valor(caixa.total) %>
+  </p>
+
+  <p>
+    <strong>Valor:</strong>
+    <%= formatar_valor(caixa.valor) %>
+  </p>
+
+  <p>
+    <strong>Troco:</strong>
+    <%= caixa.troco %>
+  </p>
+
+  <p>
+  <strong>Data Pgto:</strong>
+  <%= l caixa.data_pagamento, format: :default %>
+  </p>
+
+  <p>
+    <strong>Tempo de estadia:</strong>
+    <%= caixa.tempo_estadia %>
+  </p>
+
+  <p>
+    <strong>Status:</strong>
+    <%= caixa.status %>
+  </p>
+
 </div>

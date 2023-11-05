@@ -44,7 +44,7 @@
           </h2>
           <div id="flush-collapseOne" class="accordion-collapse collapse" data-bs-parent="#accordionFlushExample">
             <div class="accordion-body">
-              <p>No dia <%= l @min.to_date, format: :default%> : <%= @media_tempo_dia %></p>
+              <p><%= l @min.to_date, format: :default%> : <%= @media_tempo_dia %></p>
               <p>Na última semana:  <%= @media_tempo_semana %></p>
               <p>No último mês:  <%= @media_tempo_mes %></p>
             </div>
@@ -58,7 +58,7 @@
           </h2>
           <div id="flush-collapseTwo" class="accordion-collapse collapse" data-bs-parent="#accordionFlushExample">
             <div class="accordion-body">
-              <p>No dia <%= l @min.to_date, format: :default%> : <%= @checkins_dia.count %></p>
+              <p><%= l @min.to_date, format: :default%> : <%= @checkins_dia.count %></p>
               <p>Na última semana:  <%= @checkins_semana.count %></p>
               <p>No último mês:  <%= @checkins_mes.count%></p>
             </div>

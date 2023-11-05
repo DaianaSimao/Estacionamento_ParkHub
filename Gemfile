@@ -27,6 +27,7 @@ gem 'prawn'
 gem 'solargraph'
 gem 'kaminari'
 gem 'bootstrap5-kaminari-views'
+gem 'pry'
 
 
 group :development, :test do

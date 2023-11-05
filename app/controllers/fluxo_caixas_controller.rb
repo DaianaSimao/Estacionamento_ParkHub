@@ -15,13 +15,31 @@ class FluxoCaixasController < ApplicationController
       @min = Date.today.beginning_of_day
       @max = Date.today.end_of_day
     end
+    # Metodo que traz a data da semana
+    dia_da_semana = @min.wday
+    @inicio_semana = @min - dia_da_semana
+    @final_semana = @inicio_semana + 6
+
+    # Metodo que traz a data do mês anterior
+    @inicio_mes_anterior = @min.prev_month.beginning_of_month
+    @fim_mes_anterior = @min.prev_month.end_of_month
+
+    @inicio_mes = Date.new(@min.year, @min.month, 1)
+    @fim_mes = Date.new(@min.year, @min.month, -1)
     
     @fluxo_caixas = FluxoCaixa.criado_entre(@min,@max)
     @entrada = @fluxo_caixas.where(tipo: 'Entrada').sum(:valor)
     @saida = @fluxo_caixas.where(tipo: 'Saida').sum(:valor)
     @total = @entrada. - @saida
-    @total_semana = @fluxo_caixas.where("created_at >= ? AND created_at <= ?", (@max - 1.week).beginning_of_day , @max.end_of_day).sum(:valor)
-    @total_mes = @fluxo_caixas.where("created_at >= ? AND created_at <= ?",(@max - 1.months).beginning_of_day , @max.end_of_day ).sum(:valor)
+    @entrada_semana = FluxoCaixa.where("created_at >= ? AND created_at <= ? AND tipo = ?",@inicio_semana.beginning_of_day , @final_semana.end_of_day, 'Entrada' ).sum(:valor)
+    @saida_semana = FluxoCaixa.where("created_at >= ? AND created_at <= ? AND tipo = ?",@inicio_semana.beginning_of_day , @final_semana.end_of_day, 'Saida' ).sum(:valor)
+    @total_semana = FluxoCaixa.where("created_at >= ? AND created_at <= ?",@inicio_semana.beginning_of_day , @final_semana.end_of_day ).sum(:valor)
+    @entrada_mes = FluxoCaixa.where("created_at >= ? AND created_at <= ? AND tipo = ?",@inicio_mes.beginning_of_day , @fim_mes.end_of_day, 'Entrada' ).sum(:valor)
+    @saida_mes = FluxoCaixa.where("created_at >= ? AND created_at <= ? AND tipo = ?",@inicio_mes.beginning_of_day , @fim_mes.end_of_day, 'Saida' ).sum(:valor)
+    @total_mes =FluxoCaixa.where("created_at >= ? AND created_at <= ?",@inicio_mes.beginning_of_day , @fim_mes.end_of_day ).sum(:valor)
+    @entrada_mes_anterior = FluxoCaixa.where("created_at >= ? AND created_at <= ? AND tipo = ?",@inicio_mes_anterior.beginning_of_day , @fim_mes_anterior.end_of_day, 'Entrada' ).sum(:valor)
+    @saida_mes_anterior = FluxoCaixa.where("created_at >= ? AND created_at <= ? AND tipo = ?",@inicio_mes_anterior.beginning_of_day , @fim_mes_anterior.end_of_day, 'Saida' ).sum(:valor)
+    @total_mes_anterior = FluxoCaixa.where("created_at >= ? AND created_at <= ?",@inicio_mes_anterior.beginning_of_day , @fim_mes_anterior.end_of_day ).sum(:valor)
 
     if params[:descricao].present?
       @fluxo_caixas = @fluxo_caixas.where("descricao ILIKE ?", "%#{params[:descricao]}%")
@@ -47,7 +65,8 @@ class FluxoCaixasController < ApplicationController
       @fluxo_caixas = @fluxo_caixas.where("status ILIKE ?", "%#{params[:status]}%")
     end
 
-    @fluxo_caixas = @fluxo_caixas.page(params[:page]).per(10)
+    @fluxo_caixas = @fluxo_caixas.order(created_at: :desc).page(params[:page]).per(10)
+
   end
 
   def show

@@ -17,13 +17,11 @@ class RelatoriosController < ApplicationController
     @checkins_mes = Checkin.where("entrada >= ? AND entrada <= ?",(@min - 1.months).beginning_of_day , @min.end_of_day )
     @checkins_entre = Checkin.where("entrada >= ? AND entrada <= ?",@min.beginning_of_day , @max.end_of_day )
 
+    @media_tempo_dia = calcula_media_permanencia(@checkins_dia)
+    @media_tempo_semana = calcula_media_permanencia(@checkins_semana)
+    @media_tempo_mes = calcula_media_permanencia(@checkins_mes)
+    @media_tempo_entre = calcula_media_permanencia(@checkins_entre)
 
-    @media_tempo_permanencia_dia = inteirar_checkins(@checkins_dia)
-    @media_tempo_permanencia_semana = inteirar_checkins(@checkins_semana)
-    @media_tempo_permanencia_mes = inteirar_checkins(@checkins_mes)
-    @media_tempo_permanencia_entre= inteirar_checkins(@checkins_entre)
-
-    
     # Método de classe para encontrar os tipos de veículos mais frequentes
     @veiculos = @checkins_mes.map { |checkin| checkin.preco.tipo }
     # Contar a frequência de cada tipo de veículo
@@ -57,7 +55,7 @@ class RelatoriosController < ApplicationController
     @lucro_liquido_entre = @receita_entre.sum(&:total).to_f - @despesas_entre.sum(:valor)
 
 
-    @periodo_de = (@min - 1.months).to_date
+    @periodo_de = @min
     @periodo_ate = @max.to_date
     @soma_por_categoria = @despesas_entre.group_by { |despesa| despesa[:categoria] }.map do |categoria, despesas|
       {
@@ -75,39 +73,20 @@ class RelatoriosController < ApplicationController
     }
   end
 
-  def tempo_permanencia_em_minutos(entrada, saida)
-    entrada = entrada
-    saida = saida
-
-    if entrada.present? && saida.present?
-      diff = saida - entrada
-      (diff / 60).to_i # Converter para minutos
+  def calcula_media_permanencia(checkins)
+    if checkins.empty?
+      return "0h 0m"
     else
-      0
-    end
-  end
-
-  def calcula_media_minuto(total_tempo, total_registros)
-    if total_registros > 0
-      media_minutos = total_tempo / total_registros
-      # Converte a média de volta para o formato "HH:MM"
+      tempos_estadia = Caixa.where(checkin_id: checkins.map(&:id)).pluck(:tempo_estadia)
+      minutos_estadia = tempos_estadia.map do |tempo_estadia|
+        horas, minutos = tempo_estadia.split(':').map(&:to_i)
+        horas * 60 + minutos
+      end
+      media_minutos = minutos_estadia.sum / minutos_estadia.size
       media_horas = media_minutos / 60
-      media_minutos = media_minutos % 60
-      @media_tempo_permanencia = format('%02dh %02dm', media_horas, media_minutos)
-    else
-      @media_tempo_permanencia = "00:00"
+      minutos = media_minutos % 60
+      
+      return "#{media_horas}h #{minutos}m"
     end
-  end
-
-  def inteirar_checkins(checkins)
-    total_tempo = 0
-    total_registros = 0
-    checkins.each do |checkin|
-      tempo_permanencia = tempo_permanencia_em_minutos(checkin.entrada, checkin.saida)
-      total_tempo += tempo_permanencia
-      total_registros += 1
-      @media_tempo_permanencia = calcula_media_minuto(total_tempo, total_registros)
-    end
-    @media_tempo_permanencia
   end
 end

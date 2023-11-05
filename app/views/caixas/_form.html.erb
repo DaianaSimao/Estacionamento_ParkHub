@@ -115,11 +115,16 @@
 
   // Chama a função de atualização inicial
   atualizarCampos();
+  // Adicione um ouvinte de eventos para o evento 'submit' no formulário
+  const form = document.querySelector('form');
+  form.addEventListener('submit', function (event) {
+    const total = parseFloat(totalInput.value);
+    const valor = parseFloat(valorInput.value);
+
+    // Verifica se o valor é menor que o total
+    if (valor < total) {
+      alert('O valor pago não pode ser menor que o total a ser pago.');
+      event.preventDefault(); // Impede o envio do formulário
+    }
+  });
 </script>
-
-
-
-
-
-
-

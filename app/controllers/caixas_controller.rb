@@ -30,7 +30,6 @@ class CaixasController < ApplicationController
     @checkin = Checkin.find(params[:checkin_id])
     @caixa = Caixa.new
     @caixa.checkin_id = @checkin.id
-    @caixa.descricao = "Caixa"
     if @checkin.present? && @checkin.saida.present? && @checkin.entrada.present?
       duracao_em_segundos = (@checkin.saida - @checkin.entrada).to_i
 
@@ -60,6 +59,7 @@ class CaixasController < ApplicationController
 
   def create
     @caixa = Caixa.new(caixa_params)
+    @caixa.descricao = "Caixa"
 
     respond_to do |format|
       if @caixa.save

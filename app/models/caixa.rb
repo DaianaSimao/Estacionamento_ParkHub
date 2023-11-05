@@ -9,7 +9,7 @@ class Caixa < ApplicationRecord
   after_create :criar_fluxo_caixa
   
   def criar_fluxo_caixa
-    FluxoCaixa.create(descricao: "Caixa", categoria: "Receita",tipo: "Entrada",
+    FluxoCaixa.create(descricao: self.descricao, categoria: "Receita",tipo: "Entrada",
                             valor: self.total, forma_pagamento: self.forma_pagamento,
                             status: self.status, data_criacao: self.created_at)
   end

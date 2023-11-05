@@ -40,13 +40,13 @@
           <div class="col-md-3 mt-2"style="margin-left: 10px;">
             <div class="field form-floating">
               <%= date_field_tag :min, params[:min] ||= Date.today, placeholder: "Pgto de", class: 'form-control'  %>
-              <%= label_tag "Pgto de"%>
+              <%= label_tag "Data de:"%>
             </div>
           </div>
           <div class="col-md-3 mt-2" style="margin-left: 10px;">
             <div class="field form-floating">
               <%= date_field_tag :max,params[:max] ||= Date.today, placeholder: "Pgto até", class: 'form-control' %>
-              <%= label_tag "Pgto até"%>
+              <%= label_tag "Data até:"%>
             </div>
           </div>
           <div class="col-md-2 mt-3">
@@ -72,8 +72,8 @@
           <div id="flush-collapseOne" class="accordion-collapse collapse" data-bs-parent="#accordionFlushExample">
             <div class="accordion-body">
               <h5>Periodo de: <%=l @min.to_date, format: :default%> Até: <%=l @max.to_date, format: :default%>   : </h5>
-              <p>Na última semana:  <%= @total_semana.round(2) %></p>
-              <p>No último mês:  <%= @total_mes.round(2) %></p>
+              <p>Na última semana:  <%= formatar_valor(@total_semana) %></p>
+              <p>No último mês:  <%= formatar_valor(@total_mes) %></p>
             </div>
           </div>
         </div>

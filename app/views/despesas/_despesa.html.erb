@@ -26,13 +26,13 @@
 
   <p>
   <strong>Data Pgto:</strong>
-  <%= despesa.data_pagamento %>
+  <%= l despesa.data_pagamento, format: :default %>
   </p>
 
   <p>
     <strong>Data vencimento:</strong>
     <% if despesa.data_vencimento.present?%>
-      <%= despesa.data_vencimento %>
+      <%= l despesa.data_vencimento, format: :default %>
     <% else %>
       <%= "Não possui" %>
     <% end %>

@@ -23,7 +23,7 @@ class EntradasFinanceirasController < ApplicationController
       @entradas_financeiras  = @entradas_financeiras.criado_entre(min,max)
     end
 
-    @entradas_financeiras = @entradas_financeiras.page(params[:page]).per(10)
+    @entradas_financeiras = @entradas_financeiras.order(created_at: :desc).page(params[:page]).per(10)
   end
 
   # GET /entradas_financeiras/1 or /entradas_financeiras/1.json

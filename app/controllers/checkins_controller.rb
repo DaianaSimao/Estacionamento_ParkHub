@@ -19,7 +19,7 @@ class CheckinsController < ApplicationController
       @checkins = Checkin.where("veiculo_placa ILIKE ?", "%#{params[:veiculo_placa]}%")
     end
 
-    @checkins = @checkins.page(params[:page]).per(10)
+    @checkins = @checkins.order(created_at: :desc).page(params[:page]).per(10)
   end
 
   def show

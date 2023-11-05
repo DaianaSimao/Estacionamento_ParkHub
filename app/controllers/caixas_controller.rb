@@ -18,7 +18,7 @@ class CaixasController < ApplicationController
     if params[:forma_pagamento].present?
       @caixas = @caixas.where('forma_pagamento ILIKE ?', "%#{params[:forma_pagamento]}%")
     end
-    @caixas = @caixas.page(params[:page]).per(10)
+    @caixas = @caixas.order(created_at: :desc).page(params[:page]).per(10)
   end
 
   # GET /caixas/1 or /caixas/1.json
@@ -30,6 +30,7 @@ class CaixasController < ApplicationController
     @checkin = Checkin.find(params[:checkin_id])
     @caixa = Caixa.new
     @caixa.checkin_id = @checkin.id
+    @caixa.descricao = "Caixa"
     if @checkin.present? && @checkin.saida.present? && @checkin.entrada.present?
       duracao_em_segundos = (@checkin.saida - @checkin.entrada).to_i
 

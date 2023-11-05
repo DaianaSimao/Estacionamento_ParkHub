@@ -10,13 +10,13 @@
           <div class="col-md-3 mt-2 " style="margin-left: 10px;">
             <div class="field form-floating ">
               <%= date_field_tag :min, params[:min] ||= Date.today , class: 'form-control' %>
-              <%= label_tag "Data: "%>
+              <%= label_tag "Data de: "%>
             </div>
           </div>
           <div class="col-md-3 mt-2 " style="margin-left: 10px;">
             <div class="field form-floating ">
               <%= date_field_tag :max, params[:max] ||= Date.today , class: 'form-control' %>
-              <%= label_tag "Data: "%>
+              <%= label_tag "Data até: "%>
             </div>
           </div>
           <div class="col-md-2 mt-3">
@@ -37,15 +37,16 @@
                   <h5> Média de Tempo <i class="fa fa-question-circle" id="tooltip-acordeon" title="<%=em_permanencia(@min, @max)%>"></i></h5>
                 </div>
                 <div>
-                  <h5 > <%= @media_tempo_permanencia_entre %></h5> 
+                  <h5> <%= @media_tempo_entre %></h5> 
+                </div>
               </div>
             </button>
           </h2>
           <div id="flush-collapseOne" class="accordion-collapse collapse" data-bs-parent="#accordionFlushExample">
             <div class="accordion-body">
-              <p>No dia: <%= @media_tempo_permanencia_dia %></p>
-              <p>Na última semana:  <%= @media_tempo_permanencia_semana %></p>
-              <p>No último mês:  <%= @media_tempo_permanencia_mes %></p>
+              <p>No dia <%= l @min.to_date, format: :default%> : <%= @media_tempo_dia %></p>
+              <p>Na última semana:  <%= @media_tempo_semana %></p>
+              <p>No último mês:  <%= @media_tempo_mes %></p>
             </div>
           </div>
         </div>
@@ -57,7 +58,7 @@
           </h2>
           <div id="flush-collapseTwo" class="accordion-collapse collapse" data-bs-parent="#accordionFlushExample">
             <div class="accordion-body">
-              <p>No dia : <%= @checkins_dia.count %></p>
+              <p>No dia <%= l @min.to_date, format: :default%> : <%= @checkins_dia.count %></p>
               <p>Na última semana:  <%= @checkins_semana.count %></p>
               <p>No último mês:  <%= @checkins_mes.count%></p>
             </div>
@@ -92,3 +93,4 @@
   const tooltipTriggerList = document.querySelectorAll('[data-bs-toggle="tooltip"]')
   const tooltipList = [...tooltipTriggerList].map(tooltipTriggerEl => new bootstrap.Tooltip(tooltipTriggerEl))
 </script>
+<%= console %>

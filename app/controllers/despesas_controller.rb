@@ -24,7 +24,7 @@ class DespesasController < ApplicationController
       max = (params[:max] + " 24:00").to_datetime + 3.hours
       @despesas  = @despesas.criado_entre(min,max)
     end
-    @despesas = @despesas.page(params[:page]).per(10)
+    @despesas = @despesas.order(created_at: :desc).page(params[:page]).per(10)
   end
 
   # GET /despesas/1 or /despesas/1.json

@@ -7,3 +7,4 @@ import "@fortawesome/fontawesome-free/js/all";
 //= require font-awesome
 //= require jquery
 //= require jquery_ujs
+//= require bootstrap

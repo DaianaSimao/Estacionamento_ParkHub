@@ -28,6 +28,7 @@ gem 'solargraph'
 gem 'kaminari'
 gem 'bootstrap5-kaminari-views'
 gem 'pry'
+gem 'paper_trail'
 
 
 group :development, :test do

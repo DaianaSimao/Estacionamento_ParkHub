@@ -1,0 +1,43 @@
+<% if @version.present? %>
+  <table class="table">
+    <thead>
+      <tr>
+        <th>Versão #</th>
+        <th>Item Type</th>
+        <th>Item ID</th>
+        <th>Evento</th>
+        <th>Alterações</th>
+        <th>Criado em</th>
+      </tr>
+    </thead>
+    <tbody>
+      <% @version.each do |version| %>
+        <tr>
+          <td><%= version.id %></td>
+          <td><%= version.item_type %></td>
+          <td><%= version.item_id %></td>
+          <td><%= version.event %></td>
+          <td>
+            <div class="dropdown">
+              <button class="btn btn-secondary dropdown-toggle" type="button" id="dropdownMenuButton<%= version.id %>" data-bs-toggle="dropdown" aria-expanded="false">
+                Ver Alterações
+              </button>
+              <ul class="dropdown-menu" aria-labelledby="dropdownMenuButton<%= version.id %>">
+                <li>
+                  <%= format_changes(JSON.parse(version.object_changes)) %>
+                </li>
+              </ul>
+            </div>
+          </td>
+          <td><%= version.created_at %></td>
+        </tr>
+      <% end %>
+    </tbody>
+  </table>
+<% else %>
+  <h1>Sem Auditoria</h1>
+<% end %>
+
+<% if @item.present? %>
+  <%= render partial: @item, locals: { item: @item } %>
+<% end %>

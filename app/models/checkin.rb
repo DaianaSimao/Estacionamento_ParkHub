@@ -2,6 +2,7 @@ class Checkin < ApplicationRecord
   belongs_to :preco
   belongs_to :vaga
   
+  has_paper_trail
   
   after_create :atualizar_status_vaga
   before_update :atualizar_saida

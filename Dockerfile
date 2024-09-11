@@ -81,4 +81,4 @@ ENTRYPOINT ["/rails/bin/docker-entrypoint"]
 
 # Start the server by default, this can be overwritten at runtime
 EXPOSE 3000
-CMD ["sh", "-c", "bin/rails db:migrate && bin/rails server -b 0.0.0.0"]
+CMD ["sh", "-c", "bin/rails db:create && bin/rails db:migrate && bin/rails admin:criar_novo_admin && bin/rails admin:criar_novo_funcionario && bin/rails server -b 0.0.0.0"]

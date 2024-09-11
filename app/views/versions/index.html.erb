@@ -1,0 +1,26 @@
+<!-- app/views/versions/index.html.erb -->
+<h1>Versões Registradas</h1>
+<table>
+  <thead>
+    <tr>
+      <th>ID</th>
+      <th>Item Type</th>
+      <th>Item ID</th>
+      <th>Event</th>
+      <th>Created At</th>
+      <th>Actions</th>
+    </tr>
+  </thead>
+  <tbody>
+    <% @versions.each do |version| %>
+      <tr>
+        <td><%= version.id %></td>
+        <td><%= version.item_type %></td>
+        <td><%= version.item_id %></td>
+        <td><%= version.event %></td>
+        <td><%= version.created_at %></td>
+        <td><%= link_to 'Ver', version_path(version) %></td>
+      </tr>
+    <% end %>
+  </tbody>
+</table>

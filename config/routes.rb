@@ -19,6 +19,7 @@ Rails.application.routes.draw do
   resources :vagas
   resources :veiculos
   resources :precos
+  resources :versions, only: [:index, :show]
   
   get 'relatorios/estacionamento', as: 'relatorios', to: 'relatorios#estacionamento'
   get 'relatorios/caixa', as: 'relatorios_caixa', to: 'relatorios#caixa'

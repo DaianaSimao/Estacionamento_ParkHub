@@ -1,0 +1,88 @@
+<% if @version.present? %>
+ <div style="display: flex; align-items: center;" class="mt-5 justify-content-center">
+  <h1>Auditoria de <%= @version.first.item_type %> <i class="bi bi-coin"></i> </h1>
+  </div>
+    <div class="table-responsive mt-5" style="margin-bottom: 40px; border-radius: 10px;"> 
+      <table class="table table-borderless table-hover" style="borde-radius:10px;">
+        <thead>
+          <tr>
+          <th style="background-color: #87CEFA; color: #fff;">
+            <span>Versão</span>
+          </th>
+            <th style="background-color: #87CEFA; color: #fff;">
+              <span>Tipo</span>
+              </th>
+              <th style="background-color: #87CEFA; color: #fff;">
+                  <span>Id</span>
+                </th>
+                <th style="background-color: #87CEFA; color: #fff;">
+                  <span>Ação</span>
+                </th>
+                <th style="background-color: #87CEFA; color: #fff;">
+                  <span>Data de criação</span>
+                </th>
+                <th style="background-color: #87CEFA; color: #fff;">
+                  <span>Mudanças</span>
+                </th>
+              </tr>
+            </thead>
+            <tbody>
+              <% @version.each do |version| %>
+                <tr class="border-bottom">
+                  <td>
+                    <div>
+                      <span class="d-block font-weight-bold"><%= version.id %></span>
+                    </div>
+                  </td>
+                  <td>
+                    <div>
+                      <span class="d-block font-weight-bold"><%= version.item_type%></span>
+                    </div>
+                  </td>
+                  <td>
+                    <div>
+                      <span class="d-block font-weight-bold"><%= version.item_id %></span>
+                    </div>
+                  </td>
+                  <td>
+                    <div>
+                      <span class="d-block font-weight-bold"><%= traduz_acao(version.event) %></span>
+                    </div>
+                  </td>
+                  <td>
+                    <div>
+                      <span class="d-block font-weight-bold"><%=  formata_data(version.created_at) %></span>
+                    </div>
+                  </td>
+                  <td>
+                    <div class="dropdown">
+                      <button class="btn btn-secondary dropdown-toggle" type="button" id="dropdownMenuButton<%= version.id %>" data-bs-toggle="dropdown" aria-expanded="false">
+                        Ver Alterações
+                      </button>
+                      <ul class="dropdown-menu" aria-labelledby="dropdownMenuButton<%= version.id %>">
+                        <li>
+                          <%= formata_mudancas(JSON.parse(version.object_changes)) %>
+                        </li>
+                      </ul>
+                    </div>
+                  </td>
+                </tr>
+              <% end %>
+            </tbody>
+          </table>
+          <div class=" pagination text-center d-flex align-items-center justify-content-center mt-5"  >
+            <%#= paginate @checkins, theme: 'bootstrap-5', pagination_class: "pagination-sm flex-wrap justify-content-center", nav_class: "d-inline-block" %>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+<% else %>
+  <div style="display: flex; align-items: center;" class="mt-5 justify-content-center">
+    <h1>Sem Auditoria<i class="bi bi-coin"></i> </h1>
+  </div>
+<% end %>
+
+<% if @item.present? %>
+  <%= render partial: @item, locals: { item: @item } %>
+<% end %>

@@ -609,3 +609,27 @@ a {
   
 //===================================
 
+//CSS botão de auditoria
+.btn11{
+  height: 35px;
+  width: 35px;
+  border: none;
+  background-color:#ffe711ed;
+  font-size: 12px;
+  color: #050505;
+  border-radius: 10px;
+  display:flex;
+  justify-content:center;
+  align-items:center;
+  text-decoration: none;
+}
+
+.btn11:hover{
+  background-color:#12305f
+}
+
+.btn11:focus{
+  box-shadow:none;
+  outline:none
+}
+

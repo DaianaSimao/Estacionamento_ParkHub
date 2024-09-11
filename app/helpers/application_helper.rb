@@ -3,12 +3,27 @@ module ApplicationHelper
     number_to_currency(valor, unit: 'R$', separator: ',', delimiter: '.', precision: 2)
   end
 
-  def format_changes(changes)
-    formatted_changes = ""
-    changes.each do |attribute, values|
+  def formata_mudancas(mudanças)
+    formatacao_mudanças = ""
+    mudanças.each do |attribute, values|
       old_value, new_value = values
-      formatted_changes += "<strong>#{attribute}:</strong> De <em>#{old_value}</em> para <em>#{new_value}</em><br>"
+      formatacao_mudanças += "<strong>#{attribute}:</strong> De <em>#{old_value}</em> para <em>#{new_value}</em><br>"
     end
-    formatted_changes.html_safe
+    formatacao_mudanças.html_safe
+  end
+
+  def formata_data(data)
+    data.strftime("%d/%m/%Y")
+  end
+
+  def traduz_acao(acao)
+    case acao
+    when "create"
+      "Criação"
+    when "update"
+      "Atualização"
+    when "destroy"
+      "Exclusão"
+    end
   end
 end

@@ -34,11 +34,14 @@ class CheckinsController < ApplicationController
 
     @checkin = Checkin.new(checkin_params)
     @checkin.numero_ticket = SecureRandom.hex(10)
-
-    if @checkin.save
-      redirect_to checkins_path, notice: 'Check-in criado com sucesso.'
-    else
-      render :new
+    respond_to do |format|
+      if @checkin.save
+        format.html { redirect_to checkins_url, notice: "Check-in criado com sucesso." }
+        format.json { render :show, status: :created, location: @checkin }
+      else
+        format.html { render :new, status: :unprocessable_entity }
+        format.json { render json: @checkin.errors, status: :unprocessable_entity }
+      end
     end
   end
 

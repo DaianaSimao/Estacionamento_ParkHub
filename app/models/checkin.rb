@@ -1,6 +1,7 @@
 class Checkin < ApplicationRecord
   belongs_to :preco
   belongs_to :vaga
+  belongs_to :caixa , optional: true
   
   has_paper_trail
   
@@ -9,6 +10,8 @@ class Checkin < ApplicationRecord
   after_update :atualizar_status_vaga
   before_create :atualizar_entrada
   before_save :transformar_em_maiusculas
+
+  validates :caixa_id, uniqueness: { notice: "já existe um registro com este Checkin ID" }, allow_nil: true
 
   scope :criado_entre, -> min,max { where("checkins.created_at BETWEEN ? AND ?",min,max) }
 
@@ -22,17 +25,22 @@ class Checkin < ApplicationRecord
   end
   
   def pago?
-    Caixa.exists?(checkin_id: self.id)
+    self.caixa_id.present?
   end
 
   private
 
   def atualizar_status_vaga
-    if self.status == true
-      self.vaga.update(status: true)
-    else
-      self.vaga.update(status: false)
+    begin 
+      if self.status == true && self.vaga.status == false
+        self.vaga.update(status: true)
+      elsif self.status == false && self.vaga.status == true
+        self.vaga.update(status: false)
+      end
+    rescue => exception
+      puts exception
     end
+
   end
 
   def atualizar_entrada

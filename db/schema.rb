@@ -10,36 +10,31 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema[7.0].define(version: 2024_07_05_174506) do
+ActiveRecord::Schema[7.0].define(version: 2024_09_26_190236) do
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
 
   create_table "caixas", force: :cascade do |t|
-    t.bigint "checkin_id", null: false
-    t.string "forma_pagamento"
-    t.float "valor"
-    t.float "troco"
-    t.date "data_pagamento"
     t.string "tempo_estadia"
     t.string "status"
+    t.string "descricao"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
-    t.float "total"
-    t.string "descricao"
-    t.index ["checkin_id"], name: "index_caixas_on_checkin_id"
   end
 
   create_table "checkins", force: :cascade do |t|
     t.bigint "preco_id", null: false
     t.bigint "vaga_id", null: false
-    t.datetime "created_at", null: false
-    t.datetime "updated_at", null: false
-    t.string "veiculo_placa"
     t.boolean "status"
     t.string "numero_ticket"
     t.boolean "em_permanencia"
     t.datetime "entrada"
     t.datetime "saida"
+    t.string "veiculo_placa"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.bigint "caixas_id"
+    t.index ["caixas_id"], name: "index_checkins_on_caixas_id"
     t.index ["preco_id"], name: "index_checkins_on_preco_id"
     t.index ["vaga_id"], name: "index_checkins_on_vaga_id"
   end
@@ -52,8 +47,6 @@ ActiveRecord::Schema[7.0].define(version: 2024_07_05_174506) do
     t.string "status"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
-    t.date "data_vencimento"
-    t.date "data_pagamento"
   end
 
   create_table "entradas_financeiras", force: :cascade do |t|
@@ -79,11 +72,22 @@ ActiveRecord::Schema[7.0].define(version: 2024_07_05_174506) do
     t.datetime "updated_at", null: false
   end
 
-  create_table "precos", force: :cascade do |t|
-    t.float "preco_hora"
+  create_table "forma_pagamentos", force: :cascade do |t|
+    t.string "nome"
+    t.decimal "valor", precision: 10, scale: 2
+    t.decimal "troco", precision: 10, scale: 2
+    t.decimal "total", precision: 10, scale: 2
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
+    t.bigint "checkins_id"
+    t.index ["checkins_id"], name: "index_forma_pagamentos_on_checkins_id"
+  end
+
+  create_table "precos", force: :cascade do |t|
+    t.float "preco_hora"
     t.string "tipo"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
   end
 
   create_table "users", force: :cascade do |t|
@@ -100,10 +104,10 @@ ActiveRecord::Schema[7.0].define(version: 2024_07_05_174506) do
   end
 
   create_table "vagas", force: :cascade do |t|
-    t.datetime "created_at", null: false
-    t.datetime "updated_at", null: false
     t.string "vaga_nome"
     t.boolean "status"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
   end
 
   create_table "veiculos", force: :cascade do |t|
@@ -113,7 +117,6 @@ ActiveRecord::Schema[7.0].define(version: 2024_07_05_174506) do
     t.string "cor"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
-    t.string "tipo"
   end
 
   create_table "versions", force: :cascade do |t|
@@ -127,7 +130,8 @@ ActiveRecord::Schema[7.0].define(version: 2024_07_05_174506) do
     t.index ["item_type", "item_id"], name: "index_versions_on_item_type_and_item_id"
   end
 
-  add_foreign_key "caixas", "checkins"
+  add_foreign_key "checkins", "caixas", column: "caixas_id"
   add_foreign_key "checkins", "precos"
   add_foreign_key "checkins", "vagas"
+  add_foreign_key "forma_pagamentos", "checkins", column: "checkins_id"
 end

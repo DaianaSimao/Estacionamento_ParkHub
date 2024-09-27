@@ -128,7 +128,7 @@
                     <% else %>
                     <% unless checkin.pago? %> <!-- Verifica se o check-in tem um caixa -->
                         <div class="d-flex flex-column ml-2">
-                          <%= link_to "Pagar", new_checkin_caixa_path(checkin), class: "btn4" %>
+                          <%= link_to "Pagar", new_caixa_path(checkin_id: checkin.id), class: "btn4" %>
                         </div>
                       <% end %>
                     <% end %>

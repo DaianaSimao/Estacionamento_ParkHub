@@ -1,4 +1,4 @@
-<%= form_with(model: [@checkin, @caixa]) do |form| %>
+<%= form_with(model: @caixa) do |form| %>
   <div class="card p-4 mt-5">
       <div class="row g-3">
         <div class="col-12 mb-4">
@@ -6,7 +6,7 @@
         </div>
         <div class="col-lg-4 col-md-12">
           <div class="field form-floating">
-            <%= form.text_field :checkin_id, class: "form-control", placeholder: "Checkin", required: true %>
+            <%= form.text_field :checkin_id, class: "form-control", placeholder: "Checkin", required: true, id: 'checkin_id', value: @checkin.id %>
             <%= form.label :checkin_id %>
           </div>
         </div>
@@ -34,25 +34,29 @@
             <%= form.label :status %>
           </div>
         </div>
-        <div class="col-lg-4 col-md-12">
-          <div class="field form-floating">
-            <%= form.number_field :total, class: "form-control", placeholder: "Total a pagar", required: true, readonly: true, id: "total", step: "0.01" %>
-            <%= form.label :total %>
-          </div>
-        </div>
-        <div class="col-lg-4 col-md-12">
-          <div class="field form-floating">
-            <%= form.number_field :valor, class: "form-control", placeholder: "Valor", required: true, id: "valor", step: "0.01" %>
-            <%= form.label :valor %>
-          </div>
-        </div>
-        <div class="col-lg-4 col-md-12">
-          <div class="field form-floating">
-            <%= form.text_field :troco, class: "form-control", required: true, id: "troco", readonly: true, style: "display: block;", step: "0.01" %>
-            <%= form.label  :troco, "Troco", id: "troco_label" %>
-          </div>
+      <div class="col-lg-4 col-md-12">
+        <div class="field form-floating">
+          <%= form.number_field :valor, class: "form-control", placeholder: "Valor pago", required: true, id: "valor", step: "0.01", value: @total %>
+          <%= form.label :valor, "Valor Pago" %>
         </div>
       </div>
+
+      <!-- Campo para o total calculado -->
+      <div class="col-lg-4 col-md-12">
+        <div class="field form-floating">
+          <%= form.number_field :total, class: "form-control", placeholder: "Total a pagar", required: true, readonly: true, id: "total", step: "0.01", value: @total %>
+          <%= form.label :total, "Total a Pagar" %>
+        </div>
+      </div>
+
+      <!-- Campo para o troco -->
+      <div class="col-lg-4 col-md-12">
+        <div class="field form-floating">
+          <%= form.number_field :troco, class: "form-control", required: true, id: "troco", readonly: true, style: "display: block;", step: "0.01", value: 0 %>
+          <%= form.label :troco, "Troco", id: "troco_label" %>
+        </div>
+      </div>
+    </div>
       <div class="col d-flex justify-content-start mt-4">
         <%= form.submit "Finalizar", class: "btn ", style: "margin-right: 10px;" %>
         <%= link_to checkins_path, class: "btn ", style: "margin-right: 10px;" do %>
@@ -65,66 +69,64 @@
     </div>
   </div>
 <% end %>
+
 <script>
-  // Obtém os elementos do formulário
-  const formacaixa = document.getElementById('forma_pagamento');
-  const totalInput = document.getElementById('total');
-  const valorInput = document.getElementById('valor');
-  const trocoInput = document.getElementById('troco');
-  const trocoLabel = document.getElementById('troco_label');
+  document.getElementById('forma_pagamento').addEventListener('change', function() {
+    const formaPagamento = this.value;
+    const checkinId = document.getElementById('checkin_id').value;
+    const valorInput = document.getElementById('valor');
+    const totalInput = document.getElementById('total');
+    const trocoInput = document.getElementById('troco');
+    const trocoLabel = document.getElementById('troco_label');
+    
+    // Reseta o valor do troco ao trocar a forma de pagamento
+    trocoInput.value = '';
 
-  // Adiciona um ouvinte de eventos para o evento 'input' nos campos de entrada
-  formacaixa.addEventListener('change', atualizarCampos);
-  totalInput.addEventListener('input', calcularTroco);
-  valorInput.addEventListener('input', calcularTroco);
-
-  // Função para atualizar os campos com base na forma de caixa selecionada
-  function atualizarCampos() {
-    const formaSelecionada = formacaixa.value;
-
-    if (formaSelecionada === 'Dinheiro') {
-      trocoInput.style.display = 'block';
-      trocoLabel.style.display = 'block';
-      valorInput.removeAttribute('readonly');
-      valorInput.value = '';
-    } else {
+    if (formaPagamento !== 'Dinheiro') {
+      valorInput.value = totalInput.value; // Limpa o valor se não for "Dinheiro"
+      valorInput.setAttribute('readonly', true); // Define como readonly
       trocoInput.style.display = 'none';
       trocoLabel.style.display = 'none';
       valorInput.setAttribute('readonly', true);
-      valorInput.value = '';
-    }
-
-    if (formaSelecionada === 'Credito' || formaSelecionada === 'Debito' || formaSelecionada === 'Pix') {
-      valorInput.value = totalInput.value;
-    }
-  }
-
-  // Função para calcular o troco
-  function calcularTroco() {
-    const formaSelecionada = formacaixa.value;
-    const total = parseFloat(totalInput.value);
-    const valor = parseFloat(valorInput.value);
-
-    if (formaSelecionada === 'Dinheiro' && !isNaN(total) && !isNaN(valor)) {
-      const troco = valor - total;
-      trocoInput.value = troco.toFixed(2);
     } else {
-      trocoInput.value = '';
+      valorInput.removeAttribute('readonly'); // Permite edição se for "Dinheiro"
+      trocoInput.style.display = 'block';
+      trocoLabel.style.display = 'block';
     }
-  }
 
-  // Chama a função de atualização inicial
-  atualizarCampos();
-  // Adicione um ouvinte de eventos para o evento 'submit' no formulário
-  const form = document.querySelector('form');
-  form.addEventListener('submit', function (event) {
-    const total = parseFloat(totalInput.value);
-    const valor = parseFloat(valorInput.value);
+    fetch(`/calcular_pagamento?forma_pagamento=${formaPagamento}&checkin_id=${checkinId}&valor=${valorInput.value}&total=${totalInput.value}`, {
+      method: 'GET'
+    })
 
-    // Verifica se o valor é menor que o total
-    if (valor < total) {
-      alert('O valor pago não pode ser menor que o total a ser pago.');
-      event.preventDefault(); // Impede o envio do formulário
+    .then(response => response.json())
+    .then(data => {
+      // Se a forma de pagamento não for Dinheiro, usa o valor do checkin
+      if (formaPagamento === 'Dinheiro') {
+        // Se for Dinheiro, permitir que o usuário insira o valor manualmente
+        trocoInput.style.display = 'block';
+        trocoLabel.style.display = 'block';
+        valorInput.removeAttribute('readonly');
+        valorInput.value = ''; // Limpa o valor
+      };
+
+      totalInput.value = data.total; // Atualiza o total
+      trocoInput.value = data.troco; // Atualiza o troco
+    });
+  });
+
+  // Adiciona o cálculo de troco manual para Dinheiro
+  document.getElementById('valor').addEventListener('input', function() {
+    const formaPagamento = document.getElementById('forma_pagamento').value;
+    const valor = parseFloat(this.value);
+    const total = parseFloat(document.getElementById('total').value);
+    const trocoInput = document.getElementById('troco');
+
+    if (formaPagamento === 'Dinheiro' && valor > total) {
+      const troco = valor - total;
+      trocoInput.value = troco.toFixed(2); // Preenche o troco
+    } else {
+      trocoInput.value = '0.00';
     }
   });
+
 </script>

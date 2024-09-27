@@ -2,6 +2,7 @@ class Checkin < ApplicationRecord
   belongs_to :preco
   belongs_to :vaga
   belongs_to :caixa , optional: true
+  has_one :caixa , dependent: :destroy
   
   has_paper_trail
   

@@ -3,6 +3,20 @@ class CaixasController < ApplicationController
   before_action :set_caixa, only: %i[ show edit update destroy ]
 
   # GET /caixas or caixas.json
+
+  def calcular_pagamento
+    valor = params[:valor].to_f
+    forma_pagamento = params[:forma_pagamento]
+    total = params[:total].to_f
+    troco = 0
+
+    if forma_pagamento == 'Dinheiro'
+      troco = valor > total ? (valor - total).round(2) : 0
+      total = valor
+    end
+    render json: { total: total.round(2), troco: troco.round(2), valor: valor.round(2), preco_hora: total.round(2) }
+  end
+  
   def index
     @caixas = Caixa.all.order(created_at: :desc)
     if params[:min].present? and params[:max].present?
@@ -29,7 +43,8 @@ class CaixasController < ApplicationController
   def new
     @checkin = Checkin.find(params[:checkin_id])
     @caixa = Caixa.new
-    @caixa.checkin_id = @checkin.id
+
+    @@checkin_id = @checkin.id
     if @checkin.present? && @checkin.saida.present? && @checkin.entrada.present?
       duracao_em_segundos = (@checkin.saida - @checkin.entrada).to_i
 
@@ -40,10 +55,10 @@ class CaixasController < ApplicationController
 
       @caixa.tempo_estadia = "#{horas}:#{minutos}"
       if minutos_permanencia_total < 60
-        @caixa.total = @checkin.preco.preco_hora
+        @total = @checkin.preco.preco_hora
       else
-        valor_total = TicketService.calcular_valor_cobrado(@checkin)
-        @caixa.total = valor_total
+        @valor_total = TicketService.calcular_valor_cobrado(@checkin)
+        @total = valor_total
       end
       
     else
@@ -74,6 +89,7 @@ class CaixasController < ApplicationController
 
   # PATCH/PUT /caixas/1 or /caixas/1.json
   def update
+    binding.pry
     @checkin = Checkin.find(params[:checkin_id])
     respond_to do |format|
       if @caixa.update(caixa_params)

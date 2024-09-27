@@ -11,37 +11,37 @@
   </p>
   <p>
     <strong>Forma de Pagamento:</strong>
-    <%= caixa.forma_pagamento %>
+    <%= caixa.checkin.checkin.forma_pagamento.nome %>
   </p>
 
   <p>
     <strong>Total: </strong>
-    <%= formatar_valor(caixa.total) %>
+    <%= formatar_valor(caixa.checkin.forma_pagamento.total) %>
   </p>
 
   <p>
     <strong>Valor:</strong>
-    <%= formatar_valor(caixa.valor) %>
+    <%= formatar_valor(caixa.checkin.forma_pagamento.valor) %>
   </p>
 
   <p>
     <strong>Troco:</strong>
-    <%= caixa.troco %>
+    <%= caixa.checkin.forma_pagamento.troco %>
   </p>
 
   <p>
   <strong>Data Pgto:</strong>
-  <%= l caixa.data_pagamento, format: :default %>
+  <%= l caixa.checkin.forma_pagamento.data_pagamento, format: :default %>
   </p>
 
   <p>
     <strong>Tempo de estadia:</strong>
-    <%= caixa.tempo_estadia %>
+    <%= caixa.checkin.tempo_estadia %>
   </p>
 
   <p>
     <strong>Status:</strong>
-    <%= caixa.status %>
+    <%= caixa.checkin.status %>
   </p>
 
 </div>

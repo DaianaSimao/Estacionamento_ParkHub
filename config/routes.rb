@@ -10,12 +10,14 @@ Rails.application.routes.draw do
   devise_scope :user do
     get '/users/sign_out' => 'devise/sessions#destroy'
   end
-  resources :checkins do 
-    resources :caixas, only: [:new, :create]
-  end
+  resources :checkins
   
   resources :despesas
-  resources :caixas
+  resources :caixas do
+    collection do
+      get 'calcular_pagamento'
+    end
+  end
   resources :vagas
   resources :veiculos
   resources :precos

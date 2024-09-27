@@ -41,12 +41,11 @@ class CaixasController < ApplicationController
 
   # GET /caixas/new
   def new
-    @checkin = Checkin.find(params[:checkin_id])
     @caixa = Caixa.new
-
-    @@checkin_id = @checkin.id
-    if @checkin.present? && @checkin.saida.present? && @checkin.entrada.present?
-      duracao_em_segundos = (@checkin.saida - @checkin.entrada).to_i
+    @caixa.build_forma_pagamento
+    @caixa.checkin_id = params[:checkin_id]
+    if @caixa.checkin.present? && @caixa.checkin.saida.present? && @caixa.checkin.entrada.present?
+      duracao_em_segundos = (@caixa.checkin.saida - @caixa.checkin.entrada).to_i
 
       horas = duracao_em_segundos / 3600
       minutos = (duracao_em_segundos % 3600) / 60
@@ -55,10 +54,10 @@ class CaixasController < ApplicationController
 
       @caixa.tempo_estadia = "#{horas}:#{minutos}"
       if minutos_permanencia_total < 60
-        @total = @checkin.preco.preco_hora
+        @total = @caixa.checkin.preco.preco_hora
       else
-        @valor_total = TicketService.calcular_valor_cobrado(@checkin)
-        @total = valor_total
+        @valor_total = TicketService.calcular_valor_cobrado(@caixa.checkin)
+        @total = @valor_total
       end
       
     else
@@ -75,6 +74,7 @@ class CaixasController < ApplicationController
   def create
     @caixa = Caixa.new(caixa_params)
     @caixa.descricao = "Caixa"
+    @caixa.checkin_id = params[:caixa][:checkin_id]
 
     respond_to do |format|
       if @caixa.save
@@ -88,8 +88,7 @@ class CaixasController < ApplicationController
   end
 
   # PATCH/PUT /caixas/1 or /caixas/1.json
-  def update
-    binding.pry
+  def update    
     @checkin = Checkin.find(params[:checkin_id])
     respond_to do |format|
       if @caixa.update(caixa_params)
@@ -120,6 +119,6 @@ class CaixasController < ApplicationController
 
     # Only allow a list of trusted parameters through.
     def caixa_params
-      params.require(:caixa).permit(:checkin_id, :forma_pagamento, :valor, :troco, :data_pagamento, :tempo_estadia, :status, :total)
+      params.require(:caixa).permit(:tempo_estadia, :status,:checkin_id, :logado, :forma_pagamento_attributes => [:id, :nome, :troco, :valor, :total, :_destroy])
     end
 end

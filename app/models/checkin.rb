@@ -1,8 +1,6 @@
 class Checkin < ApplicationRecord
   belongs_to :preco
   belongs_to :vaga
-  belongs_to :caixa , optional: true
-  has_one :caixa , dependent: :destroy
   
   has_paper_trail
   
@@ -11,8 +9,6 @@ class Checkin < ApplicationRecord
   after_update :atualizar_status_vaga
   before_create :atualizar_entrada
   before_save :transformar_em_maiusculas
-
-  validates :caixa_id, uniqueness: { notice: "já existe um registro com este Checkin ID" }, allow_nil: true
 
   scope :criado_entre, -> min,max { where("checkins.created_at BETWEEN ? AND ?",min,max) }
 
@@ -26,7 +22,7 @@ class Checkin < ApplicationRecord
   end
   
   def pago?
-    self.caixa_id.present?
+    Caixa.find_by(checkin_id: self.id).present?
   end
 
   private

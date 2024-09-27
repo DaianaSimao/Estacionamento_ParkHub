@@ -1,19 +1,32 @@
-<%= form_with(model: @caixa) do |form| %>
+<%= form_with(model: caixa) do |form| %>
+  <% if caixa.errors.any? %>
+    <div class="container small-container">
+      <% caixa.errors.full_messages.each do |message| %>
+        <div class="alert alert_error alert-dismissible fade show" role="alert">
+          <i class="bi bi-exclamation-circle"></i> <%= message %>
+          <button type="button" class="btn-close" data-bs-dismiss="alert"></button>
+        </div>
+      <% end %>
+    </div>
+  <% end %>
   <div class="card p-4 mt-5">
       <div class="row g-3">
         <div class="col-12 mb-4">
           <h3>Pagamento: <h3>
         </div>
+
         <div class="col-lg-4 col-md-12">
           <div class="field form-floating">
-            <%= form.text_field :checkin_id, class: "form-control", placeholder: "Checkin", required: true, id: 'checkin_id', value: @checkin.id %>
+            <%= form.hidden_field :logado, value: current_user.email %>
+            <%= form.text_field :checkin_id, class: "form-control", placeholder: "Checkin", required: true, id: 'checkin_id', value: params[:checkin_id] %>
             <%= form.label :checkin_id %>
           </div>
         </div>
+
         <div class="col-lg-4 col-md-12">
           <div class="field form-floating">
-            <%= form.date_field :data_pagamento ,value: Date.today, class: "form-control" %>
-            <%= form.label  :data_pagamento, "Data do caixa" %>
+            <%= form.select(:status, ['Pago','Pendente'], {}, {:class=>"form-control"})%>
+            <%= form.label :status %>
           </div>
         </div>
         <div class="col-lg-4 col-md-12">
@@ -22,41 +35,38 @@
             <%= form.label :tempo_estadia %>
           </div>
         </div>
-        <div class="col-lg-4 col-md-12">
-          <div class="field form-floating">
-            <%= form.select(:forma_pagamento, ['Dinheiro','Debito','Credito','Pix'], {prompt: "Selecione o pagamento"}, {class: "form-control", required: true, id: "forma_pagamento"})%>
-            <%= form.label :forma_pagamento %>
-          </div>
-        </div>
-        <div class="col-lg-4 col-md-12">
-          <div class="field form-floating">
-            <%= form.select(:status, ['Pago','Pendente'], {}, {:class=>"form-control"})%>
-            <%= form.label :status %>
-          </div>
-        </div>
-      <div class="col-lg-4 col-md-12">
-        <div class="field form-floating">
-          <%= form.number_field :valor, class: "form-control", placeholder: "Valor pago", required: true, id: "valor", step: "0.01", value: @total %>
-          <%= form.label :valor, "Valor Pago" %>
-        </div>
-      </div>
 
-      <!-- Campo para o total calculado -->
-      <div class="col-lg-4 col-md-12">
-        <div class="field form-floating">
-          <%= form.number_field :total, class: "form-control", placeholder: "Total a pagar", required: true, readonly: true, id: "total", step: "0.01", value: @total %>
-          <%= form.label :total, "Total a Pagar" %>
-        </div>
-      </div>
+        <%= form.fields_for :forma_pagamento do |fp| %>
+          <div class="col-lg-4 col-md-12">
+            <div class="field form-floating">
+              <%= fp.select(:nome, ['Dinheiro','Debito','Credito','Pix'], {prompt: "Selecione o pagamento"}, {class: "form-control", required: true, id: "forma_pagamento"})%>
+              <%= fp.label :nome %>
+            </div>
+          </div>
+          
+          <div class="col-lg-4 col-md-12">
+            <div class="field form-floating">
+              <%= fp.number_field :valor, class: "form-control", placeholder: "Valor pago", required: true, id: "valor", step: "0.01", value: @total %>
+              <%= fp.label :valor, "Valor Pago" %>
+            </div>
+          </div>
 
-      <!-- Campo para o troco -->
-      <div class="col-lg-4 col-md-12">
-        <div class="field form-floating">
-          <%= form.number_field :troco, class: "form-control", required: true, id: "troco", readonly: true, style: "display: block;", step: "0.01", value: 0 %>
-          <%= form.label :troco, "Troco", id: "troco_label" %>
-        </div>
-      </div>
-    </div>
+          <!-- Campo para o total calculado -->
+          <div class="col-lg-4 col-md-12">
+            <div class="field form-floating">
+              <%= fp.number_field :total, class: "form-control", placeholder: "Total a pagar", required: true, readonly: true, id: "total", step: "0.01", value: @total %>
+              <%= fp.label :total, "Total a Pagar" %>
+            </div>
+          </div>
+
+          <!-- Campo para o troco -->
+          <div class="col-lg-4 col-md-12">
+            <div class="field form-floating">
+              <%= fp.number_field :troco, class: "form-control", required: true, id: "troco", readonly: true, style: "display: block;", step: "0.01", value: 0 %>
+              <%= fp.label :troco, "Troco", id: "troco_label" %>
+            </div>
+          </div>
+        <% end %>
       <div class="col d-flex justify-content-start mt-4">
         <%= form.submit "Finalizar", class: "btn ", style: "margin-right: 10px;" %>
         <%= link_to checkins_path, class: "btn ", style: "margin-right: 10px;" do %>
@@ -92,6 +102,7 @@
       valorInput.removeAttribute('readonly'); // Permite edição se for "Dinheiro"
       trocoInput.style.display = 'block';
       trocoLabel.style.display = 'block';
+      valorInput.value = ''; // Limpa o valor
     }
 
     fetch(`/calcular_pagamento?forma_pagamento=${formaPagamento}&checkin_id=${checkinId}&valor=${valorInput.value}&total=${totalInput.value}`, {

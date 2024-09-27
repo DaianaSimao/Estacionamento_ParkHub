@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema[7.0].define(version: 2024_09_26_190236) do
+ActiveRecord::Schema[7.0].define(version: 2024_09_27_023710) do
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
 
@@ -20,6 +20,11 @@ ActiveRecord::Schema[7.0].define(version: 2024_09_26_190236) do
     t.string "descricao"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
+    t.bigint "checkin_id"
+    t.bigint "forma_pagamento_id"
+    t.string "logado"
+    t.index ["checkin_id"], name: "index_caixas_on_checkin_id"
+    t.index ["forma_pagamento_id"], name: "index_caixas_on_forma_pagamento_id"
   end
 
   create_table "checkins", force: :cascade do |t|
@@ -33,8 +38,6 @@ ActiveRecord::Schema[7.0].define(version: 2024_09_26_190236) do
     t.string "veiculo_placa"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
-    t.bigint "caixa_id"
-    t.index ["caixa_id"], name: "index_checkins_on_caixa_id"
     t.index ["preco_id"], name: "index_checkins_on_preco_id"
     t.index ["vaga_id"], name: "index_checkins_on_vaga_id"
   end
@@ -79,8 +82,6 @@ ActiveRecord::Schema[7.0].define(version: 2024_09_26_190236) do
     t.decimal "total", precision: 10, scale: 2
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
-    t.bigint "checkin_id"
-    t.index ["checkin_id"], name: "index_forma_pagamentos_on_checkin_id"
   end
 
   create_table "precos", force: :cascade do |t|
@@ -130,8 +131,8 @@ ActiveRecord::Schema[7.0].define(version: 2024_09_26_190236) do
     t.index ["item_type", "item_id"], name: "index_versions_on_item_type_and_item_id"
   end
 
-  add_foreign_key "checkins", "caixas"
+  add_foreign_key "caixas", "checkins"
+  add_foreign_key "caixas", "forma_pagamentos"
   add_foreign_key "checkins", "precos"
   add_foreign_key "checkins", "vagas"
-  add_foreign_key "forma_pagamentos", "checkins"
 end

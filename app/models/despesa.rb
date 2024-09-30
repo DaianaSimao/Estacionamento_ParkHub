@@ -4,7 +4,7 @@ class Despesa < ApplicationRecord
   self.table_name = "despesas"
 
   validates :data_pagamento, presence: true
-  validates :forma_pagamento, presence: true, 
+  validates :forma_pagamento, presence: { message: "A forma de pagamento invalida" }
   validates :valor, presence: true
   validates :descricao, presence: true
 

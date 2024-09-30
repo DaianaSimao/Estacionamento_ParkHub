@@ -35,4 +35,20 @@ namespace :admin do
     fluxo.update(descricao: "Caixa")
     puts "Finalizado..."
   end
+
+  desc "Criar vagas"
+  task criar_vagas: :environment do
+    Vaga.create(vaga_nome: "A1", status: false)
+    Vaga.create(vaga_nome: "A2", status: false)
+    Vaga.create(vaga_nome: "A3", status: false)
+    Vaga.create(vaga_nome: "A4", status: false)
+    Vaga.create(vaga_nome: "B1", status: false)
+    Vaga.create(vaga_nome: "B2", status: false)
+    Vaga.create(vaga_nome: "B3", status: false)
+    Vaga.create(vaga_nome: "B4", status: false)
+    Vaga.create(vaga_nome: "C1", status: false)
+    Vaga.create(vaga_nome: "C2", status: false)
+    Vaga.create(vaga_nome: "C3", status: false)
+    Vaga.create(vaga_nome: "C4", status: false)
+  end
 end

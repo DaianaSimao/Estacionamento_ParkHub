@@ -7,31 +7,31 @@
   </p>
   <p>
     <strong>Pgto id:</strong>
-    <%= caixa.forma_pagamento.id %>
+    <%= caixa.pagamento.id %>
   </p>
   <p>
     <strong>Forma de Pagamento:</strong>
-    <%= caixa.forma_pagamento.nome %>
+    <%= caixa.pagamento.forma_pagamento.nome %>
   </p>
 
   <p>
     <strong>Total: </strong>
-    <%= formatar_valor(caixa.forma_pagamento.total) %>
+    <%= formatar_valor(caixa.pagamento.total) %>
   </p>
 
   <p>
     <strong>Valor:</strong>
-    <%= formatar_valor(caixa.forma_pagamento.valor) %>
+    <%= formatar_valor(caixa.pagamento.valor) %>
   </p>
 
   <p>
     <strong>Troco:</strong>
-    <%= caixa.forma_pagamento.troco %>
+    <%= caixa.pagamento.troco %>
   </p>
 
   <p>
   <strong>Data Pgto:</strong>
-  <%= l caixa.forma_pagamento.created_at, format: :default %>
+  <%= l caixa.pagamento.created_at, format: :default %>
   </p>
 
   <p>

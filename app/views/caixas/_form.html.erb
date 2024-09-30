@@ -68,7 +68,7 @@
           </div>
         <% end %>
       <div class="col d-flex justify-content-start mt-4">
-        <%= form.submit "Finalizar", class: "btn ", style: "margin-right: 10px;" %>
+        <%= form.submit "Finalizar", class: "btn ", style: "margin-right: 10px;", turbo: false %>
         <%= link_to checkins_path, class: "btn ", style: "margin-right: 10px;" do %>
           Cancelar
         <% end %>

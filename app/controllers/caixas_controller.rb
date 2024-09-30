@@ -9,8 +9,7 @@ class CaixasController < ApplicationController
     pagamento = params[:forma_pagamento]
     total = params[:total].to_f
     troco = 0
-
-    if forma_pagamento == 'Dinheiro'
+    if forma_pagamento == '1'
       troco = valor > total ? (valor - total).round(2) : 0
       total = valor
     end
@@ -76,10 +75,10 @@ class CaixasController < ApplicationController
     @caixa.descricao = "Caixa"
     @caixa.checkin_id = params[:caixa][:checkin_id]
     @caixa.pagamento.forma_pagamento_id = params[:caixa][:forma_pagamento_id]
-
+    binding.pry
     respond_to do |format|
       if @caixa.save
-        format.html { redirect_to caixas_url, notice: "caixa efetudado com sucesso." }
+        format.html { redirect_to caixas_url, notice: "Pagamento efetudado com sucesso." }
         format.json { render :show, status: :created, location: @caixa }
       else
         format.html { render :new, status: :unprocessable_entity }
@@ -93,7 +92,7 @@ class CaixasController < ApplicationController
     @checkin = Checkin.find(params[:checkin_id])
     respond_to do |format|
       if @caixa.update(caixa_params)
-        format.html { redirect_to caixa_url(@caixa), notice: "caixa modificado com sucesso." }
+        format.html { redirect_to caixa_url(@caixa), notice: "Pagamento modificado com sucesso." }
         format.json { render :show, status: :ok, location: @caixa }
       else
         format.html { render :edit, status: :unprocessable_entity }
@@ -107,7 +106,7 @@ class CaixasController < ApplicationController
     @caixa.destroy
 
     respond_to do |format|
-      format.html { redirect_to caixas_url, notice: "caixa apagado com sucesso." }
+      format.html { redirect_to caixas_url, notice: "Pagamento apagado com sucesso." }
       format.json { head :no_content }
     end
   end

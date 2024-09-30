@@ -22,7 +22,7 @@ class Checkin < ApplicationRecord
   end
   
   def pago?
-    Caixa.find_by(checkin_id: self.id).present?
+    Caixa.where(checkin_id: self.id).first.present?
   end
 
   private

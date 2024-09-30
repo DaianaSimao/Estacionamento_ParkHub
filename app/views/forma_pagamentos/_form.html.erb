@@ -1,4 +1,14 @@
 <%= form_with(model: forma_pagamento) do |form| %>
+  <% if forma_pagamento.errors.any? %>
+    <div class="container small-container">
+      <% forma_pagamento.errors.full_messages.each do |message| %>
+        <div class="alert alert_error alert-dismissible fade show" role="alert">
+          <i class="bi bi-exclamation-circle"></i> <%= message %>
+          <button type="button" class="btn-close" data-bs-dismiss="alert"></button>
+        </div>
+      <% end %>
+    </div>
+  <% end %>
   <div class="container">
     <div class="card p-4 mt-5">
       <div class="row g-3">

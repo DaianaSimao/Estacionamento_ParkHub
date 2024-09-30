@@ -1,6 +1,6 @@
 class CheckinsController < ApplicationController
   before_action :authenticate_user!
-  before_action :set_checkin, only: [:show, :edit, :update, :destroy]
+  before_action :set_checkin, only: [:show, :edit, :update, :destroy, :update_status]
 
   def authenticate_user
     unless user_signed_in?
@@ -31,7 +31,6 @@ class CheckinsController < ApplicationController
   end
 
   def create
-
     @checkin = Checkin.new(checkin_params)
     @checkin.numero_ticket = SecureRandom.hex(10)
     respond_to do |format|
@@ -55,6 +54,15 @@ class CheckinsController < ApplicationController
       redirect_to checkins_path, notice: 'Check-in atualizado com sucesso.'
     else
       render :edit
+    end
+  end
+
+  # PATCH /checkins/:id/update_status
+  def update_status
+    if @checkin.update(checkin_params)
+      render json: { message: 'Estadia finalizada com sucesso.', redirect_to: checkins_path }, status: :ok
+    else
+      render json: { errors: @checkin.errors.full_messages }, status: :unprocessable_entity
     end
   end
 

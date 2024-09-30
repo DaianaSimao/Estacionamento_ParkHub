@@ -37,7 +37,6 @@ class Checkin < ApplicationRecord
     rescue => exception
       puts exception
     end
-
   end
 
   def atualizar_entrada

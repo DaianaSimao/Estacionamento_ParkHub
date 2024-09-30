@@ -68,7 +68,7 @@
           </thead>
           <tbody>
             <% @checkins.each do |checkin| %>
-              <tr class="border-bottom">
+              <tr id="checkin_<%= checkin.id %>" class="border-bottom">  
                 <td>
                   <div>
                     <span class="d-block font-weight-bold"><%= checkin.id %></span>
@@ -110,6 +110,10 @@
                         <li>
                           <%= link_to "Editar", edit_checkin_path(checkin), class: "dropdown-item" %>
                         </li>
+
+                        <li>
+                          <%= link_to "Finalizar Estadia", "#", class: "dropdown-item update-status", data: { checkin_id: checkin.id } %>
+                        </li>
                       <% end %>
                       
                       <li>
@@ -131,7 +135,7 @@
                       <li>
                         <% c = Caixa.find_by(checkin_id: checkin.id) %>
                         <% if c.present?%>
-                          <%= link_to "Caixa", caixa_path(c.id), class: "dropdown-item" %>
+                          <%= link_to "Pagamento", caixa_path(c.id), class: "dropdown-item" %>
                         <% end %>
                       </li>
                     </ul>
@@ -148,3 +152,39 @@
     </div>
   </div>
 </div>
+
+<script>
+  $(document).ready(function() {
+    var csrfToken = $('meta[name="csrf-token"]').attr('content');
+
+    $('.update-status').on('click', function(e) {
+      e.preventDefault();
+      var checkinId = $(this).data('checkin-id');
+
+      $.ajax({
+        url: '/checkins/' + checkinId + '/update_status',
+        method: 'PATCH',
+        dataType: 'json',
+        headers: {
+          'X-CSRF-Token': csrfToken 
+        },
+        data: {
+          checkin: { status: false, em_permanencia: false }
+        },
+        success: function(response) {
+          alert('Estadia finalizada com sucesso!');
+          if (response.redirect_to) {
+            window.location.href = response.redirect_to;
+          } else {
+            console.error('URL de redirecionamento não especificado na resposta JSON.');
+          }
+        },
+        error: function(xhr, status, error) {
+          console.error('Erro ao atualizar status:', error);
+          alert('Erro ao atualizar status. Verifique o console para mais detalhes.', error);
+        }
+      });
+    });
+  });
+</script>
+

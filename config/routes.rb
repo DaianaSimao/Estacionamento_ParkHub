@@ -10,7 +10,12 @@ Rails.application.routes.draw do
   devise_scope :user do
     get '/users/sign_out' => 'devise/sessions#destroy'
   end
-  resources :checkins
+  resources :checkins do
+    member do
+      patch 'update_status'
+    end
+  end
+
   
   resources :despesas
   resources :caixas do

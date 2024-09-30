@@ -72,7 +72,6 @@ class CaixasController < ApplicationController
   # POST /caixas or /caixas.json
 
   def create
-    binding.pry
     @caixa = Caixa.new(caixa_params)
     @caixa.descricao = "Caixa"
     @caixa.checkin_id = params[:caixa][:checkin_id]

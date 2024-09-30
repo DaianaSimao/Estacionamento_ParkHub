@@ -43,7 +43,6 @@ class DespesasController < ApplicationController
   # POST /despesas or /despesas.json
   def create
     @despesa = Despesa.new(despesa_params)
-
     respond_to do |format|
       if @despesa.save
         format.html { redirect_to despesas_url, notice: "Despesa criada com sucesso." }
@@ -86,6 +85,6 @@ class DespesasController < ApplicationController
 
     # Only allow a list of trusted parameters through.
     def despesa_params
-      params.require(:despesa).permit(:descricao, :valor, :categoria, :forma_pagamento, :status, :data_pagamento, :data_vencimento)
+      params.require(:despesa).permit(:descricao, :valor, :categoria, :forma_pagamento_id, :status, :data_pagamento, :data_vencimento)
     end
 end

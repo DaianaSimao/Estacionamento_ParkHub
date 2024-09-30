@@ -46,7 +46,6 @@ ActiveRecord::Schema[7.0].define(version: 2024_09_27_121623) do
     t.string "descricao"
     t.float "valor"
     t.string "categoria"
-    t.string "forma_pagamento"
     t.string "status"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false

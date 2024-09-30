@@ -1,0 +1,52 @@
+<div style="display: flex; align-items: center;" class="mt-5">
+  <h1>Formas de pagamento <i class="bi bi-car-front"></i></h1>
+  <%= link_to "Novo", new_forma_pagamento_path, class: "btn4", style: "margin-left: 15px;"%>
+</div>
+<div class="container mt-5" style="display: flex;">
+  <div style="flex: 1;">
+    <div class="table-responsive">
+      <table class="table table-borderless table-responsive card-10">
+      <thead>
+        <tr class="border-bottom">
+          <th style="background-color: #87CEFA; color: #fff;">
+            <span>Nome</span>
+          </th>
+          <th style="background-color: #87CEFA; color: #fff;">
+          </th>
+        </tr>
+        </thead>
+        <tbody>
+          <% @forma_pagamentos.each do |forma_pagamento| %>
+            <tr class="border-bottom">
+              <td>
+                <div>
+                  <span class="d-block font-weight-bold"><%= forma_pagamento.nome%></span>
+                </div>
+              </td>
+              <td>
+                <div class="d-flex flex-row align-items-center">
+                  <div class="d-flex flex-column ml-2">
+                    <%= link_to edit_forma_pagamento_path(forma_pagamento), class: "btn5 ", style: "margin-right: 10px;" do %>
+                      <i class="bi bi-pencil-square"></i>
+                    <% end %>
+                  </div>
+                  <div class="d-flex flex-column ml-2">
+                    <%= button_to forma_pagamento_path(forma_pagamento), method: :delete, class: "btn6 " do %>
+                      <i class="bi bi-trash"></i>
+                    <%end%>
+                  </div>
+                </div>
+              </td>
+            </div>
+          <% end %>
+        </tbody>
+      </table>
+    </div>
+  </div>
+  <div class="col-md-5 col-lg-5 offset-lg-1 offset-xl-0 d-none d-lg-block phone-holder">
+    <div class="iphone-mockup">
+      <%= image_tag("carro.png", style: "whidth: 230px; height: 300px;") %>
+    </div>
+  </div>
+</div>
+

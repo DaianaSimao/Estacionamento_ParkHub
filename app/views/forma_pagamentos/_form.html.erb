@@ -1,0 +1,26 @@
+<%= form_with(model: forma_pagamento) do |form| %>
+  <div class="container">
+    <div class="card p-4 mt-5">
+      <div class="row g-3">
+        <div class="col-12 mb-4">
+          <% if forma_pagamento.new_record? %>
+            <h4>Cadastrar Forma de Pagamento</h4>
+          <% else %>
+            <h4>Editar Forma pagamento</h4>
+          <% end %>
+          <span class="text-muted">Preencha todos os dados corretamente:</span>
+        </div>
+        <div class="col-lg-3 col-md-12">
+          <div class="form-floating">
+            <%= form.text_field :nome,  min: "0", step: "0.01", class:"form-control",required: true %>
+            <%= form.label "Nome" %>
+          </div>
+        </div>
+        <div class="col-12 d-flex mt-4">
+          <%= form.submit "Adicionar", class: "btn btn-dark",  style: "margin-right: 10px;" %>
+          <%= link_to "Cancelar", forma_pagamentos_path, class: "btn btn-dark" %>
+        </div>
+      </div>
+    </div>
+  </div>
+<% end %>

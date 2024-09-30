@@ -36,34 +36,34 @@
           </div>
         </div>
 
-        <%= form.fields_for :forma_pagamento do |fp| %>
+        <%= form.fields_for :pagamento do |p| %>
           <div class="col-lg-4 col-md-12">
             <div class="field form-floating">
-              <%= fp.select(:nome, ['Dinheiro','Debito','Credito','Pix'], {prompt: "Selecione o pagamento"}, {class: "form-control", required: true, id: "forma_pagamento"})%>
-              <%= fp.label :nome %>
+              <%= form.collection_select :forma_pagamento_id, FormaPagamento.all, :id, :nome, { include_blank: true }, class: "form-select", required: true, id: "forma_pagamento" %>
+              <%= form.label :forma_pagamento_id, "Pagamento" %> 
             </div>
           </div>
           
           <div class="col-lg-4 col-md-12">
             <div class="field form-floating">
-              <%= fp.number_field :valor, class: "form-control", placeholder: "Valor pago", required: true, id: "valor", step: "0.01", value: @total %>
-              <%= fp.label :valor, "Valor Pago" %>
+              <%= p.number_field :valor, class: "form-control", placeholder: "Valor pago", required: true, id: "valor", step: "0.01", value: @total %>
+              <%= p.label :valor, "Valor Pago" %>
             </div>
           </div>
 
           <!-- Campo para o total calculado -->
           <div class="col-lg-4 col-md-12">
             <div class="field form-floating">
-              <%= fp.number_field :total, class: "form-control", placeholder: "Total a pagar", required: true, readonly: true, id: "total", step: "0.01", value: @total %>
-              <%= fp.label :total, "Total a Pagar" %>
+              <%= p.number_field :total, class: "form-control", placeholder: "Total a pagar", required: true, readonly: true, id: "total", step: "0.01", value: @total %>
+              <%= p.label :total, "Total a Pagar" %>
             </div>
           </div>
 
           <!-- Campo para o troco -->
           <div class="col-lg-4 col-md-12">
             <div class="field form-floating">
-              <%= fp.number_field :troco, class: "form-control", required: true, id: "troco", readonly: true, style: "display: block;", step: "0.01", value: 0 %>
-              <%= fp.label :troco, "Troco", id: "troco_label" %>
+              <%= p.number_field :troco, class: "form-control", required: true, id: "troco", readonly: true, style: "display: block;", step: "0.01", value: 0 %>
+              <%= p.label :troco, "Troco", id: "troco_label" %>
             </div>
           </div>
         <% end %>
@@ -92,7 +92,7 @@
     // Reseta o valor do troco ao trocar a forma de pagamento
     trocoInput.value = '';
 
-    if (formaPagamento !== 'Dinheiro') {
+    if (formaPagamento !== '1') {
       valorInput.value = totalInput.value; // Limpa o valor se não for "Dinheiro"
       valorInput.setAttribute('readonly', true); // Define como readonly
       trocoInput.style.display = 'none';
@@ -112,7 +112,7 @@
     .then(response => response.json())
     .then(data => {
       // Se a forma de pagamento não for Dinheiro, usa o valor do checkin
-      if (formaPagamento === 'Dinheiro') {
+      if (formaPagamento === '1') {
         // Se for Dinheiro, permitir que o usuário insira o valor manualmente
         trocoInput.style.display = 'block';
         trocoLabel.style.display = 'block';
@@ -132,7 +132,7 @@
     const total = parseFloat(document.getElementById('total').value);
     const trocoInput = document.getElementById('troco');
 
-    if (formaPagamento === 'Dinheiro' && valor > total) {
+    if (formaPagamento === '1' && valor > total) {
       const troco = valor - total;
       trocoInput.value = troco.toFixed(2); // Preenche o troco
     } else {

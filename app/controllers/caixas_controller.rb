@@ -6,7 +6,7 @@ class CaixasController < ApplicationController
 
   def calcular_pagamento
     valor = params[:valor].to_f
-    forma_pagamento = params[:forma_pagamento]
+    pagamento = params[:forma_pagamento]
     total = params[:total].to_f
     troco = 0
 
@@ -42,7 +42,7 @@ class CaixasController < ApplicationController
   # GET /caixas/new
   def new
     @caixa = Caixa.new
-    @caixa.build_forma_pagamento
+    @caixa.build_pagamento
     @caixa.checkin_id = params[:checkin_id]
     if @caixa.checkin.present? && @caixa.checkin.saida.present? && @caixa.checkin.entrada.present?
       duracao_em_segundos = (@caixa.checkin.saida - @caixa.checkin.entrada).to_i
@@ -72,9 +72,11 @@ class CaixasController < ApplicationController
   # POST /caixas or /caixas.json
 
   def create
+    binding.pry
     @caixa = Caixa.new(caixa_params)
     @caixa.descricao = "Caixa"
     @caixa.checkin_id = params[:caixa][:checkin_id]
+    @caixa.pagamento.forma_pagamento_id = params[:caixa][:forma_pagamento_id]
 
     respond_to do |format|
       if @caixa.save
@@ -119,6 +121,6 @@ class CaixasController < ApplicationController
 
     # Only allow a list of trusted parameters through.
     def caixa_params
-      params.require(:caixa).permit(:tempo_estadia, :status,:checkin_id, :logado, :forma_pagamento_attributes => [:id, :nome, :troco, :valor, :total, :_destroy])
+      params.require(:caixa).permit(:tempo_estadia, :status,:checkin_id, :logado, :pagamento_attributes => [:id, :forma_pagamento_id, :troco, :valor, :total, :_destroy])
     end
 end

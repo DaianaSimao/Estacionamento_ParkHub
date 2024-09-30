@@ -53,6 +53,6 @@ class FormaPagamentosController < ApplicationController
 
     # Only allow a list of trusted parameters through.
     def forma_pagamento_params
-      params.require(:forma_pagamento).permit(:nome, :descricao)
+      params.require(:forma_pagamento).permit(:nome)
     end
 end

@@ -1,0 +1,32 @@
+<div id="<%= dom_id forma_pagamento %>">
+  <div class="container mt-2">
+    <table class="table table-borderless table-responsive card-4">
+      <thead>
+        <tr class="border-bottom">
+          <th>
+            <span class="ml-2">Nome:</span>
+          </th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr class="border-bottom">
+          <td>
+            <div class="p-2">
+              <span class="d-block font-weight-bold"><%= forma_pagamento.nome%></span>
+            </div>
+          </td>
+          <td>
+            <div class="p-2 d-flex flex-row align-items-center mb-2">
+              <div class="d-flex flex-column ml-2">
+                <%= link_to "editar", edit_forma_pagamento_path(forma_pagamento) , class: "btn4 ", style: "margin-right: 10px;"%>
+              </div>
+              <div class="d-flex flex-column ml-2">
+                <%= button_to "excluir", forma_pagamento, :method => :delete , class: "btn3", data: { confirm: "Certeza que deseja exluir? "}%>
+              </div>
+            </div>
+          </td>
+        </div>
+      </tbody>
+    </table>
+  </div>
+</div>

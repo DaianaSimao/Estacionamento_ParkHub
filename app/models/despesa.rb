@@ -1,4 +1,5 @@
 class Despesa < ApplicationRecord
+  belongs_to :forma_pagamento
   
   self.table_name = "despesas"
 

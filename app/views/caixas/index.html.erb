@@ -80,23 +80,23 @@
                       </td>
                       <td>
                         <div>
-                          <span class="d-block font-weight-bold"><%= caixa.forma_pagamento.nome%></span>
+                          <span class="d-block font-weight-bold"><%= caixa.pagamento.forma_pagamento.nome%></span>
                         </div>
                       </td>
                       <td>
                         <div>
-                          <span class="d-block font-weight-bold"><%= formatar_valor(caixa.forma_pagamento.total) %></span>
+                          <span class="d-block font-weight-bold"><%= formatar_valor(caixa.pagamento.total) %></span>
                         </div>
                       </td>
                       <td>
                         <div>
-                          <span class="d-block font-weight-bold"><%= formatar_valor(caixa.forma_pagamento.valor) %></span>
+                          <span class="d-block font-weight-bold"><%= formatar_valor(caixa.pagamento.valor) %></span>
                         </div>
                       </td>
                       <td>
                         <div>
-                          <% if caixa.forma_pagamento.troco? %>
-                            <% troco = caixa.forma_pagamento.troco %>
+                          <% if caixa.pagamento.troco? %>
+                            <% troco = caixa.pagamento.troco %>
                           <% else %> 
                             <% troco = " 0,00"  %>
                           <% end %>
@@ -105,7 +105,7 @@
                       </td>
                       <td>
                         <div>
-                          <span class="d-block font-weight-bold"><%= l caixa.forma_pagamento.created_at, format: :default %></span>
+                          <span class="d-block font-weight-bold"><%= l caixa.pagamento.created_at, format: :default %></span>
                         </div>
                       </td>
                       <td>

@@ -31,18 +31,18 @@ class RelatoriosController < ApplicationController
   end
 
   def caixa
-    if params[:min].present? && params[:max].present?
-      @min = params[:min].to_date
-      @max = params[:max].to_date
+    if params[:min].present? and params[:max].present?
+      min = (params[:min] + " 00:00").to_datetime + 3.hours
+      max = (params[:max] + " 24:00").to_datetime + 3.hours
     else
       @min = Date.today
       @max = Date.today
     end
 
-    @receitas_dia = Caixa.where("created_at >= ? AND created_at <= ?", @min.beginning_of_day, @min.end_of_day) + EntradasFinanceira.where("created_at >= ? AND created_at <= ?", @min.beginning_of_day, @min.end_of_day)
-    @receitas_semana = Caixa.where("created_at >= ? AND created_at <= ?", (@min - 1.week).beginning_of_day , @min.end_of_day) +  EntradasFinanceira.where("created_at >= ? AND created_at <= ?", (@min - 1.week).beginning_of_day , @min.end_of_day)
-    @receitas_mes = Caixa.where("created_at >= ? AND created_at <= ?",(@min - 1.months).beginning_of_day , @min.end_of_day ) +  EntradasFinanceira.where("created_at >= ? AND created_at <= ?",(@min - 1.months).beginning_of_day , @min.end_of_day ) 
-    @receita_entre = Caixa.where("created_at >= ? AND created_at <= ?",@min.beginning_of_day , @max.end_of_day ) +  EntradasFinanceira.where("created_at >= ? AND created_at <= ?",@min.beginning_of_day , @max.end_of_day )
+    @receitas_dia = FormaPagamento.where("created_at >= ? AND created_at <= ?", @min.beginning_of_day, @min.end_of_day) + EntradasFinanceira.where("created_at >= ? AND created_at <= ?", @min.beginning_of_day, @min.end_of_day)
+    @receitas_semana =  FormaPagamento.where("created_at >= ? AND created_at <= ?", (@min - 1.week).beginning_of_day , @min.end_of_day) +  EntradasFinanceira.where("created_at >= ? AND created_at <= ?", (@min - 1.week).beginning_of_day , @min.end_of_day)
+    @receitas_mes =  FormaPagamento.where("created_at >= ? AND created_at <= ?",(@min - 1.months).beginning_of_day , @min.end_of_day ) +  EntradasFinanceira.where("created_at >= ? AND created_at <= ?",(@min - 1.months).beginning_of_day , @min.end_of_day ) 
+    @receita_entre =  FormaPagamento.where("created_at >= ? AND created_at <= ?",@min.beginning_of_day , @max.end_of_day ) +  EntradasFinanceira.where("created_at >= ? AND created_at <= ?",@min.beginning_of_day , @max.end_of_day )
 
     @despesas_dia = Despesa.where("created_at >= ? AND created_at <= ?", @min.beginning_of_day, @min.end_of_day)
     @despesas_semana = Despesa.where("created_at >= ? AND created_at <= ?", (@min - 1.week).beginning_of_day , @min.end_of_day)

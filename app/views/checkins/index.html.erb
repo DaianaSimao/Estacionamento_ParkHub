@@ -18,13 +18,13 @@
               </div>
               <div class="col-md-3 mt-2">
                 <div class="field form-floating">
-                  <%= date_field_tag :min, params[:min], class: 'form-control'  %>
+                  <%= date_field_tag :min, params[:min] || Date.today, class: 'form-control' %>
                   <%= label_tag "Data de" %>
                 </div>
               </div>
               <div class="col-md-3 mt-2">
                 <div class="field form-floating">
-                  <%= date_field_tag :max,params[:max], class: 'form-control' %>
+                  <%= date_field_tag :max,params[:max] || Date.today , class: 'form-control' %>
                   <%= label_tag "Data até" %>
                 </div>
               </div>
@@ -128,13 +128,15 @@
                     <% else %>
                     <% unless checkin.pago? %> <!-- Verifica se o check-in tem um caixa -->
                         <div class="d-flex flex-column ml-2">
-                          <%= link_to "Pagar", new_caixa_path(checkin_id: checkin.id), class: "btn4" %>
+                          <%= link_to new_caixa_path(checkin_id: checkin.id), style: "margin-right: 10px;", class: "btn9" do  %>
+                            <i class="bi bi-cash-coin"></i>
+                          <% end %>
                         </div>
                       <% end %>
                     <% end %>
                     <div class="d-flex flex-column ml-2">
-                      <%= link_to version_path(checkin), class: "btn5 ", style: "margin-right: 10px;" do %>
-                        <i class="bi bi-pencil-square"></i>
+                      <%= link_to version_path(checkin), class: "btn12", style: "margin-right: 10px;" do %>
+                        <i class="bi bi-file-earmark-code-fill"></i>
                       <% end %>
                     </div>
                   </div>

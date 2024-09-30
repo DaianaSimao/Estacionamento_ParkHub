@@ -241,6 +241,52 @@ body{
   outline:none
 }
 
+.btn9{
+  height: 35px;
+  width: 35px;
+  border: none;
+  background-color:#28b815;
+  font-size: 12px;
+  color: #fff;
+  border-radius: 10px;
+  display:flex;
+  justify-content:center;
+  align-items:center;
+  text-decoration: none;
+}
+
+.btn9:hover{
+  background-color:#12305f
+}
+
+.btn9:focus{
+  box-shadow:none;
+  outline:none
+}
+
+.btn12{
+  height: 35px;
+  width: 35px;
+  border: none;
+  background-color:#b06621;
+  font-size: 12px;
+  color: #fff;
+  border-radius: 10px;
+  display:flex;
+  justify-content:center;
+  align-items:center;
+  text-decoration: none;
+}
+
+.btn12:hover{
+  background-color:#12305f
+}
+
+.btn12:focus{
+  box-shadow:none;
+  outline:none
+}
+
 .navbar-brand{
   font-weight: 700;
   font-size: 22px

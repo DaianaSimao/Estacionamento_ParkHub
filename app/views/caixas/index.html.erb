@@ -16,13 +16,13 @@
               </div>
               <div class="col-md-3 mt-2">
                 <div class="field form-floating">
-                  <%= date_field_tag :min, params[:min], placeholder: "Pgto de", class: 'form-control'  %>
+                  <%= date_field_tag :min, params[:min] || Date.today, placeholder: "Pgto de", class: 'form-control'  %>
                   <%= label_tag "Pgto de" %>
                 </div>
               </div>
               <div class="col-md-3 mt-2">
                 <div class="field form-floating">
-                  <%= date_field_tag :max,params[:max], placeholder: "Pgto até", class: 'form-control' %>
+                  <%= date_field_tag :max,params[:max] || Date.today, placeholder: "Pgto até", class: 'form-control' %>
                   <%= label_tag "Pgto até" %>
                 </div>
               </div>
@@ -42,7 +42,7 @@
                 <thead>
                   <tr>
                     <th style="background-color: #87CEFA; color: #fff;">
-                      <span>COD</span>
+                      <span>Checkin</span>
                     </th>
                     <th style="background-color: #87CEFA; color: #fff;">
                       <span>Forma pgto</span>
@@ -75,7 +75,7 @@
                     <tr class="border-bottom">
                       <td>
                         <div>
-                          <span class="d-block font-weight-bold"><%= caixa.id %></span>
+                          <span class="d-block font-weight-bold"><%= caixa.checkin_id %></span>
                         </div>
                       </td>
                       <td>

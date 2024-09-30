@@ -131,7 +131,7 @@
                       <li>
                         <% c = Caixa.find_by(checkin_id: checkin.id) %>
                         <% if c.present?%>
-                          <%= link_to "Pagamento", caixa_path(c.id), class: "dropdown-item" %>
+                          <%= link_to "Caixa", caixa_path(c.id), class: "dropdown-item" %>
                         <% end %>
                       </li>
                     </ul>

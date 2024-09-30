@@ -17,6 +17,9 @@ test:
   database: estacionamento_test
 
 production:
+  <<: *default
+  database: parkhub_production
+  username: parkhub
+  password: <%= ENV["PROJETO_ESTACIONAMNETO_DATABASE_PASSWORD"] %>
   url: <%= ENV['DATABASE_URL'] %>
   pool: <%= ENV.fetch("RAILS_MAX_THREADS") { 5 } %>
-

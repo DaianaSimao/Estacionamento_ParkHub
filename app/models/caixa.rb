@@ -5,6 +5,8 @@ class Caixa < ApplicationRecord
   belongs_to :checkin
   belongs_to :pagamento
 
+  validates :checkin_id, uniqueness: { message: "Já existe um caixa para este checkin" }
+
   accepts_nested_attributes_for :pagamento
   
   after_create :criar_fluxo_caixa

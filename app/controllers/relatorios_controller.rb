@@ -39,10 +39,10 @@ class RelatoriosController < ApplicationController
       @max = Date.today
     end
 
-    @receitas_dia = FormaPagamento.where("created_at >= ? AND created_at <= ?", @min.beginning_of_day, @min.end_of_day) + EntradasFinanceira.where("created_at >= ? AND created_at <= ?", @min.beginning_of_day, @min.end_of_day)
-    @receitas_semana =  FormaPagamento.where("created_at >= ? AND created_at <= ?", (@min - 1.week).beginning_of_day , @min.end_of_day) +  EntradasFinanceira.where("created_at >= ? AND created_at <= ?", (@min - 1.week).beginning_of_day , @min.end_of_day)
-    @receitas_mes =  FormaPagamento.where("created_at >= ? AND created_at <= ?",(@min - 1.months).beginning_of_day , @min.end_of_day ) +  EntradasFinanceira.where("created_at >= ? AND created_at <= ?",(@min - 1.months).beginning_of_day , @min.end_of_day ) 
-    @receita_entre =  FormaPagamento.where("created_at >= ? AND created_at <= ?",@min.beginning_of_day , @max.end_of_day ) +  EntradasFinanceira.where("created_at >= ? AND created_at <= ?",@min.beginning_of_day , @max.end_of_day )
+    @receitas_dia = Pagamento.where("created_at >= ? AND created_at <= ?", @min.beginning_of_day, @min.end_of_day) + EntradasFinanceira.where("created_at >= ? AND created_at <= ?", @min.beginning_of_day, @min.end_of_day)
+    @receitas_semana =  Pagamento.where("created_at >= ? AND created_at <= ?", (@min - 1.week).beginning_of_day , @min.end_of_day) +  EntradasFinanceira.where("created_at >= ? AND created_at <= ?", (@min - 1.week).beginning_of_day , @min.end_of_day)
+    @receitas_mes =  Pagamento.where("created_at >= ? AND created_at <= ?",(@min - 1.months).beginning_of_day , @min.end_of_day ) +  EntradasFinanceira.where("created_at >= ? AND created_at <= ?",(@min - 1.months).beginning_of_day , @min.end_of_day ) 
+    @receita_entre =  Pagamento.where("created_at >= ? AND created_at <= ?",@min.beginning_of_day , @max.end_of_day ) +  EntradasFinanceira.where("created_at >= ? AND created_at <= ?",@min.beginning_of_day , @max.end_of_day )
 
     @despesas_dia = Despesa.where("created_at >= ? AND created_at <= ?", @min.beginning_of_day, @min.end_of_day)
     @despesas_semana = Despesa.where("created_at >= ? AND created_at <= ?", (@min - 1.week).beginning_of_day , @min.end_of_day)

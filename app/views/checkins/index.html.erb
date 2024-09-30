@@ -56,19 +56,13 @@
                 <span>Tipo</span>
               </th>
               <th style="background-color: #87CEFA; color: #fff;">
-                <span>Permanência</span>
+                <span>Presença</span>
               </th>
               <th style="background-color: #87CEFA; color: #fff;">
                 <span>Preço</span>
               </th>
               <th style="background-color: #87CEFA; color: #fff;">
                 <span>Ações</span>
-              </th>
-              <th style="background-color: #87CEFA; color: #fff;">
-                <span>Ticket</span>
-              </th>
-              <th style="background-color: #87CEFA; color: #fff;">
-                <span>Pagamentos</span>
               </th>
             </tr>
           </thead>
@@ -106,42 +100,44 @@
                   </div>
                 </td>
                 <td>
-                  <div class="d-flex flex-row align-items-center">
-                    <% if checkin.em_permanencia? %>
-                      <div class="d-flex flex-column ml-2">
-                        <%= link_to edit_checkin_path(checkin), class: "btn5 ", style: "margin-right: 10px;" do %>
-                          <i class="bi bi-pencil-square"></i>
-                        <% end %>
-                      </div>
-                    <% end %>
-                    <div class="d-flex flex-column ml-2">
-                      <%=  button_to checkin_path(checkin), method: :delete, class: "btn6 ", style: "margin-right: 10px;" do %>
-                        <i class="bi bi-trash"></i>
+                  <div class="dropdown">
+                    <a class="btn btn-secondary dropdown-toggle" href="#" role="button" data-bs-toggle="dropdown" aria-expanded="false">
+                      Ações
+                    </a>
+
+                    <ul class="dropdown-menu">
+                      <% if checkin.em_permanencia? %>
+                        <li>
+                          <%= link_to "Editar", edit_checkin_path(checkin), class: "dropdown-item" %>
+                        </li>
                       <% end %>
-                    </div>
+                      
+                      <li>
+                        <%= button_to "Excluir", checkin_path(checkin), method: :delete, class: "dropdown-item", data: { confirm: "Tem certeza?" } %>
+                      </li>
+
+                      <% if checkin.em_permanencia? %>
+                        <li>
+                          <%= link_to "Gerar Ticket", gerar_ticket_entrada_path(checkin), class: "dropdown-item", target: "_blank", onclick: "imprimirTicket(); window.print(); return false;" %>
+                        </li>
+                      <% end %>
+
+                      <% if checkin.em_permanencia == false && checkin.pago? == false%>
+                        <li>
+                          <%= link_to "Pagar", new_caixa_path(checkin_id: checkin.id), class: "dropdown-item" %>
+                        </li>
+                      <% end %>
+
+                      <li>
+                        <% c = Caixa.find_by(checkin_id: checkin.id) %>
+                        <% if c.present?%>
+                          <%= link_to "Pagamento", caixa_path(c.id), class: "dropdown-item" %>
+                        <% end %>
+                      </li>
+                    </ul>
+                  </div>
                 </td>
-                <td>
-                  <% if checkin.em_permanencia? %>
-                    <div class="d-flex flex-column ml-2">
-                      <%= link_to gerar_ticket_entrada_path(checkin), class: "btn7", style: "margin-right: 10px;", target: "_blank", onclick: "imprimirTicket(); window.print(); return false;" do %>
-                        <i class="bi bi-arrow-right-square-fill"></i>
-                      <%end%>
-                    </div>
-                  <% end %>
-                </td>
-                <td>
-                  <% unless checkin.em_permanencia? %>
-                    <div class="d-flex flex-column ml-2">
-                      <%= link_to "Pagar", new_caixa_path(checkin_id: checkin.id), style: "margin-right: 10px;", class: "btn4"%>
-                    </div>
-                  <% else %>
-                    <div class="d-flex flex-column ml-2">
-                      <%= link_to "Caixa", caixas_path, style: "margin-right: 10px;", class: "btn"%>
-                    </div>
-                  <% end %>
-                </div>
-              </td>
-            </tr>
+              </tr>
             <% end %>
           </tbody>
         </table>

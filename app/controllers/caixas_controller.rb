@@ -75,7 +75,6 @@ class CaixasController < ApplicationController
     @caixa.descricao = "Caixa"
     @caixa.checkin_id = params[:caixa][:checkin_id]
     @caixa.pagamento.forma_pagamento_id = params[:caixa][:forma_pagamento_id]
-    binding.pry
     respond_to do |format|
       if @caixa.save
         format.html { redirect_to caixas_url, notice: "Pagamento efetudado com sucesso." }

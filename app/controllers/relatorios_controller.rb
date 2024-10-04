@@ -82,6 +82,11 @@ class RelatoriosController < ApplicationController
         horas, minutos = tempo_estadia.split(':').map(&:to_i)
         horas * 60 + minutos
       end
+
+      if minutos_estadia.empty?
+        return "0h 0m"
+      end
+      
       media_minutos = minutos_estadia.sum / minutos_estadia.size
       media_horas = media_minutos / 60
       minutos = media_minutos % 60

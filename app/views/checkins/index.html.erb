@@ -56,7 +56,10 @@
                 <span>Tipo</span>
               </th>
               <th style="background-color: #87CEFA; color: #fff;">
-                <span>Presença</span>
+                <span>Estacionado</span>
+              </th>
+              <th style="background-color: #87CEFA; color: #fff;">
+                <span>Pagamento</span>
               </th>
               <th style="background-color: #87CEFA; color: #fff;">
                 <span>Preço</span>
@@ -92,6 +95,11 @@
                 <td>
                   <div>
                     <span class="d-block font-weight-bold"><%= checkin.em_permanencia == true ? "Sim" : "Não" %></span>
+                  </div>
+                </td>
+                <td>
+                  <div>
+                    <span class="status-background-checkin <%= checkin.pago? %>"><%=  checkin.pago? == true ? "Pago" : "Pendente" %></span>
                   </div>
                 </td>
                 <td>

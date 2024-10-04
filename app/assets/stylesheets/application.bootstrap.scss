@@ -605,6 +605,7 @@ a {
   animation: animate 2.7s linear infinite;
   font-weight: bold;
 }
+
 @keyframes animate {
   0% {
     opacity: 0;
@@ -616,6 +617,35 @@ a {
     opacity: 0;
   }
 }
+//================================
+
+// Css de checkin
+/* Estilos para o status 'Não' */
+.status-background-checkin.false {
+  color: red;
+  animation: animate 2.7s linear infinite;
+  font-weight: bold;
+}
+
+/* Estilos para o status 'Sim' */
+.status-background-checkin.true {
+  color: green;
+  animation: animate 2.7s linear infinite;
+  font-weight: bold;
+}
+
+@keyframes animate {
+  0% {
+    opacity: 0;
+  }
+  50% {
+    opacity: 0.9;
+  }
+  100% {
+    opacity: 0;
+  }
+}
+
 //================================
 
 // Css do search

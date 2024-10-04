@@ -9,7 +9,8 @@ class CheckinsController < ApplicationController
   end
   
   def index
-    @checkins = Checkin.all.order(created_at: :desc)
+    @checkins = Checkin.all
+
     if params[:min].present? and params[:max].present?
       min = (params[:min] + " 00:00").to_datetime + 3.hours
       max = (params[:max] + " 24:00").to_datetime + 3.hours

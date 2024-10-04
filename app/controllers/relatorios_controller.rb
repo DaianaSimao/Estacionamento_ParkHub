@@ -32,8 +32,8 @@ class RelatoriosController < ApplicationController
 
   def caixa
     if params[:min].present? and params[:max].present?
-      min = (params[:min] + " 00:00").to_datetime + 3.hours
-      max = (params[:max] + " 24:00").to_datetime + 3.hours
+      @min = (params[:min] + " 00:00").to_datetime + 3.hours
+      @max = (params[:max] + " 24:00").to_datetime + 3.hours
     else
       @min = Date.today
       @max = Date.today

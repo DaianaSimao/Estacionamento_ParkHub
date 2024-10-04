@@ -22,7 +22,7 @@
           <div class="col-lg-4 col-md-12">
             <%= form.label :status, 'Vaga', class: 'form-label' %>
             <div class="form-check form-check-inline">
-              <%= form.radio_button :status, true, id: 'status_ocupada', class: 'form-check-input' %>
+              <%= form.radio_button :status, true, id: 'status_ocupada', class: 'form-check-input', checked: true %>
               <%= form.label :status, ' Ocupada', class: 'form-check-label', for: 'status_ocupada' %>
             </div>
             <div class="form-check form-check-inline">
@@ -34,7 +34,7 @@
           <div class="col-lg-4 col-md-12">
             <%= form.label :em_permanencia, 'Permanência', class: 'form-label' %>
             <div class="form-check form-check-inline">
-              <%= form.radio_button :em_permanencia, true, class: 'form-check-input' %>
+              <%= form.radio_button :em_permanencia, true, class: 'form-check-input', checked: true %>
               <%= form.label :em_permanencia, 'Sim', class: 'form-check-label'%>
             </div>
             <div class="form-check form-check-inline">

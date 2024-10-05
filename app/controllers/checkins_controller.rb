@@ -61,7 +61,7 @@ class CheckinsController < ApplicationController
   # PATCH /checkins/:id/update_status
   def update_status
     if @checkin.update(checkin_params)
-      render json: { message: 'Estadia finalizada com sucesso.', redirect_to: checkins_path }, status: :ok
+      render json: { message: 'Estadia finalizada com sucesso.', redirect_to: new_caixa_path(checkin_id: @checkin.id) }, status: :ok
     else
       render json: { errors: @checkin.errors.full_messages }, status: :unprocessable_entity
     end

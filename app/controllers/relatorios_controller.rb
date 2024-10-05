@@ -9,13 +9,15 @@ class RelatoriosController < ApplicationController
       @max = Date.today
     end
 
-    @periodo_de = (@min - 1.months).to_date
+    @periodo_de = @min.to_date
     @periodo_ate = @max.to_date
+    @perido_comeco_mes = @min.beginning_of_month
+    @perido_fim_mes = @min.end_of_month
 
-    @checkins_dia = Checkin.where("entrada >= ? AND entrada <= ?", @min.beginning_of_day, @min.end_of_day)
-    @checkins_semana = Checkin.where("entrada >= ? AND entrada <= ?", (@min - 1.week).beginning_of_day , @min.end_of_day)
-    @checkins_mes = Checkin.where("entrada >= ? AND entrada <= ?",(@min - 1.months).beginning_of_day , @min.end_of_day )
-    @checkins_entre = Checkin.where("entrada >= ? AND entrada <= ?",@min.beginning_of_day , @max.end_of_day )
+    @checkins_dia = Checkin.where("entrada between ? AND ?", @min.beginning_of_day, @min.end_of_day)
+    @checkins_semana = Checkin.where("entrada between ? AND ?", (@min - 1.week).beginning_of_day, @min.end_of_day)
+    @checkins_mes = Checkin.where("entrada between ? AND ?", @min.beginning_of_month, @min.end_of_month)
+    @checkins_entre = Checkin.where("entrada between ? AND ?", @min.beginning_of_day, @max.end_of_day)
 
     @media_tempo_dia = calcula_media_permanencia(@checkins_dia)
     @media_tempo_semana = calcula_media_permanencia(@checkins_semana)
@@ -39,15 +41,15 @@ class RelatoriosController < ApplicationController
       @max = Date.today
     end
 
-    @receitas_dia = Pagamento.where("created_at >= ? AND created_at <= ?", @min.beginning_of_day, @min.end_of_day) + EntradasFinanceira.where("created_at >= ? AND created_at <= ?", @min.beginning_of_day, @min.end_of_day)
-    @receitas_semana =  Pagamento.where("created_at >= ? AND created_at <= ?", (@min - 1.week).beginning_of_day , @min.end_of_day) +  EntradasFinanceira.where("created_at >= ? AND created_at <= ?", (@min - 1.week).beginning_of_day , @min.end_of_day)
-    @receitas_mes =  Pagamento.where("created_at >= ? AND created_at <= ?",(@min - 1.months).beginning_of_day , @min.end_of_day ) +  EntradasFinanceira.where("created_at >= ? AND created_at <= ?",(@min - 1.months).beginning_of_day , @min.end_of_day ) 
-    @receita_entre =  Pagamento.where("created_at >= ? AND created_at <= ?",@min.beginning_of_day , @max.end_of_day ) +  EntradasFinanceira.where("created_at >= ? AND created_at <= ?",@min.beginning_of_day , @max.end_of_day )
+    @receitas_dia = Pagamento.where("created_at between ? AND ?", @min.beginning_of_day, @min.end_of_day) + EntradasFinanceira.where("created_at between ? AND ?", @min.beginning_of_day, @min.end_of_day)
+    @receitas_semana =  Pagamento.where("created_at between ? AND ?", (@min - 1.week).beginning_of_day , @min.end_of_day) +  EntradasFinanceira.where("created_at between ? AND ?", (@min - 1.week).beginning_of_day , @min.end_of_day)
+    @receitas_mes =  Pagamento.where("created_at between ? AND ?", (@min - 1.months).beginning_of_day , @min.end_of_day ) +  EntradasFinanceira.where("created_at between ? AND ?", (@min - 1.months).beginning_of_day , @min.end_of_day ) 
+    @receita_entre =  Pagamento.where("created_at between ? AND ?", @min.beginning_of_day , @max.end_of_day ) +  EntradasFinanceira.where("created_at between ? AND ?", @min.beginning_of_day , @max.end_of_day )
 
-    @despesas_dia = Despesa.where("created_at >= ? AND created_at <= ?", @min.beginning_of_day, @min.end_of_day)
-    @despesas_semana = Despesa.where("created_at >= ? AND created_at <= ?", (@min - 1.week).beginning_of_day , @min.end_of_day)
-    @despesas_mes = Despesa.where("created_at >= ? AND created_at <= ?",(@min - 1.months).beginning_of_day , @min.end_of_day )
-    @despesas_entre = Despesa.where("created_at >= ? AND created_at <= ?",@min.beginning_of_day , @max.end_of_day )
+    @despesas_dia = Despesa.where("created_at between ? AND ?", @min.beginning_of_day, @min.end_of_day)
+    @despesas_semana = Despesa.where("created_at between ? AND ?", (@min - 1.week).beginning_of_day , @min.end_of_day)
+    @despesas_mes = Despesa.where("created_at between ? AND ?", (@min - 1.months).beginning_of_day , @min.end_of_day )
+    @despesas_entre = Despesa.where("created_at between ? AND ?", @min.beginning_of_day , @max.end_of_day )
 
     @lucro_liquido_dia = @receitas_dia.sum(&:total).to_f - @despesas_dia.sum(:valor)
     @lucro_liquido_semana = @receitas_semana.sum(&:total).to_f - @despesas_semana.sum(:valor)

@@ -43,24 +43,30 @@ class CaixasController < ApplicationController
     @caixa = Caixa.new
     @caixa.build_pagamento
     @caixa.checkin_id = params[:checkin_id]
-    if @caixa.checkin.present? && @caixa.checkin.saida.present? && @caixa.checkin.entrada.present?
-      duracao_em_segundos = (@caixa.checkin.saida - @caixa.checkin.entrada).to_i
+    if @caixa.checkin.preco.tipo != "Diaria"
+      if @caixa.checkin.present? && @caixa.checkin.saida.present? && @caixa.checkin.entrada.present?
+        duracao_em_segundos = (@caixa.checkin.saida - @caixa.checkin.entrada).to_i
 
-      horas = duracao_em_segundos / 3600
-      minutos = (duracao_em_segundos % 3600) / 60
-      segundos = duracao_em_segundos % 60
-      minutos_permanencia_total = (duracao_em_segundos / 1.minute).ceil
+        horas = duracao_em_segundos / 3600
+        minutos = (duracao_em_segundos % 3600) / 60
+        segundos = duracao_em_segundos % 60
+        minutos_permanencia_total = (duracao_em_segundos / 1.minute).ceil
 
-      @caixa.tempo_estadia = "#{horas}:#{minutos}"
-      if minutos_permanencia_total < 60
-        @total = @caixa.checkin.preco.preco_hora
+        @caixa.tempo_estadia = "#{horas}:#{minutos}"
+        if minutos_permanencia_total < 60
+          @total = @caixa.checkin.preco.preco_hora
+        else
+          @valor_total = TicketService.calcular_valor_cobrado(@caixa.checkin)
+          @total = @valor_total
+        end
+        
       else
-        @valor_total = TicketService.calcular_valor_cobrado(@caixa.checkin)
-        @total = @valor_total
+        @caixa.tempo_estadia = "Tempo não disponível"
       end
-      
     else
-      @caixa.tempo_estadia = "Tempo não disponível"
+      @valor = @caixa.checkin.preco.preco_hora
+      @total = @valor
+      @caixa.tempo_estadia = "1 dia"
     end
   end
 

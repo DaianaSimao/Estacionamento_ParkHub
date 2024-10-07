@@ -25,7 +25,7 @@ class RelatoriosController < ApplicationController
     @media_tempo_entre = calcula_media_permanencia(@checkins_entre)
 
     # Método de classe para encontrar os tipos de veículos mais frequentes
-    @veiculos = @checkins_mes.map { |checkin| checkin.preco.tipo }
+    @veiculos =  @checkins_entre.map { |checkin| checkin.preco.tipo }
     # Contar a frequência de cada tipo de veículo
     @frequencia_veiculos = @veiculos.tally
     # Ordenar a frequência em ordem decrescente
@@ -81,8 +81,13 @@ class RelatoriosController < ApplicationController
     else
       tempos_estadia = Caixa.where(checkin_id: checkins.map(&:id)).pluck(:tempo_estadia)
       minutos_estadia = tempos_estadia.map do |tempo_estadia|
-        horas, minutos = tempo_estadia.split(':').map(&:to_i)
-        horas * 60 + minutos
+        if tempo_estadia == "1 dia"
+          horas = 24
+          horas * 60
+        else
+          horas, minutos = tempo_estadia.split(':').map(&:to_i)
+          horas * 60 + minutos
+        end
       end
 
       if minutos_estadia.empty?

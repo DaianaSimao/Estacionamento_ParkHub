@@ -1,6 +1,7 @@
 class TicketService
-
   def self.calcular_valor_cobrado(checkin)
+    return checkin.preco.preco_hora if checkin.preco.tipo == "Diaria"
+
     hora_entrada = checkin.entrada
     hora_saida = checkin.saida
   

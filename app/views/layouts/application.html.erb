@@ -67,6 +67,9 @@
                         <%= content_tag :li do %>
                           <%= link_to "Entradas ", entradas_financeiras_path , class: "dropdown-item" %>
                         <% end %>
+                        <%= content_tag :li do %>
+                          <%= link_to "Cadastro de Funcionário", new_user_registration_path, class: "dropdown-item" %>
+                        <% end %>
                       <% end %>
                     <% end %>
                      <%= content_tag :li, class: "nav-item dropdown" do %>

@@ -1,29 +1,59 @@
-<h2>Sign up</h2>
-
 <%= form_for(resource, as: resource_name, url: registration_path(resource_name)) do |f| %>
-  <%= render "users/shared/error_messages", resource: resource %>
+  <div class="container-fluid px-1 px-md-5 px-lg-1 px-xl-5 py-5 mx-auto">
+    <div class="card border-0">
+      <div class="row d-flex">
+        <div class="col-lg-6 align-items-center">
+          <div class="card-6">
+            <div class="row justify-content-center">
+              <%= image_tag("park.png", style: "width: 230px; height: 300px;") %>
+            </div>
+          </div>
+        </div>
+        <div class="col-lg-6">
+          <div class="card-9 px-4 py-5">
+            <h2 style="color: #119cff;"Registrar-se</h2>
 
-  <div class="field">
-    <%= f.label :email %><br />
-    <%= f.email_field :email, autofocus: true, autocomplete: "email" %>
-  </div>
+            <%= render "users/shared/error_messages", resource: resource %>
 
-  <div class="field">
-    <%= f.label :password %>
-    <% if @minimum_password_length %>
-    <em>(<%= @minimum_password_length %> characters minimum)</em>
-    <% end %><br />
-    <%= f.password_field :password, autocomplete: "new-password" %>
-  </div>
+            <div class="row px-3">
+              <h6 class="mb-0"><%= f.label :role, "Escolha Cargo", class: "mb-1" %></h6>
+              <div class="d-flex">
+                <div class="form-check form-check-inline">
+                  <%= f.radio_button :role, 'funcionario', class: "form-check-input" %>
+                  <%= f.label :role_funcionario, 'Funcionario', class: "form-check-label" %>
+                </div>
+                <div class="form-check form-check-inline">
+                  <%= f.radio_button :role, 'admin', class: "form-check-input" %>
+                  <%= f.label :role_admin, 'Admin', class: "form-check-label" %>
+                </div>
+              </div>
+            </div>
 
-  <div class="field">
-    <%= f.label :password_confirmation %><br />
-    <%= f.password_field :password_confirmation, autocomplete: "new-password" %>
-  </div>
+            <div class="row px-3">
+              <h6 class="mb-0 text-sm"><%= f.label :email, class: "mb-1" %></h6>
+              <%= f.email_field :email, autofocus: true, autocomplete: "email", class: "mb-4", placeholder: "Email" %>
+            </div>
 
-  <div class="actions">
-    <%= f.submit "Sign up" %>
+            <div class="row px-3">
+              <h6 class="mb-0 text-sm"><%= f.label :password, class: "mb-1" %></h6>
+              <% if @minimum_password_length %>
+                <em>(<%= @minimum_password_length %> digitos)</em>
+              <% end %>
+              <%= f.password_field :password, autocomplete: "new-password", class: "mb-4", placeholder: "Senha" %>
+            </div>
+
+            <div class="row px-3">
+              <h6 class="mb-0 text-sm"><%= f.label :password_confirmation, class: "mb-1" %></h6>
+              <%= f.password_field :password_confirmation, autocomplete: "new-password", class: "mb-4", placeholder: "Confirmar Senha" %>
+            </div>
+
+            <div class="row mb-3 mt-3 px-3">
+              <%= f.submit "Registrar", class: "btn btn-dark text-center" %>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
   </div>
 <% end %>
 
-<%= render "users/shared/links" %>

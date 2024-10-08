@@ -122,13 +122,11 @@
                         <li>
                           <%= link_to "Finalizar Estadia", "#", class: "dropdown-item update-status", data: { checkin_id: checkin.id } %>
                         </li>
-                      <% end %>
-                      
-                      <li>
-                        <%= button_to "Excluir", checkin_path(checkin), method: :delete, class: "dropdown-item", data: { confirm: "Tem certeza?" } %>
-                      </li>
 
-                      <% if checkin.em_permanencia? %>
+                        <li>
+                          <%= button_to "Excluir", checkin_path(checkin), method: :delete, class: "dropdown-item", data: { confirm: "Tem certeza?" } %>
+                        </li>
+
                         <li>
                           <%= link_to "Gerar Ticket", gerar_ticket_entrada_path(checkin), class: "dropdown-item", target: "_blank", onclick: "imprimirTicket(); window.print(); return false;" %>
                         </li>

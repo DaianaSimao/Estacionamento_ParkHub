@@ -1,0 +1,38 @@
+<div style="display: flex; align-items: center; color: #119cff;" class="mt-5 justify-content-center">
+  <h1>Lista de Usuários</h1>
+</div>
+<div class="container-fluid px-1 px-md-5 px-lg-1 px-xl-5 py-5 mx-auto">
+  <div class="card border-0">
+    <div class="card-body">
+      <div class="row mb-3">
+        <div class="col text-end">
+          <%= link_to "Adicionar Usuário", new_user_registration_path, class: "btn btn-dark" %>
+        </div>
+      </div>
+
+      <table class="table table-striped">
+        <thead>
+          <tr>
+            <th scope="col">ID</th>
+            <th scope="col">Email</th>
+            <th scope="col">Cargo</th>
+            <th scope="col">Ações</th>
+          </tr>
+        </thead>
+        <tbody>
+          <% @users.each do |user| %>
+            <tr>
+              <th scope="row"><%= user.id %></th>
+              <td><%= user.email %></td>
+              <td><%= user.role %></td>
+              <td>
+                <%= link_to "Editar", edit_user_registration_path(user), class: "btn btn-sm btn-primary mb-3" %>
+                <%= button_to "Excluir", registration_path(user), method: :delete, data: { confirm: "Tem certeza que deseja excluir este usuário?" }, class: "btn btn-sm btn-danger" %>
+              </td>
+            </tr>
+          <% end %>
+        </tbody>
+      </table>
+    </div>
+  </div>
+</div>

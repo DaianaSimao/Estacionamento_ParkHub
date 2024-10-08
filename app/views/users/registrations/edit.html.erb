@@ -1,43 +1,56 @@
-<h2>Edit <%= resource_name.to_s.humanize %></h2>
+<h2 style="color: #119cff;">Editar <%= resource_name.to_s.humanize %></h2>
 
 <%= form_for(resource, as: resource_name, url: registration_path(resource_name), html: { method: :put }) do |f| %>
-  <%= render "users/shared/error_messages", resource: resource %>
+  <div class="container-fluid px-1 px-md-5 px-lg-1 px-xl-5 py-5 mx-auto">
+    <div class="card border-0">
+      <div class="row d-flex">
+        <div class="col-lg-6">
+          <div class="card-9 px-4 py-5">
+            <%= render "users/shared/error_messages", resource: resource %>
 
-  <div class="field">
-    <%= f.label :email %><br />
-    <%= f.email_field :email, autofocus: true, autocomplete: "email" %>
-  </div>
+            <div class="row px-3">
+              <h6 class="mb-0 text-sm"><%= f.label :email, class: "mb-1" %></h6>
+              <%= f.email_field :email, autofocus: true, autocomplete: "email", class: "mb-4", placeholder: "Entre com um email valido" %>
+            </div>
 
-  <% if devise_mapping.confirmable? && resource.pending_reconfirmation? %>
-    <div>Currently waiting confirmation for: <%= resource.unconfirmed_email %></div>
-  <% end %>
+            <% if devise_mapping.confirmable? && resource.pending_reconfirmation? %>
+              <div>Atualmente aguardando confirmação para: <%= resource.unconfirmed_email %></div>
+            <% end %>
 
-  <div class="field">
-    <%= f.label :password %> <i>(leave blank if you don't want to change it)</i><br />
-    <%= f.password_field :password, autocomplete: "new-password" %>
-    <% if @minimum_password_length %>
-      <br />
-      <em><%= @minimum_password_length %> characters minimum</em>
-    <% end %>
-  </div>
+            <div class="row px-3 mb-2">
+              <h6 class="mb-0 text-sm"><%= f.label :password, class: "mb-'" %></h6>
+              <%= f.password_field :password, autocomplete: "new-password", placeholder: "Digite a nova senha (deixe em branco para não alterar)" %>
+              <% if @minimum_password_length %>
+                <br />
+                <em><%= @minimum_password_length %> caracteres no mínimo</em>
+              <% end %>
+            </div>
 
-  <div class="field">
-    <%= f.label :password_confirmation %><br />
-    <%= f.password_field :password_confirmation, autocomplete: "new-password" %>
-  </div>
+            <div class="row px-3 mb-2">
+              <h6 class="mb-0 text-sm"><%= f.label :password_confirmation, class: "mb-1" %></h6>
+              <%= f.password_field :password_confirmation, autocomplete: "new-password", placeholder: "Confirme a nova senha" %>
+            </div>
 
-  <div class="field">
-    <%= f.label :current_password %> <i>(we need your current password to confirm your changes)</i><br />
-    <%= f.password_field :current_password, autocomplete: "current-password" %>
-  </div>
+            <div class="row px-3 mb-2">
+              <h6 class="mb-0 text-sm"><%= f.label :current_password, class: "mb-3" %></h6>
+              <%= f.password_field :current_password, autocomplete: "current-password", placeholder: "Digite sua senha atual" %>
+            </div>
 
-  <div class="actions">
-    <%= f.submit "Update" %>
+            <div class="row mb-3 mt-3 px-3">
+              <%= f.submit "Atualizar", class: "btn btn-dark text-center" %>
+              <%= link_to "Cancelar", :back, class: "btn btn-dark text-center", style: "margin-left: 10px;" %>  
+            </div>
+          </div>
+        </div>
+
+        <div class="col-lg-6 align-items-center">
+          <div class="card-6">
+            <div class="row justify-content-center">
+              <%= image_tag("park.png", style: "whidth: 230px; height: 300px;") %>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
   </div>
 <% end %>
-
-<h3>Cancel my account</h3>
-
-<div>Unhappy? <%= button_to "Cancel my account", registration_path(resource_name), data: { confirm: "Are you sure?", turbo_confirm: "Are you sure?" }, method: :delete %></div>
-
-<%= link_to "Back", :back %>

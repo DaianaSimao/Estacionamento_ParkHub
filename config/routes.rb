@@ -39,4 +39,5 @@ Rails.application.routes.draw do
   get 'tickets/gerar_ticket_entrada/:id', as: 'gerar_ticket_entrada', to: 'tickets#gerar_ticket_entrada'
   get 'tickets/gerar_ticket_saida/:id', as: 'gerar_ticket_saida', to: 'tickets#gerar_ticket_saida'
   get 'inicio/index'
+  get 'inicio/usuarios'
 end

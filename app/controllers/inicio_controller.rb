@@ -2,24 +2,4 @@ class InicioController < ApplicationController
   before_action :configure_permitted_parameters, if: :devise_controller?
   def index
   end
-
-  def usuarios
-    @users = User.all
-  end
-
-
-  protected
-
-  def configure_permitted_parameters
-    devise_parameter_sanitizer.permit(:sign_up, keys: [:role])
-    devise_parameter_sanitizer.permit(:account_update, keys: [:role])
-  end
-
-  def after_sign_in_path_for(resource)
-    if resource.role == 'admin'
-      root_path
-    else
-      root_path
-    end
-  end
 end

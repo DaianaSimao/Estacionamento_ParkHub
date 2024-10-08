@@ -1,0 +1,62 @@
+<<div style="display: flex; align-items: center; color: #119cff;" class="mt-5 justify-content-center">
+  <h2>Editar Usuário</h2>
+</div>
+<%= form_for(@user, url: user_path(@user), html: { method: :put }) do |f| %>
+  <div class="container-fluid px-1 px-md-5 px-lg-1 px-xl-5 py-5 mx-auto">
+    <div class="card border-0">
+      <div class="row d-flex">
+        <div class="col-lg-6">
+          <div class="card-9 px-4 py-5">
+              <% if @user.errors.any? %>
+                <div class="container small-container">
+                  <% @user.errors.full_messages.each do |message| %>
+                    <div class="alert alert_error alert-dismissible fade show" role="alert">
+                      <i class="bi bi-exclamation-circle"></i> <%= message %>
+                      <button type="button" class="btn-close" data-bs-dismiss="alert"></button>
+                    </div>
+                  <% end %>
+                </div>
+              <% end %>
+
+            <div class="row px-3">
+              <h6 class="mb-0 text-sm"><%= f.label :email, class: "mb-1" %></h6>
+              <%= f.email_field :email, autofocus: true, autocomplete: "email", class: "mb-4", placeholder: "Entre com um email valido" %>
+            </div>
+
+            <div class="row px-3 mb-2">
+              <h6 class="mb-0 text-sm"><%= f.label :password, class: "mb-'" %></h6>
+              <%= f.password_field :password, autocomplete: "new-password", placeholder: "Digite a nova senha (deixe em branco para não alterar)" %>
+              <% if @minimum_password_length %>
+                <br />
+                <em><%= @minimum_password_length %> caracteres no mínimo</em>
+              <% end %>
+            </div>
+
+            <div class="row px-3 mb-2">
+              <h6 class="mb-0 text-sm"><%= f.label :password_confirmation, class: "mb-1" %></h6>
+              <%= f.password_field :password_confirmation, autocomplete: "new-password", placeholder: "Confirme a nova senha" %>
+            </div>
+
+            <div class="row px-3 mb-2">
+              <h6 class="mb-0 text-sm"><%= f.label :current_password, class: "mb-3" %></h6>
+              <%= f.password_field :current_password, autocomplete: "current-password", placeholder: "Digite sua senha atual" %>
+            </div>
+
+            <div class="row mb-3 mt-3 px-3">
+              <%= f.submit "Atualizar", class: "btn btn-dark text-center" %>
+              <%= link_to "Cancelar", :back, class: "btn btn-dark text-center", style: "margin-left: 10px;" %>  
+            </div>
+          </div>
+        </div>
+
+        <div class="col-lg-6 align-items-center">
+          <div class="card-6">
+            <div class="row justify-content-center">
+              <%= image_tag("park.png", style: "whidth: 230px; height: 300px;") %>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+<% end %>

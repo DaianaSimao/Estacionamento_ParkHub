@@ -19,7 +19,7 @@
               <h6 class="mb-0"><%= f.label :role, "Escolha Cargo", class: "mb-1" %></h6>
               <div class="d-flex">
                 <div class="form-check form-check-inline">
-                  <%= f.radio_button :role, 'funcionario', class: "form-check-input" %>
+                  <%= f.radio_button :role, 'funcionario', class: "form-check-input", checked: true %>
                   <%= f.label :role_funcionario, 'Funcionario', class: "form-check-label" %>
                 </div>
                 <div class="form-check form-check-inline">
@@ -36,9 +36,6 @@
 
             <div class="row px-3">
               <h6 class="mb-0 text-sm"><%= f.label :password, class: "mb-1" %></h6>
-              <% if @minimum_password_length %>
-                <em>(<%= @minimum_password_length %> digitos)</em>
-              <% end %>
               <%= f.password_field :password, autocomplete: "new-password", class: "mb-4", placeholder: "Senha" %>
             </div>
 
